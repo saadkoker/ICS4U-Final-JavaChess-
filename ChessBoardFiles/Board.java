@@ -333,4 +333,8 @@ public class Board extends JPanel
   {
     return this.grid[0].length;
   }
+  
+  public void placePiece(){
+  
+  }
 }
