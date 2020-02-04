@@ -335,6 +335,6 @@ public class Board extends JPanel
   }
   
   public void placePiece(){
-    
+  
   }
 }
