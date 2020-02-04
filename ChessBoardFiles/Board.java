@@ -5,6 +5,7 @@ import javax.swing.event.*;
 
 /**  Board GUI for implementation with various games
  *   Author: Kirill Levin, Troy Vasiga, Chris Ingram
+ *   Edited for use: by Saad Koker and Rory Keogh
  */
 
 public class Board extends JPanel
@@ -335,6 +336,6 @@ public class Board extends JPanel
   }
   
   public void placePiece(){
-  
+    
   }
 }
