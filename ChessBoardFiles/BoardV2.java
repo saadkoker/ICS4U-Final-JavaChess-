@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class BoardV2 {
+public class BoardV2 { //this is the board
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private JButton[][] chessBoardSquares = new JButton[8][8];
