@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class bro {
+public class BoardV2 {
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private JButton[][] chessBoardSquares = new JButton[8][8];
@@ -12,7 +12,7 @@ public class bro {
             "Chess Champ is ready to play!");
     private static final String COLS = "ABCDEFGH";
 
-    bro() {
+    BoardV2() {
         initializeGui();
     }
 
@@ -93,8 +93,8 @@ public class bro {
 
             @Override
             public void run() {
-                bro cb =
-                        new bro();
+                BoardV2 cb =
+                        new BoardV2();
 
                 JFrame f = new JFrame("ChessChamp");
                 f.add(cb.getGui());
