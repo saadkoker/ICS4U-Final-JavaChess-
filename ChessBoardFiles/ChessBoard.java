@@ -6,6 +6,7 @@ import javax.swing.border.*;
 public class ChessBoard extends Applet{
 
     public static JFrame frame = new JFrame("Chess");
+    
 
     public void paint(Graphics g){
 
@@ -34,10 +35,18 @@ public class ChessBoard extends Applet{
             }
         }
     }
-    public void buildBoard(){
+    public void buildBoard(boolean mac){
+
+        int length;
+
+        if (mac)
+            length = 472;
+
+        else
+            length = 480; //this is for windows so figure out what the optimal size is
 
         frame.getContentPane().add(new ChessBoard());
-        frame.setSize(450, 472);
+        frame.setSize(450, length);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
