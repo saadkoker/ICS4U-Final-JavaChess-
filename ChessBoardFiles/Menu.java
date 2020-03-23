@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JFrame;
 import java.awt.event.*;
-import javafx.event.ActionEvent;
 import java.awt.Container;
 import java.awt.Font;
 import java.util.Scanner;
@@ -52,7 +51,7 @@ private static Font buttonFont = new Font("Times New Roman", Font.PLAIN, 25);
         frame.getContentPane().setBackground(Color.black);
         frame.setLayout(null);
         frame.setVisible(true);
-        frame.setResizable(true);
+        frame.setResizable(false);
 
         Container container = frame.getContentPane();
 
