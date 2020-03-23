@@ -45,20 +45,11 @@ public class ChessBoard extends JPanel{
             height = 450;
         }
         else{
-            length = 700; //this is for windows so figure out what the optimal size is
-            height = 650;
-            //length = 489; //this is for windows so figure out what the optimal size is
-            //height = 465;
+            length = 489; //this is for windows so figure out what the optimal size is
+            height = 465;
         }
 
-
-        Box box = new Box(BoxLayout.Y_AXIS);
-        box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        box.add(Box.createVerticalGlue());
-        box.add(new ChessBoard());     
-        box.add(Box.createVerticalGlue());
-        frame.pack();
-        frame.getContentPane().add(box);
+        frame.getContentPane().add(new ChessBoard());
         frame.setSize(height, length);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
