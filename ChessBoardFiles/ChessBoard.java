@@ -5,7 +5,6 @@ import javax.swing.border.*;
 
 public class ChessBoard extends JPanel{
 
-    
     public void paint(Graphics g){
 
         for (int i = 0; i < 450; i+=100) {
