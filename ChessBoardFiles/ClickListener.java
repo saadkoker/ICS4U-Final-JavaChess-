@@ -3,15 +3,16 @@ import java.awt.event.MouseEvent;
 
 public class ClickListener extends MouseAdapter{
 
-	private static int x = 0;
-	private static int y = 0; 
+	private static int x = -1;
+	private static int y = -1; 
 
 		@Override
 		public void mouseClicked(MouseEvent e){
-			synchronized (this){
+			synchronized (ClickListener.this){
 				x = convertPos(e.getX());
 				y = convertPos(e.getY());
 				notifyAll();
+				System.out.println("Notified");
 		}
 	}
 	private static int convertPos(int coordinate){
@@ -54,9 +55,15 @@ public class ClickListener extends MouseAdapter{
 
         synchronized(this){
         	
-            wait(100);
+        	while((x == -1) && (y == -1)){
+            	wait();
+            	System.out.println("waiting");
+        	}
             UserClick[0] = x;
             UserClick[1] = y;
+            x = -1;
+            x = -1;
+            System.out.println("not waiting");
         }
         return UserClick;
     }

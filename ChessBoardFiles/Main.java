@@ -35,12 +35,13 @@ public class Main{
         }
         
         frame.add(cb);
-        frame.setSize(height, length);
         frame.getContentPane().addMouseListener(click);
+        frame.setSize(height, length);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         int[] num = click.getClick();
-        Arrays.toString(num);
+        System.out.println("Recieved Coords");
+        System.out.println(Arrays.toString(num));
     }
 }
