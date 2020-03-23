@@ -1,14 +1,15 @@
-import java.util.Scanner;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Main{
 
-    private static ChessBoard cb = new ChessBoard();
+    public static ChessBoard cb = new ChessBoard();
     private static Scanner userInput = new Scanner (System.in);
+    private static ClickListener click = new ClickListener();
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws InterruptedException{
 
         int length;
         int height;
@@ -33,12 +34,13 @@ public class Main{
             height = 465;
         }
         
-        frame.getContentPane().addMouseListener(new Coordinate());
         frame.add(cb);
         frame.setSize(height, length);
+        frame.getContentPane().addMouseListener(click);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-
+        int[] num = click.getClick();
+        Arrays.toString(num);
     }
 }

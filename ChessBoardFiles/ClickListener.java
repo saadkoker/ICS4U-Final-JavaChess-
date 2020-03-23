@@ -1,16 +1,18 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Coordinate extends MouseAdapter{
+public class ClickListener extends MouseAdapter{
 
 	private static int x = 0;
 	private static int y = 0; 
 
-	@Override
-	public void mouseClicked(MouseEvent e){
-		x = convertPos(e.getX());
-		y = convertPos(e.getY());
-
+		@Override
+		public void mouseClicked(MouseEvent e){
+			synchronized (this){
+				x = convertPos(e.getX());
+				y = convertPos(e.getY());
+				notifyAll();
+		}
 	}
 	private static int convertPos(int coordinate){
 
@@ -38,7 +40,6 @@ public class Coordinate extends MouseAdapter{
 		else if((coordinate > 350) && (coordinate <= 400)){
 			coordinate = 7;
 		}
-		System.out.println("X: " +  coordinate);
 		return coordinate;
 	}
 	public static int getX(){
@@ -47,4 +48,16 @@ public class Coordinate extends MouseAdapter{
 	public static int getY(){
 		return y;
 	}
+	public int[] getClick() throws InterruptedException{
+        
+		int[] UserClick = new int[2];
+
+        synchronized(this){
+        	
+            wait(100);
+            UserClick[0] = x;
+            UserClick[1] = y;
+        }
+        return UserClick;
+    }
 }
