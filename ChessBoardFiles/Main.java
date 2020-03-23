@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class Main{
 
@@ -30,12 +32,13 @@ public class Main{
             length = 489; //this is for windows so figure out what the optimal size is
             height = 465;
         }
-
-        frame.getContentPane().add(new ChessBoard());
+        
+        frame.getContentPane().addMouseListener(new Coordinate());
+        frame.add(cb);
         frame.setSize(height, length);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
 
     }
 }
