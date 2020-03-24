@@ -32,6 +32,7 @@ public class Main{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
+        
         while (hello){
             int[] num = click.getClick();
             System.out.println("Recieved Coords");

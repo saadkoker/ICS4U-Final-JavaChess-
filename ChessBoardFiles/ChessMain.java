@@ -2,16 +2,16 @@ import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JFrame;
 import java.awt.event.*;
-import javafx.event.ActionEvent;
+//import javafx.event.ActionEvent;
 import java.awt.Container;
 import java.awt.Font;
 import java.util.Scanner;
 import java.util.logging.Handler;
 import javax.swing.*;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.*;
-import javafx.scene.text.*;
+//import javafx.application.Platform;
+//import javafx.embed.swing.JFXPanel;
+//import javafx.scene.*;
+//import javafx.scene.text.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -20,8 +20,7 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.util.*;
 
-
-public class MenuV2 extends JPanel{
+public class ChessMain{
 
 private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
 private static Convert convert = new Convert();
