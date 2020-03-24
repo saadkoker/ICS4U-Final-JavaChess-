@@ -28,7 +28,6 @@ private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
 private static ClickListener click = new ClickListener();
 private static ChessBoard cb = new ChessBoard();
 
-
     public void startScreen(int l, int h) throws InterruptedException{
 
         JFrame board = new JFrame("Chess");

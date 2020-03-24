@@ -9,8 +9,6 @@ public class ChessBoard extends JFXPanel{
     public void paint(Graphics g){
 
         for (int i = 0; i < 400; i+=100) {
-      
-      
             for (int j = 0; j < 400; j+=100) {
                     g.setColor(new Color(79,36,18));
                     g.fillRect(i, j, 50, 50);
