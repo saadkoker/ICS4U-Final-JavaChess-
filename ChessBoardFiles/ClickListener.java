@@ -52,12 +52,12 @@ public class ClickListener extends MouseAdapter{
 	public int[] getClick() throws InterruptedException{
         
 		int[] UserClick = new int[2];
-
         synchronized(this){
         	
         	while((x == -1) && (y == -1)){
             	wait();
             	System.out.println("waiting");
+            	break;
         	}
             UserClick[0] = x;
             UserClick[1] = y;

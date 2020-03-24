@@ -15,6 +15,7 @@ public class Main{
         int height;
         int os;
         boolean mac = true;
+        boolean hello = true;
 
         System.out.println("If your operating system is NOT mac please enter 1 ");
 
@@ -40,8 +41,13 @@ public class Main{
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-        int[] num = click.getClick();
-        System.out.println("Recieved Coords");
-        System.out.println(Arrays.toString(num));
+        while (hello){
+            int[] num = click.getClick();
+            System.out.println("Recieved Coords");
+            System.out.println(Arrays.toString(num));
+            if (num[0] == 6) {
+                hello = false;
+            }
+        }
     }
 }
