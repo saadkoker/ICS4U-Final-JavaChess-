@@ -32,11 +32,12 @@ public class Main{
         }
         
         frame.add(cb);
-        frame.getContentPane().addMouseListener(click);
         frame.setSize(height, length);
+        frame.getContentPane().addMouseListener(click);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
+<<<<<<< HEAD
         while (hello){
             int[] num = click.getClick();
             System.out.println("Recieved Coords");
@@ -48,5 +49,9 @@ public class Main{
 
         Menu menu = new Menu();
         menu.introScreen();
+=======
+        int[] num = click.getClick();
+        Arrays.toString(num);
+>>>>>>> parent of f5e25ac... Partially fixed multi-threading of the clicks
     }
 }
