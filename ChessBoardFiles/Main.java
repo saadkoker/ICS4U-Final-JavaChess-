@@ -5,12 +5,9 @@ import java.awt.*;
 
 public class Main{
 
-    public static ChessBoard cb = new ChessBoard();
-    private static Scanner userInput = new Scanner (System.in);
-    private static ClickListener click = new ClickListener();
-
     public static void main(String args[]) throws InterruptedException{
 
+<<<<<<< HEAD
         int length;
         int height;
         int os;
@@ -49,5 +46,8 @@ public class Main{
                 hello = false;
             }
         }
+
+        Menu menu = new Menu();
+        menu.introScreen();
     }
 }

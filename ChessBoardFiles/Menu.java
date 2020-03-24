@@ -8,92 +8,113 @@ import java.awt.Font;
 import java.util.Scanner;
 import java.util.logging.Handler;
 import javax.swing.*;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.*;
+import javafx.scene.text.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.util.*;
+
 
 
 public class Menu extends JPanel{
 
-private static Font titleFont = new Font("Times New Roman", Font.PLAIN, 40);
-private static Font buttonFont = new Font("Times New Roman", Font.PLAIN, 25);
+private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
+private static ClickListener click = new ClickListener();
+private static ChessBoard cb = new ChessBoard();
 
 
-    public void startScreen(){
+    public void startScreen(int l, int h) throws InterruptedException{
 
-        Scanner userInput = new Scanner (System.in);
+        JFrame board = new JFrame("Chess");
+        board.add(cb);
+        board.getContentPane().addMouseListener(click);
+        board.setSize(h,l);
+        board.setVisible(true);
+        board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        board.setResizable(false);
 
-        int length;
-        int height;
-        int os;
-        boolean mac = true;
+        
+        int[] num = click.getClick();
+        System.out.println("Recieved Coords");
+        System.out.println(Arrays.toString(num));
 
-        System.out.println("If your operating system is NOT mac please enter 1 ");
+    }
+        
 
-        os = userInput.nextInt();
+    public void introScreen() throws InterruptedException{
 
-        if (os == 1)
-            mac = false;
+        try{
 
+            JFrame frame = new JFrame();
 
-        if (mac){
-            length = 472;
-            height = 450;
-        }
-        else{
-            length = 489; //this is for windows so figure out what the optimal size is
-            height = 465;
-        }
+            JButton startMacButton = new JButton("MAC");
+            startMacButton.setBounds(15, 140, 85, 50);
+            startMacButton.setFont(buttonFont);
+            frame.add(startMacButton);
+        
+            JButton startOtherButton = new JButton("OTHER");
+            startOtherButton.setBounds(115, 140, 85, 50);
+            startOtherButton.setFont(buttonFont);
+            frame.add(startOtherButton);
+        
+            JButton startHelpButton = new JButton("HELP");
+            startHelpButton.setBounds(63, 220, 85, 50);
+            startHelpButton.setFont(buttonFont);
+            frame.add(startHelpButton);
+        
+            BufferedImage img =  ImageIO.read(new File("startScreen.png"));
+            ImageIcon icon = new ImageIcon(img);
+            JLabel label = new JLabel(icon);
+            frame.add(label);
 
-        JFrame frame = new JFrame("Chess");
-        ChessBoard cb = new ChessBoard();
+            startMacButton.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e){
+                    frame.dispose();
+                    frame.setVisible(false);
 
-        frame.getContentPane().add(cb);
-        cb.setVisible(false); 
-        frame.setSize(length, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(Color.black);
-        frame.setLayout(null);
-        frame.setVisible(true);
-        frame.setResizable(true);
-
-        Container container = frame.getContentPane();
-
-        JPanel titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100, 100, 250, 50);;
-        titleNamePanel.setBackground(Color.black);
-
-        JLabel titleNameLabel = new JLabel("JAVA CHESS");
-        titleNameLabel.setForeground(Color.white);
-        titleNameLabel.setFont(titleFont);
-
-        JPanel startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(150, 300, 150, 50);
-        startButtonPanel.setBackground(Color.black);
-
-        JButton startButton = new JButton("PLAY");
-        startButton.setBackground(Color.black);
-        startButton.setForeground(Color.black);
-        startButton.setFont(buttonFont);
-        startButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e){
-
-                if (e.getSource() == startButton){
-                    System.out.println("click");
-                    titleNameLabel.setVisible(false);
-                    titleNamePanel.setVisible(false);
-                    startButtonPanel.setVisible(false);
-
-                    frame.getContentPane().setBackground(Color.white);
-                    cb.setVisible(true);
+                    try{
+                        startScreen(472,450);
+                    } catch(Exception E){
+                        System.out.println("something went wrong");
+                    }
                 }
-            }
-        });
+            });
 
-        titleNamePanel.add(titleNameLabel);
-        startButtonPanel.add(startButton);
+            startOtherButton.addActionListener(new ActionListener()
+            {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e){
+                    frame.dispose();
+                    frame.setVisible(false);
 
-        container.add(titleNamePanel);
-        container.add(startButtonPanel);
+                    try{
+                        startScreen(489,465);
+                    } catch(Exception E){
+                        System.out.println("something went wrong");
+                    }
+                }
+            });
+        
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+        
+        }catch (Exception E){
+            System.out.println("Something went wrong");
+        }
+
+        
     }
 
 }
+
+
+
