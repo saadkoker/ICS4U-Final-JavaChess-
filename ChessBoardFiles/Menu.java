@@ -31,17 +31,17 @@ private static ChessBoard cb = new ChessBoard();
     public void startScreen(int l, int h) throws InterruptedException{
 
         JFrame board = new JFrame("Chess");
-        board.add(cb);
-        board.getContentPane().addMouseListener(click);
+        board.getContentPane().add(cb);
+        //board.getContentPane().addMouseListener(click);
         board.setSize(h,l);
-        board.setVisible(true);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setResizable(false);
+        board.setVisible(true);
 
         
-        int[] num = click.getClick();
-        System.out.println("Recieved Coords");
-        System.out.println(Arrays.toString(num));
+        //int[] num = click.getClick();
+        //System.out.println("Recieved Coords");
+        //System.out.println(Arrays.toString(num));
 
     }
         
@@ -76,8 +76,8 @@ private static ChessBoard cb = new ChessBoard();
             {
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e){
-                    frame.dispose();
                     frame.setVisible(false);
+                    frame.dispose();
 
                     try{
                         startScreen(472,450);
