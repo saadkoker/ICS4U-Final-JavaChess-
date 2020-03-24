@@ -7,7 +7,6 @@ public class Main{
 
     public static void main(String args[]) throws InterruptedException{
 
-<<<<<<< HEAD
         int length;
         int height;
         int os;
