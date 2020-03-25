@@ -5,16 +5,8 @@ public class ClickListener extends MouseAdapter{
 
 	private static int x = -1;
 	private static int y = -1; 
-
-		@Override
-		public void mouseClicked(MouseEvent e){
-			synchronized (ClickListener.this){
-				x = convertPos(e.getX());
-				y = convertPos(e.getY());
-				notifyAll();
-				System.out.println("Notified");
-		}
-	}
+	//private static int[] userClick;    
+		
 	private static int convertPos(int coordinate){
 
 		if(coordinate <= 50){
@@ -49,22 +41,44 @@ public class ClickListener extends MouseAdapter{
 	public static int getY(){
 		return y;
 	}
+
 	public int[] getClick() throws InterruptedException{
-        
+		
+		System.out.println("getClick");
 		int[] UserClick = new int[2];
-        synchronized(this){
-        	
-        	while((x == -1) && (y == -1)){
+
+        synchronized(ClickListener.this){
+			//System.out.println("waiting");
+			
+        	//while((x == -1) && (y == -1)){
             	wait();
             	System.out.println("waiting");
-            	break;
-        	}
+            	//break;
+			//}
+			
             UserClick[0] = x;
-            UserClick[1] = y;
+			UserClick[1] = y;
+			
             x = -1;
-            x = -1;
+            y = -1;
             System.out.println("not waiting");
         }
         return UserClick;
-    }
+	}
+
+		public void mouseClicked(MouseEvent e){
+		System.out.println("click");
+
+			synchronized(ClickListener.this) 
+        	{
+				x = convertPos(e.getX());
+				y = convertPos(e.getY());
+			// Notify any threads that would be waiting for a mouse click
+				notify();
+				System.out.println("notified");
+             
+          } /* synchronized */
+		}/* mouseClicked */
+       /* anonymous MouseInputAdapater */
+	
 }
