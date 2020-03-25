@@ -8,7 +8,8 @@ import javax.swing.*;
 public class ChessScreen{
 
 private static ChessBoard cb = new ChessBoard(); //our ChessBoard object
-private static ClickListener click = new ClickListener(); //our click listener object
+private static ClickListener click = new ClickListener(); //our ClickListener object
+private static Convert conv = new Convert(); //our Convert object
 
 
     public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
@@ -29,6 +30,7 @@ private static ClickListener click = new ClickListener(); //our click listener o
         while(clickyTime){ //just a test loop
 
             int[] clickCoords = click.getClick(); //getting a click -> note: we must get our clicks from this method
+            clickCoords = conv.convertArr(clickCoords, 22);
             System.out.println(Arrays.toString(clickCoords));
             count++;
 

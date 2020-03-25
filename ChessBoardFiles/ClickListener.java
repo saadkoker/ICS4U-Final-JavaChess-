@@ -12,9 +12,11 @@ public class ClickListener extends MouseAdapter{
 
 			synchronized(ClickListener.this) //synchronized to THIS clicklistner class
         	{
-				x = convertPos(e.getX()); //converting the coords
-				y = convertPos(e.getY());
+				//x = convertPos(e.getX()); //converting the coords
+				//y = convertPos(e.getY());
 				
+				x = e.getX();
+				y = e.getY();
 				notify();//letting all the other threads know a click has happened, should they be waiting for one
 				//System.out.println("notified");
              
