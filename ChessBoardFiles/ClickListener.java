@@ -5,9 +5,23 @@ public class ClickListener extends MouseAdapter{
 
 	private static int x = -1;
 	private static int y = -1; 
-	//private static int[] userClick;    
+	
+	@Override //this is called when the mouse is clicked
+	public void mouseClicked(MouseEvent e){
+		//System.out.println("click");
+
+			synchronized(ClickListener.this) //synchronized to THIS clicklistner class
+        	{
+				x = convertPos(e.getX()); //converting the coords
+				y = convertPos(e.getY());
+				
+				notify();//letting all the other threads know a click has happened, should they be waiting for one
+				//System.out.println("notified");
+             
+          } /* synchronized */
+		}/* mouseClicked */
 		
-	private static int convertPos(int coordinate){
+	private static int convertPos(int coordinate){ //converting resolution values into implementable coordinates
 
 		if(coordinate <= 50){
 			coordinate = 0;
@@ -35,50 +49,22 @@ public class ClickListener extends MouseAdapter{
 		}
 		return coordinate;
 	}
-	public static int getX(){
-		return x;
-	}
-	public static int getY(){
-		return y;
-	}
 
-	public int[] getClick() throws InterruptedException{
+	public int[] getClick() throws InterruptedException{ //this is called by other methods that wish to get a click
 		
-		System.out.println("getClick");
-		int[] UserClick = new int[2];
+		//System.out.println("getClick");
+		int[] userClick = new int[2];
 
-        synchronized(ClickListener.this){
+        synchronized(ClickListener.this){ //also synced to this specific class
+	
 			//System.out.println("waiting");
+			wait(); //waiting for a click to happen -> we are now concurrantly ruining with the click method
 			
-        	//while((x == -1) && (y == -1)){
-            	wait();
-            	System.out.println("waiting");
-            	//break;
-			//}
-			
-            UserClick[0] = x;
-			UserClick[1] = y;
-			
-            x = -1;
-            y = -1;
-            System.out.println("not waiting");
+            userClick[0] = x;
+			userClick[1] = y;
+            //System.out.println("not waiting");
         }
-        return UserClick;
+        return userClick; //returning the click
 	}
-
-		public void mouseClicked(MouseEvent e){
-		System.out.println("click");
-
-			synchronized(ClickListener.this) 
-        	{
-				x = convertPos(e.getX());
-				y = convertPos(e.getY());
-			// Notify any threads that would be waiting for a mouse click
-				notify();
-				System.out.println("notified");
-             
-          } /* synchronized */
-		}/* mouseClicked */
-       /* anonymous MouseInputAdapater */
 	
 }
