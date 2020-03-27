@@ -16,13 +16,37 @@ private static Convert conv = new Convert(); //our Convert object
     public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 
         JFrame board = new JFrame("Chess");
+        JLabel message = new JLabel("This fat bruh moment");
+        JToolBar tools = new JToolBar();
+        JButton newGame = new JButton("New");
+        JButton saveGame = new JButton("Save");
+        JButton undoButton = new JButton("Undo");
+        JButton resignButton = new JButton("Resign");
+        tools.setFloatable(false);
         board.add(cb);
+        board.add(tools, BorderLayout.PAGE_START);
+        tools.add(newGame);
+        tools.add(saveGame); 
+        tools.add(undoButton); 
+        tools.addSeparator();
+        tools.add(resignButton); 
+        tools.addSeparator();
+        tools.add(message);
+
         board.addMouseListener(click);
         board.setSize(h,l);
-    
+		
+		/*
+        JLabel whiteRook = new JLabel(new ImageIcon("pieces/Rook2.png"));
+        cb.setLayout(null);
+    	Dimension size = whiteRook.getPreferredSize();
+    	whiteRook.setBounds(75, 75, size.width, size.height);
+    	cb.add(whiteRook);
+		*/
+
         board.setVisible(true);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        board.setResizable(false);
+        board.setResizable(true);
 
         try{
             BufferedImage img =  ImageIO.read(new File("queen1.png"));
@@ -44,6 +68,7 @@ private static Convert conv = new Convert(); //our Convert object
             int[] clickCoords = click.getClick(); //getting a click -> note: we must get our clicks from this method
             clickCoords = conv.convertArr(clickCoords, 22);
             System.out.println(Arrays.toString(clickCoords));
+            message.setText("Yikes, bad move.");
             count++;
 
                 if (count == 25)
@@ -51,6 +76,6 @@ private static Convert conv = new Convert(); //our Convert object
         }
         System.out.println("clicky time has ended");
 
-    }
+    }		
 
 }
