@@ -15,7 +15,7 @@ public class ChessScreen{
 
 
     public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
-
+		
         JFrame board = new JFrame("Chess");
         JLabel message = new JLabel("This fat bruh moment");
         JToolBar tools = new JToolBar();
@@ -41,7 +41,20 @@ public class ChessScreen{
         board.setVisible(true);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setResizable(true);
-        
+
+        /*
+        try{
+            BufferedImage img =  ImageIO.read(new File("queen1.png"));
+            System.out.println("shit");
+            ImageIcon icon = new ImageIcon(img);
+            JLabel label = new JLabel(icon);
+            board.add(label);
+
+        }catch(Exception E){
+            System.out.println("shit");
+        }
+        */
+
         boolean clickyTime = true; 
         int count = 0;
         System.out.println("You have 25 clicks, dont waste them! hehe");
