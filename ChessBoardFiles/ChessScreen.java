@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class ChessScreen{
 
@@ -22,6 +23,17 @@ private static Convert conv = new Convert(); //our Convert object
         board.setVisible(true);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setResizable(false);
+
+        try{
+            BufferedImage img =  ImageIO.read(new File("queen1.png"));
+            System.out.println("shit");
+            ImageIcon icon = new ImageIcon(img);
+            JLabel label = new JLabel(icon);
+            board.add(label);
+
+        }catch(Exception E){
+            System.out.println("shit");
+        }
 
         boolean clickyTime = true; 
         int count = 0;
