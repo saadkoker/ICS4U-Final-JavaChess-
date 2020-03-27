@@ -20,17 +20,8 @@ import java.util.*;
 public class ChessBoard extends JPanel{ //extending JPanel
 
     private BufferedImage image;
+    
 
-    public ChessBoard(){
-
-        try{
-
-            image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
     public void paint(Graphics g){ //'painting' the board
         
         for (int i = 0; i < 400; i+=100) {
@@ -56,14 +47,6 @@ public class ChessBoard extends JPanel{ //extending JPanel
                     g.setColor(new Color(193,161,120));
                     g.fillRect(i, j, 50, 50);
             }
-        }
-        try{
-
-            image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
-            g.drawImage(image, 100, 100, 100, 100, null);
-
-        }catch(IOException e){
-            e.printStackTrace();
         }
     }
 }

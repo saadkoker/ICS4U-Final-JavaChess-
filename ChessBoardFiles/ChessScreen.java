@@ -11,6 +11,7 @@ public class ChessScreen{
 	private static ChessBoard cb = new ChessBoard(); //our ChessBoard object
 	private static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
+    public static PieceFactory pf = new PieceFactory();
 
 
     public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
@@ -23,6 +24,7 @@ public class ChessScreen{
         JButton undoButton = new JButton("Undo");
         JButton resignButton = new JButton("Resign");
         tools.setFloatable(false);
+        board.add(pf);
         board.add(cb);
         board.add(tools, BorderLayout.PAGE_START);
         tools.add(newGame);
