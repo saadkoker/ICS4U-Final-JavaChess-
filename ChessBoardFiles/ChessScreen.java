@@ -14,7 +14,7 @@ private static Convert conv = new Convert(); //our Convert object
 
 
     public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
-
+		
         JFrame board = new JFrame("Chess");
         JLabel message = new JLabel("This fat bruh moment");
         JToolBar tools = new JToolBar();
@@ -35,19 +35,12 @@ private static Convert conv = new Convert(); //our Convert object
 
         board.addMouseListener(click);
         board.setSize(h,l);
-		
-		/*
-        JLabel whiteRook = new JLabel(new ImageIcon("pieces/Rook2.png"));
-        cb.setLayout(null);
-    	Dimension size = whiteRook.getPreferredSize();
-    	whiteRook.setBounds(75, 75, size.width, size.height);
-    	cb.add(whiteRook);
-		*/
 
         board.setVisible(true);
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setResizable(true);
 
+        /*
         try{
             BufferedImage img =  ImageIO.read(new File("queen1.png"));
             System.out.println("shit");
@@ -58,6 +51,7 @@ private static Convert conv = new Convert(); //our Convert object
         }catch(Exception E){
             System.out.println("shit");
         }
+        */
 
         boolean clickyTime = true; 
         int count = 0;
