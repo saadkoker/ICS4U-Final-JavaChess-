@@ -16,6 +16,6 @@ public class Coordinate
     
   public int getY()
   {
-    return y;
+    return y; //returns y
   }
 } 
