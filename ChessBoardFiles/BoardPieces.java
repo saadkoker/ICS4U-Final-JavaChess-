@@ -7,7 +7,7 @@ import java.awt.Graphics;
 
 public class BoardPieces{
 
-    private static BufferedImage pawn1,pawn2,rook1,rook2,bishop1,bishop2,knight1,knight2,queen1,queen2,king1,king2;
+    public static BufferedImage pawn1,pawn2,rook1,rook2,bishop1,bishop2,knight1,knight2,queen1,queen2,king1,king2;
 
     public void setupPieces(Graphics g){
 
@@ -65,6 +65,10 @@ public class BoardPieces{
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+    public void setPiece(int newX, int newY, BufferedImage piece, Graphics g){
+
+        g.drawImage(piece, newX, newY, 50, 50, null);
     }
     
 }

@@ -22,13 +22,34 @@ public class ChessBoard extends JPanel implements MouseListener, MouseMotionList
     //private BufferedImage[] pieces;
     private static BoardPieces bp = new BoardPieces();
     private static int x,y;
+    public static BufferedImage pawn1,pawn2,rook1,rook2,bishop1,bishop2,knight1,knight2,queen1,queen2,king1,king2;
 
     public ChessBoard()
     {
+    
     }
 
     public void paint(Graphics g){ //'painting' the board
         
+        try{
+
+            pawn1 = ImageIO.read(new File("pieces/pawn1.png"));
+            pawn2 = ImageIO.read(new File("pieces/pawn2.png"));
+            rook1 = ImageIO.read(new File("pieces/rook1.png"));
+            rook2 = ImageIO.read(new File("pieces/rook2.png"));
+            bishop1 = ImageIO.read(new File("pieces/bishop1.png"));
+            bishop2 = ImageIO.read(new File("pieces/bishop2.png"));
+            knight1 = ImageIO.read(new File("pieces/knight1.png"));
+            knight2 = ImageIO.read(new File("pieces/knight2.png"));
+            queen1 = ImageIO.read(new File("pieces/queen1.png"));
+            queen2 = ImageIO.read(new File("pieces/queen2.png"));
+            king1 = ImageIO.read(new File("pieces/king1.png"));
+            king2 = ImageIO.read(new File("pieces/king2.png"));
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < 400; i+=100) {
             for (int j = 0; j < 400; j+=100) {
                     g.setColor(new Color(193,161,120)); //colours can be changed or customized later in development
@@ -55,6 +76,7 @@ public class ChessBoard extends JPanel implements MouseListener, MouseMotionList
         }
 
         bp.setupPieces(g);
+        bp.setPiece(250, 150, pawn1, g);
     }
     @Override
     public void mouseClicked(MouseEvent e){
