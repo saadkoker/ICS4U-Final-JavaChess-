@@ -19,51 +19,40 @@ import java.util.*;
 
 public class ChessBoard extends JPanel{ //extending JPanel
 
-    private BufferedImage image;
+    //private BufferedImage[] pieces;
+    private static BoardPieces bp = new BoardPieces();
 
-    public ChessBoard(){
-
-        try{
-
-            image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+    public ChessBoard()
+    {
     }
+
     public void paint(Graphics g){ //'painting' the board
         
         for (int i = 0; i < 400; i+=100) {
             for (int j = 0; j < 400; j+=100) {
-                    g.setColor(new Color(79,36,18)); //colours can be changed or customized later in development
+                    g.setColor(new Color(193,161,120)); //colours can be changed or customized later in development
                     g.fillRect(i, j, 50, 50); //squares are 50x50 pixels -> consider this when building piece icons
             }
         }
         for (int i = 0; i < 400; i+=100) {
             for (int j = 50; j < 400; j+=100) {
-                    g.setColor(new Color(193,161,120));
+                    g.setColor(new Color(79,36,18)); 
                     g.fillRect(i, j, 50, 50);
             }
         }
         for (int i = 50; i < 400; i+=100) {
             for (int j = 50; j < 400; j+=100) {
-                    g.setColor(new Color(79,36,18));
+                    g.setColor(new Color(193,161,120));
                     g.fillRect(i, j, 50, 50);
             }
         }
         for (int i = 50; i < 400; i+=100) {
             for (int j = 0; j < 400; j+=100) {
-                    g.setColor(new Color(193,161,120));
+                    g.setColor(new Color(79,36,18));
                     g.fillRect(i, j, 50, 50);
             }
         }
-        try{
 
-            image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
-            g.drawImage(image, 100, 100, 100, 100, null);
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        bp.setupPieces(g);
     }
 }
