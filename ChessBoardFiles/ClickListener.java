@@ -17,6 +17,7 @@ public class ClickListener extends MouseAdapter{
 				
 				x = e.getX();
 				y = e.getY();
+				System.out.println(x + " " + y);
 				notify();//letting all the other threads know a click has happened, should they be waiting for one
 				//System.out.println("notified");
              
