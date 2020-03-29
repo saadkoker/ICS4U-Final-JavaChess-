@@ -17,7 +17,7 @@ public class ClickListener extends MouseAdapter{
 				
 				x = e.getX();
 				y = e.getY();
-				System.out.println(x + " " + y);
+				//System.out.println(x + " " + y);
 				notify();//letting all the other threads know a click has happened, should they be waiting for one
 				//System.out.println("notified");
              
@@ -63,8 +63,8 @@ public class ClickListener extends MouseAdapter{
 			//System.out.println("waiting");
 			wait(); //waiting for a click to happen -> we are now concurrantly ruining with the click method
 			
-            userClick[0] = x;
-			userClick[1] = y;
+            userClick[0] = y;//--> row major
+			userClick[1] = x;
             //System.out.println("not waiting");
         }
         return userClick; //returning the click

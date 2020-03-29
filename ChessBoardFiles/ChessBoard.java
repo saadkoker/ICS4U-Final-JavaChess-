@@ -17,11 +17,12 @@ import java.awt.*;
 import java.util.*;
 
 
-public class ChessBoard extends JPanel implements MouseListener, MouseMotionListener{ //extending JPanel
+public class ChessBoard extends JPanel{ //extending JPanel
 
-    //private BufferedImage[] pieces;
+
     private static BoardPieces bp = new BoardPieces();
     private static int x,y;
+    private static Graphics g;
 
     public ChessBoard()
     {
@@ -56,29 +57,10 @@ public class ChessBoard extends JPanel implements MouseListener, MouseMotionList
 
         bp.setupPieces(g);
     }
-    @Override
-    public void mouseClicked(MouseEvent e){
-        x = (Math.round(e.getX()/10) * 10);
-        y = (Math.round(e.getY()/10) * 10);
-        System.out.println("Raw Coords: " + e.getX() + ", " + e.getY());
-        System.out.println("Rounded Coords: " + x + ", " + y);
-        repaint();
+
+    public void clickSomething(int[] initialClick, int[] finalClick){
+
+      bp.click(initialClick, finalClick);
+      repaint();
     }
-    @Override
-    public void mousePressed(MouseEvent e){}
-
-    @Override
-    public void mouseEntered(MouseEvent e){}
-
-    @Override
-    public void mouseExited(MouseEvent e){}
-
-    @Override
-    public void mouseReleased(MouseEvent e){}
-
-    @Override
-    public void mouseMoved(MouseEvent e){}
-
-    @Override
-    public void mouseDragged(MouseEvent e){}
 }

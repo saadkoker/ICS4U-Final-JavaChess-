@@ -7,64 +7,136 @@ import java.awt.Graphics;
 
 public class BoardPieces{
 
-    private static BufferedImage pawn1,pawn2,rook1,rook2,bishop1,bishop2,knight1,knight2,queen1,queen2,king1,king2;
+    //private static ClickListener click = new ClickListener();
+    private static BufferedImage Rook1, Knight1 , Bishop1 , Queen , King , Bishop2 , Knight2 , Rook2, Pawn1 , Pawn2 , Pawn3 , Pawn4 , Pawn5 , Pawn6 , Pawn7 , Pawn8; //black pieces 
+    private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
+    private static Convert conv = new Convert();
+
+    private static String boardPieces[][] = new String[][]{
+        {"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
+        {"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
+        {" ", " " , " " , " " , " " , " " , " " , " " },
+        {" ", " " , " " , " " , " " , " " , " " , " " },
+        {" ", " " , " " , " " , " " , " " , " " , " " },
+        {" ", " " , " " , " " , " " , " " , " " , " " },
+        {"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
+        {"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
+        
+    };
+
+    public void click(int[] initialClick , int[] finalClick){
+        
+        boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
+        System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
+
+    }
 
     public void setupPieces(Graphics g){
 
         try{
 
-            pawn1 = ImageIO.read(new File("pieces/pawn1.png"));
-            pawn2 = ImageIO.read(new File("pieces/pawn2.png"));
-            rook1 = ImageIO.read(new File("pieces/rook1.png"));
-            rook2 = ImageIO.read(new File("pieces/rook2.png"));
-            bishop1 = ImageIO.read(new File("pieces/bishop1.png"));
+            Rook1 = ImageIO.read(new File("pieces/rook1.png"));
+            Knight1 = ImageIO.read(new File("pieces/knight1.png"));
+            Bishop1 = ImageIO.read(new File("pieces/bishop1.png"));
+            Queen = ImageIO.read(new File("pieces/queen1.png"));
+            King = ImageIO.read(new File("pieces/king1.png"));
+            Bishop2 = ImageIO.read(new File("pieces/bishop1.png"));
+            Knight2 = ImageIO.read(new File("pieces/knight1.png"));
+            Rook2 = ImageIO.read(new File("pieces/rook1.png"));
+            Pawn1 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn2 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn3 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn4 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn5 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn6 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn7 = ImageIO.read(new File("pieces/pawn1.png")); 
+            Pawn8 = ImageIO.read(new File("pieces/pawn1.png")); 
+/*************************************************************************/
+            rook1 = ImageIO.read(new File("pieces/rook2.png"));
+            knight1 = ImageIO.read(new File("pieces/knight2.png"));
+            bishop1 = ImageIO.read(new File("pieces/bishop2.png"));
+            queen = ImageIO.read(new File("pieces/queen2.png"));
+            king = ImageIO.read(new File("pieces/king2.png"));
             bishop2 = ImageIO.read(new File("pieces/bishop2.png"));
-            knight1 = ImageIO.read(new File("pieces/knight1.png"));
             knight2 = ImageIO.read(new File("pieces/knight2.png"));
-            queen1 = ImageIO.read(new File("pieces/queen1.png"));
-            queen2 = ImageIO.read(new File("pieces/queen2.png"));
-            king1 = ImageIO.read(new File("pieces/king1.png"));
-            king2 = ImageIO.read(new File("pieces/king2.png"));
-           
-            for(int i = 0; i < 8; i++){
-                g.drawImage(pawn1, 50*i , 50, 50, 50, null); //black pawns
-            }
-            
-            for(int i = 0; i < 8; i++){
-                g.drawImage(pawn2, 50*i , 300, 50, 50, null); //white pawns
-            }
+            rook2 = ImageIO.read(new File("pieces/rook2.png"));
+            pawn1 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn2 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn3 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn4 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn5 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn6 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn7 = ImageIO.read(new File("pieces/pawn2.png")); 
+            pawn8 = ImageIO.read(new File("pieces/pawn2.png")); 
 
-            g.drawImage(rook1, 0, 0, 50, 50, null); //black
-            g.drawImage(rook1, 350, 0, 50, 50, null);
-            //------------------------------------------
-            g.drawImage(rook2, 0, 350, 50, 50, null); //white
-            g.drawImage(rook2, 350, 350, 50, 50, null);
-            /******************************************/
-            g.drawImage(bishop1, 50, 0, 50, 50, null); //black
-            g.drawImage(bishop1, 300, 0, 50, 50, null);
-            //------------------------------------------
-            g.drawImage(bishop2, 50, 350, 50, 50, null); //white
-            g.drawImage(bishop2, 300, 350, 50, 50, null);
-            /******************************************/
-            g.drawImage(knight1, 100, 0, 50, 50, null); //black
-            g.drawImage(knight1, 250, 0, 50, 50, null);
-            //------------------------------------------
-            g.drawImage(knight2, 100, 350, 50, 50, null); //white
-            g.drawImage(knight2, 250, 350, 50, 50, null);
-            /******************************************/
-            g.drawImage(queen1, 150, 0, 50, 50, null); //black
-            //------------------------------------------
-            g.drawImage(queen2, 150, 350, 50, 50, null); //white
-            /******************************************/
-            g.drawImage(king1, 200, 0, 50, 50, null);
-            //------------------------------------------
-            g.drawImage(king2, 200, 350, 50, 50, null);
 
+            drawPic(Rook1, g, "Rook1");
+            drawPic(Knight1, g, "Knight1");
+            drawPic(Bishop1, g, "Bishop1");
+            drawPic(Queen, g, "Queen");
+            drawPic(King, g, "King");
+            drawPic(Bishop2, g, "Bishop2");
+            drawPic(Knight2, g, "Knight2");
+            drawPic(Rook2, g, "Rook2");
+            drawPic(Pawn1, g, "Pawn1");
+            drawPic(Pawn2, g, "Pawn2");
+            drawPic(Pawn3, g, "Pawn3");
+            drawPic(Pawn4, g, "Pawn4");
+            drawPic(Pawn5, g, "Pawn5");
+            drawPic(Pawn6, g, "Pawn6");
+            drawPic(Pawn7, g, "Pawn7");
+            drawPic(Pawn8, g, "Pawn8");
+//**************************************************/
+            drawPic(rook1, g, "rook1");
+            drawPic(knight1, g, "knight1");
+            drawPic(bishop1, g, "bishop1");
+            drawPic(queen, g, "queen");
+            drawPic(king, g, "king");
+            drawPic(bishop2, g, "bishop2");
+            drawPic(knight2, g, "knight2");
+            drawPic(rook2, g, "rook2");
+            drawPic(pawn1, g, "pawn1");
+            drawPic(pawn2, g, "pawn2");
+            drawPic(pawn3, g, "pawn3");
+            drawPic(pawn4, g, "pawn4");
+            drawPic(pawn5, g, "pawn5");
+            drawPic(pawn6, g, "pawn6");
+            drawPic(pawn7, g, "pawn7");
+            drawPic(pawn8, g, "pawn8");
 
 
         }catch(IOException e){
             e.printStackTrace();
         }
     }
+
+    public static void drawPic(BufferedImage img, Graphics g, String name){
+        
+        int[] result = searchArr(boardPieces, name);
+        int y = conv.convertCoord(result[0]);
+        int x = conv.convertCoord(result[1]);
+
+        g.drawImage(img, x, y, 50, 50, null);
+    }
+
     
+    public static int[] searchArr(String arr[][], String target){
+        int[] location = new int[2];
+
+        for(int i = 0; i < arr.length; i++){ //row 
+            
+            for(int j = 0; j < arr[i].length; j++){ //collumns
+               
+                
+                if (arr[i][j].equals(target)){
+
+                    location[0] = i;
+                    location[1] = j;
+                    return location;
+                }
+            }
+        }
+        return location;
+    
+    }
 }
