@@ -22,14 +22,33 @@ public class ChessBoard extends JPanel{ //extending JPanel
 
     private static BoardPieces bp = new BoardPieces();
     private static int x,y;
-    private static Graphics g;
 
     public ChessBoard()
     {
+    
     }
 
     public void paint(Graphics g){ //'painting' the board
         
+        try{
+
+            pawn1 = ImageIO.read(new File("pieces/pawn1.png"));
+            pawn2 = ImageIO.read(new File("pieces/pawn2.png"));
+            rook1 = ImageIO.read(new File("pieces/rook1.png"));
+            rook2 = ImageIO.read(new File("pieces/rook2.png"));
+            bishop1 = ImageIO.read(new File("pieces/bishop1.png"));
+            bishop2 = ImageIO.read(new File("pieces/bishop2.png"));
+            knight1 = ImageIO.read(new File("pieces/knight1.png"));
+            knight2 = ImageIO.read(new File("pieces/knight2.png"));
+            queen1 = ImageIO.read(new File("pieces/queen1.png"));
+            queen2 = ImageIO.read(new File("pieces/queen2.png"));
+            king1 = ImageIO.read(new File("pieces/king1.png"));
+            king2 = ImageIO.read(new File("pieces/king2.png"));
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < 400; i+=100) {
             for (int j = 0; j < 400; j+=100) {
                     g.setColor(new Color(193,161,120)); //colours can be changed or customized later in development
@@ -56,6 +75,7 @@ public class ChessBoard extends JPanel{ //extending JPanel
         }
 
         bp.setupPieces(g);
+        bp.setPiece(250, 150, pawn1, g);
     }
 
     public void clickSomething(int[] initialClick, int[] finalClick){
