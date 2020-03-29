@@ -50,8 +50,10 @@ public class ChessScreen{
             
             int[] initialClick = click.getClick();
             initialClick = conv.convertArr(initialClick, 42); //Saad this wont work for your resolution--> change the value to 60 for your machine
+            System.out.println("our first init click is: " + Arrays.toString(initialClick));
             int[] finalClick = click.getClick();
             finalClick = conv.convertArr(finalClick, 42);
+            System.out.println("our first final click is: " + Arrays.toString(finalClick));
             cb.clickSomething(initialClick, finalClick);
             count++;
 

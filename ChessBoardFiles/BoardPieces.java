@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
@@ -26,8 +28,12 @@ public class BoardPieces{
 
     public void click(int[] initialClick , int[] finalClick){
         
+        System.out.println("the piece at your initial click is: " + boardPieces[initialClick[0]][initialClick[1]]+ " the piece at your future click is " + boardPieces[finalClick[0]][finalClick[1]]);
         boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
-        System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
+        boardPieces[initialClick[0]][initialClick[1]] = " ";
+        //System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
+        
+        System.out.println("current array: " + Arrays.deepToString(boardPieces));
 
     }
 
@@ -116,6 +122,7 @@ public class BoardPieces{
         int y = conv.convertCoord(result[0]);
         int x = conv.convertCoord(result[1]);
 
+        //System.out.println("drawing " + name + " @ " + y + " , " + x);
         g.drawImage(img, x, y, 50, 50, null);
     }
 
