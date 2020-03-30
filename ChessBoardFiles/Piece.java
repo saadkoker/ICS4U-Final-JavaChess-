@@ -74,6 +74,31 @@ public class Piece{
 			} 
 		}
 
+		for (int i = 0; i < 7; i++) {
+			if((x - i) == -1){ //bad method name but uk what i mean
+				legalMoves[i][0] = -1;
+				legalMoves[i][1] = 	-1;
+				i = 90;
+			}
+			else if((x - i) > -1 && teamInPos(y , x - i, board, piece)){
+				counter++;
+				legalMoves[i][0] = 	y - i;
+				legalMoves[i][1] = 	x;
+			} 
+		}
+		for (int i = counter; i < 7; i++) {
+			if((x + i) == 8){ //bad method name but uk what i mean
+				legalMoves[i][0] = -1;
+				legalMoves[i][1] = 	-1;
+				i = 90;
+			}
+			else if((y + i) < 8  && teamInPos(y, x + i, board, piece)){
+				counter++;
+				legalMoves[i][0] = 	y + i;
+				legalMoves[i][1] = 	x;
+			} 
+		}
+
 		return legalMoves;
 	}
 /*
