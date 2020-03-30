@@ -46,14 +46,11 @@ public class ChessScreen{
         System.out.println("You have 25 clicks, dont waste them!");
 
         while(clickyTime){ //just a test loop
-
             
             int[] initialClick = click.getClick();
-            initialClick = conv.convertArr(initialClick, 42); //Saad this wont work for your resolution--> change the value to 60 for your machine
-            System.out.println("our first init click is: " + Arrays.toString(initialClick));
+            initialClick = conv.convertArr(initialClick, 60); //Saad this wont work for your resolution--> change the value to 60 for your machine
             int[] finalClick = click.getClick();
-            finalClick = conv.convertArr(finalClick, 42);
-            System.out.println("our first final click is: " + Arrays.toString(finalClick));
+            finalClick = conv.convertArr(finalClick, 60);
             cb.clickSomething(initialClick, finalClick);
             count++;
 
