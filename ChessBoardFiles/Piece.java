@@ -67,6 +67,32 @@ public class Piece{
 				legalMoves[i][1] = 	x;
 			} 
 		}
+		counter = 0;
+		for (int i = 0; i < 7; i++) {
+			if((x - i) == -1){ //bad method name but uk what i mean
+				legalMoves[i][0] = -1;
+				legalMoves[i][1] = 	-1;
+				i = 90;
+			}
+			else if((x - i) > -1 && teamInPos(y , x - i)){
+				counter++;
+				legalMoves[i][0] = 	y - i;
+				legalMoves[i][1] = 	x;
+			} 
+		}
+		for (int i = counter; i < 7; i++) {
+			if((x + i) == 8){ //bad method name but uk what i mean
+				legalMoves[i][0] = -1;
+				legalMoves[i][1] = 	-1;
+				i = 90;
+			}
+			else if((y + i) < 8  && teamInPos(y, x + i)){
+				counter++;
+				legalMoves[i][0] = 	y + i;
+				legalMoves[i][1] = 	x;
+			} 
+		}
+		return legalMoves;
 	}
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
