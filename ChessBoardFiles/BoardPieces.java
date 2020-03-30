@@ -32,7 +32,7 @@ public class BoardPieces{
         boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
         boardPieces[initialClick[0]][initialClick[1]] = " ";
 
-        //System.out.println(Arrays.deepToString(piece.getTeam(boardPieces, boardPieces[initialClick[0]][finalClick[0]])));
+        System.out.println("legal moves : " + Arrays.deepToString(piece.getLegalMoves(finalClick, boardPieces[finalClick[0]][finalClick[1]], boardPieces)));
 
         //System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
         

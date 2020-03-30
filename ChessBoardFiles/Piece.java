@@ -18,11 +18,12 @@ public class Piece{
 */
 	public static int[][] getLegalMoves(int[] coordinate, String piece, String board[][]){ //takes in string since it can just take in the name of the file found in the board array
 
-		int[][] legalMoves;
+		int[][] legalMoves = new int[8][8];
 
 		if(piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")){
 			legalMoves = rookLegalMoves(coordinate, piece, board);
 		}
+		/*
 		else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
 			legalMoves = knightLegalMoves(coordinate);
 		}
@@ -38,6 +39,7 @@ public class Piece{
 		else{ //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate);
 		}
+		*/
 		return legalMoves;
 	}
 	private static int[][] rookLegalMoves(int[] coordinate, String piece, String[][] board){
@@ -131,7 +133,7 @@ public class Piece{
 
 		String[][] myTeam = getTeam(board, piece);
 
-		if(myTeam[y][x]) //arrays are row major for some reason
+		if(myTeam[y][x] != " ") //arrays are row major for some reason
 			team_mate = true;
 
 		return team_mate;
