@@ -103,6 +103,7 @@ public class Piece{
 
 		return legalMoves;
 	}
+
 /*
 	private static int[][] knightLegalMoves(int[] coordinate){
 
@@ -184,6 +185,26 @@ public class Piece{
 		}
 
 		return arr;
+	}
+
+	public static void main(String[] args){
+
+		int[] click = new int [2];
+		click[0] = 4;
+		click[1] = 7;
+
+		String boardPieces[][] = new String[][]{
+			{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
+			{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
+			{" ", " " , " " , " " , " " , " " , " " , " " },
+			{" ", " " , " " , " " , " " , " " , " " , " " },
+			{" ", " " , " " , " " , " " , " " , " " , " " },
+			{" ", " " , " " , " " , " " , " " , " " , " " },
+			{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
+			{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
+		};
+
+		System.out.println("legal moves : " + Arrays.deepToString(getLegalMoves(click, "rook2", boardPieces)));
 	}
 
 }
