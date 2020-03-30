@@ -28,12 +28,12 @@ public class BoardPieces{
 
     public void click(int[] initialClick , int[] finalClick){
         
-        System.out.println("the piece at your initial click is: " + boardPieces[initialClick[0]][initialClick[1]]+ " the piece at your future click is " + boardPieces[finalClick[0]][finalClick[1]]);
+        //System.out.println("the piece at your initial click is: " + boardPieces[initialClick[0]][initialClick[1]]+ " the piece at your future click is " + boardPieces[finalClick[0]][finalClick[1]]);
         boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
         boardPieces[initialClick[0]][initialClick[1]] = " ";
         //System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
         
-        System.out.println("current array: " + Arrays.deepToString(boardPieces));
+        //System.out.println("current array: " + Arrays.deepToString(boardPieces));
 
     }
 
@@ -119,28 +119,32 @@ public class BoardPieces{
     public static void drawPic(BufferedImage img, Graphics g, String name){
         
         int[] result = searchArr(boardPieces, name);
-        int y = conv.convertCoord(result[0]);
-        int x = conv.convertCoord(result[1]);
 
-        //System.out.println("drawing " + name + " @ " + y + " , " + x);
-        g.drawImage(img, x, y, 50, 50, null);
+        if(result[1] > -1 && result[0] > -1){
+            int y = conv.convertCoord(result[0]);
+            int x = conv.convertCoord(result[1]);
+            //System.out.println("drawing " + name + " @ " + y + " , " + x);
+            g.drawImage(img, x, y, 50, 50, null);
+        }
     }
 
     
     public static int[] searchArr(String arr[][], String target){
         int[] location = new int[2];
+        location[0] = -1;
+        location[1] = -1;
 
         for(int i = 0; i < arr.length; i++){ //row 
             
             for(int j = 0; j < arr[i].length; j++){ //collumns
                
-                
                 if (arr[i][j].equals(target)){
 
                     location[0] = i;
                     location[1] = j;
                     return location;
                 }
+                
             }
         }
         return location;
