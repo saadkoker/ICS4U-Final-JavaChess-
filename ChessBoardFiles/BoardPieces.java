@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
@@ -13,6 +12,7 @@ public class BoardPieces{
     private static BufferedImage Rook1, Knight1 , Bishop1 , Queen , King , Bishop2 , Knight2 , Rook2, Pawn1 , Pawn2 , Pawn3 , Pawn4 , Pawn5 , Pawn6 , Pawn7 , Pawn8; //black pieces 
     private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
     private static Convert conv = new Convert();
+    private static Piece piece = new Piece();
 
     private static String boardPieces[][] = new String[][]{
         {"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -31,6 +31,9 @@ public class BoardPieces{
         //System.out.println("the piece at your initial click is: " + boardPieces[initialClick[0]][initialClick[1]]+ " the piece at your future click is " + boardPieces[finalClick[0]][finalClick[1]]);
         boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
         boardPieces[initialClick[0]][initialClick[1]] = " ";
+
+        //System.out.println(Arrays.deepToString(piece.getTeam(boardPieces, boardPieces[initialClick[0]][finalClick[0]])));
+
         //System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
         
         //System.out.println("current array: " + Arrays.deepToString(boardPieces));
