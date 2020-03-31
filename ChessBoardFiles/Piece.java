@@ -124,25 +124,25 @@ public class Piece{
 
 			for (int i = 1; i < 9; i++){ 
 
-				if (((x+i) < 8) && (!teamInPos(y, x+i, board, piece))){ //remember boolean order of operations here!
+				if (((x+i) < 8) && (teamInPos(y, x, y, x+i, board, piece) == false)){ //remember boolean order of operations here!
 					moves[pos][1] = (x+i);
 					moves[pos][0] = y;
 					pos++;
 				}
 			
-				if (((x-i) > -1) && (!teamInPos(y, x-i, board, piece))){
+				if (((x-i) > -1) && (teamInPos(y, x, y, x-i, board, piece) == false)){
 					moves[pos][1] = (x-i);
 					moves[pos][0] = y;
 					pos++;
 				}
 
-				if (((y+i) < 8) && (!teamInPos(y+i, x, board, piece))){ 
+				if (((y+i) < 8) && (teamInPos(y, x, y+i, x, board, piece) == false)){ 
 					moves[pos][1] = x;
 					moves[pos][0] = (y+i);
 					pos++;
 				}
 			
-				if (((y-i) > -1) && (!teamInPos(y-i, x, board, piece))){
+				if (((y-i) > -1) && (teamInPos(y, x, y-i, x, board, piece) == false)){
 					moves[pos][1] = x;
 					moves[pos][0] = (y-i);
 					pos++;
@@ -178,14 +178,19 @@ public class Piece{
 	}
 
 */
-	public static boolean teamInPos(int y, int x, String[][] board, String piece){
+	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece){
 		
 		boolean team_mate = false;
+		
+		int del_y = y2-y1;
+		int del_x = x2-x1;
 
 		String[][] myTeam = getTeam(board, piece);
 
-		if(myTeam[y][x] != " ") //arrays are row major for some reason
+		if(myTeam[y][x] != " "){ //arrays are row major for some reason
 			team_mate = true;
+			System.out.println("You have a team mate @ y: " + y + " and x: " +x + " it's a " + myTeam[y][x]);
+		}
 
 		return team_mate;
 	}
