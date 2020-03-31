@@ -3,8 +3,10 @@ import java.util.Arrays;
 
 public class Piece{
 
-/*
+
 	private Coordinate coordinate;
+
+	/*
 	private boolean isWhite;
 	private File file;
 
@@ -49,13 +51,14 @@ public class Piece{
 		int diffrence = 7 - x; 
 		int counter = 0;
 
-		int[][] legalMoves = new int[16][2];
+		int[][] legalMoves = new int[64][2];
 
 		for (int i = 0; i < 7; i++) {
+
 			if((y - i) == -1){ //bad method name but uk what i mean
 				legalMoves[i][0] = -1;
 				legalMoves[i][1] = 	-1;
-				i = 90;
+				break;
 			}
 			else if((y - i) > -1 && teamInPos(y - i, x - i, board, piece) == false){
 				counter++;
@@ -63,16 +66,18 @@ public class Piece{
 				legalMoves[i][1] = 	x;
 			} 
 		}
-		for (int i = counter; i < 7; i++) {
+
+		for (int i = 0; i < 7; i++) {
+
 			if((y + i) == 8){ //bad method name but uk what i mean
-				legalMoves[i][0] = -1;
-				legalMoves[i][1] = 	-1;
-				i = 90;
+				legalMoves[counter][0] = -1;
+				legalMoves[counter][1] = -1;
+				break;
 			}
 			else if((y + i) < 8  && teamInPos(y - i, x, board, piece) == false){
 				counter++;
-				legalMoves[i][0] = 	y + i;
-				legalMoves[i][1] = 	x;
+				legalMoves[counter][0] = 	y + i;
+				legalMoves[counter][1] = 	x;
 			} 
 		}
 
@@ -102,6 +107,51 @@ public class Piece{
 		}
 
 		return legalMoves;
+	}
+
+		public static int[][] getRookMoves(int[] coord, String[][] board, String piece){
+
+			int[][] moves = new int[63][2];
+			int x = coord[1];
+			int y = coord[0];
+			int pos = 0;
+
+
+			//Rules: it must be straight lines
+			// => we have four directions to check
+			//starts at 1 because we dont want it to return itself
+
+
+			for (int i = 1; i < 9; i++){ 
+
+				if (((x+i) < 8) && (!teamInPos(y, x+i, board, piece))){ //remember boolean order of operations here!
+					moves[pos][1] = (x+i);
+					moves[pos][0] = y;
+					pos++;
+				}
+			
+				if (((x-i) > -1) && (!teamInPos(y, x-i, board, piece))){
+					moves[pos][1] = (x-i);
+					moves[pos][0] = y;
+					pos++;
+				}
+
+				if (((y+i) < 8) && (!teamInPos(y+i, x, board, piece))){ 
+					moves[pos][1] = x;
+					moves[pos][0] = (y+i);
+					pos++;
+				}
+			
+				if (((y-i) > -1) && (!teamInPos(y-i, x, board, piece))){
+					moves[pos][1] = x;
+					moves[pos][0] = (y-i);
+					pos++;
+				}
+			}
+
+			return moves;
+
+
 	}
 
 /*
@@ -190,7 +240,7 @@ public class Piece{
 	public static void main(String[] args){
 
 		int[] click = new int [2];
-		click[0] = 4;
+		click[0] = 7;
 		click[1] = 7;
 
 		String boardPieces[][] = new String[][]{
@@ -204,7 +254,7 @@ public class Piece{
 			{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 		};
 
-		System.out.println("legal moves : " + Arrays.deepToString(getLegalMoves(click, "rook2", boardPieces)));
+		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
 	}
 
 }
