@@ -114,7 +114,7 @@ public class BoardPieces{
             drawPic(pawn8, g, "pawn8");
 
 
-        }catch(IOException e){
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
