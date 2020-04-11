@@ -153,12 +153,14 @@ public class Piece{
 
 
 	}
-
-/*
 	private static int[][] knightLegalMoves(int[] coordinate){
+		
+		int[] tempCoord = Arrays.copyOf(coordinate);
+		int[][] coords = new int[8][2]
+
+		coords[0][1] = coord[1] //too tired to think of an effiecant way to do this but just 2 up from starting position and one to the left, 8 times
 
 		return coordinate;
-		
 	}
 	private static int[][] bishopLegalMoves(int[] coordinate){
 		
@@ -168,8 +170,10 @@ public class Piece{
 		
 		return coordinate;
 	}
-	private static int[][] kingLegalMoves(int[] coordinate){
+	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 		
+		int[][] moves = new int[6][2];
+		//just return the "square" the king can move in and return -1 if its out of bounds
 		return coordinate;
 	}
 	private static int[][] pawnLegalMoves(int[] coordinate){
@@ -177,7 +181,6 @@ public class Piece{
 		return coordinate;
 	}
 
-*/
 	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece){
 		
 		boolean team_mate = false;
