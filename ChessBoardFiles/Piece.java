@@ -153,6 +153,7 @@ public class Piece{
 
 
 	}
+	/*
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
 		return coordinate;
@@ -165,10 +166,11 @@ public class Piece{
 		
 		return coordinate;
 	}
+	*/
 	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 		
-		clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
-		clickCoordX = coordinate[1];
+		int clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
+		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
 		coords[0][0] = clickCoordY + 1; //Every move is hard coded, even if it goes out of bounds
@@ -183,12 +185,13 @@ public class Piece{
 		return finalCoords; //return the array
 		
 	}
+	/*
 	private static int[][] pawnLegalMoves(int[] coordinate){
 		
 		return coordinate;
 	}
-
-	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece){
+	*/
+	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece){ //This team in poss shouldnt just check if there is someone there, but it should also check if there is someone on the way there
 		
 		boolean team_mate = false;
 		
@@ -197,9 +200,10 @@ public class Piece{
 
 		String[][] myTeam = getTeam(board, piece);
 
-		if(myTeam[y][x] != " "){ //arrays are row major for some reason
+		if(myTeam[y2][x2] != " "){ //arrays are row major for some reason
 			team_mate = true;
-			System.out.println("You have a team mate @ y: " + y + " and x: " +x + " it's a " + myTeam[y][x]);
+			System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+
 		}
 
 		return team_mate;
@@ -271,7 +275,7 @@ public class Piece{
 
 		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
 	}
-	private boolean isOutOfBounds(int x, int y) throws  {
+	private boolean isOutOfBounds(int x, int y) {
 		
 		if ((x == 10 || x == -1) || (y == 10 || y == -1)) {
 			return true;
@@ -279,6 +283,18 @@ public class Piece{
 		else{
 			return false;
 		}
+	}
+	private int[][] removeOutOfBounds(int[][] coords){
+
+		for (int i = 0; i < coords.length; i++) {
+			for (int j = 0; j < coords[i].length; i++) {
+				if ((coords[i][j] == -1) || (coords[i][j] == 10))  {
+					coords[i][0] = -1;
+					coords[i][1] = -1;
+				}
+			}
+		}
+		return coords;
 	}
 
 }
