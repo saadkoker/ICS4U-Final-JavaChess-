@@ -155,11 +155,6 @@ public class Piece{
 	}
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
-		int[] tempCoord = Arrays.copyOf(coordinate);
-		int[][] coords = new int[8][2]
-
-		coords[0][1] = coord[1] //too tired to think of an effiecant way to do this but just 2 up from starting position and one to the left, 8 times
-
 		return coordinate;
 	}
 	private static int[][] bishopLegalMoves(int[] coordinate){
@@ -172,9 +167,21 @@ public class Piece{
 	}
 	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 		
-		int[][] moves = new int[6][2];
-		//just return the "square" the king can move in and return -1 if its out of bounds
-		return coordinate;
+		clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
+		clickCoordX = coordinate[1];
+		int[][] coords = new int[8][2];
+
+		coords[0][0] = clickCoordY + 1; //Every move is hard coded, even if it goes out of bounds
+		coords[0][1] = clickCoordX + 1;
+		coords[1][0] = clickCoordY + 1;
+		coords[1][1] = clickCoordX;
+		coords[2][1] = clickCoordY;
+		coords[2][1] = clickCoordX + 1;
+
+		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+
+		return finalCoords; //return the array
+		
 	}
 	private static int[][] pawnLegalMoves(int[] coordinate){
 		
@@ -263,6 +270,15 @@ public class Piece{
 		};
 
 		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
+	}
+	private boolean isOutOfBounds(int x, int y) throws  {
+		
+		if ((x == 10 || x == -1) || (y == 10 || y == -1)) {
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }
