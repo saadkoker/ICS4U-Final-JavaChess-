@@ -146,12 +146,10 @@ public class Piece{
 
 
 	}
-
-/*
+	/*
 	private static int[][] knightLegalMoves(int[] coordinate){
-
-		return coordinate;
 		
+		return coordinate;
 	}
 	private static int[][] bishopLegalMoves(int[] coordinate){
 		
@@ -161,9 +159,24 @@ public class Piece{
 		
 		return coordinate;
 	}
-	private static int[][] kingLegalMoves(int[] coordinate){
+	
+	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 		
-		return coordinate;
+		int clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
+		int clickCoordX = coordinate[1];
+		int[][] coords = new int[8][2];
+
+		coords[0][0] = clickCoordY + 1; //Every move is hard coded, even if it goes out of bounds
+		coords[0][1] = clickCoordX + 1;
+		coords[1][0] = clickCoordY + 1;
+		coords[1][1] = clickCoordX;
+		coords[2][1] = clickCoordY;
+		coords[2][1] = clickCoordX + 1;
+
+		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+
+		return finalCoords; //return the array
+		
 	}
 
 */
@@ -193,48 +206,9 @@ public class Piece{
 		boolean team_mate = false;
 		String[][] myTeam = getTeam(board, piece);
 
-		if (direction == "up"){ //y is decreasing
-
-			for(int i = y1; i >= y2; i--){
-				if(!(myTeam[i][x1].equals(" "))){
-					//System.out.println("returning true for: " + x1 + " , " + i);
-					team_mate = true;
-					//return true;
-				}
-			}
-		}
-		if (direction == "down"){ //y is increasing
-
-			for(int j = y1; j <= y2; j++){
-				if(!(myTeam[j][x1].equals(" "))){
-					//System.out.println("returning true for: " + x1 + " , " + j);
-					team_mate = true;
-					//return true;
-				}
-			}
-		}
-		if (direction == "left"){ //x is decreasing
-
-			for(int k = x2; k <= x1; k++){
-				if(!(myTeam[y1][k].equals(" "))){
-					//System.out.println("returning true for: " + k + " , " + y1);
-					team_mate = true;
-					//return true;
-				}
-			}
-		}
-
-		if (direction == "right"){ //x is increasing
-
-			for(int l = x1; l <= x2; l++){
-				if(!(myTeam[y1][l].equals(" "))){
-					//System.out.println("returning true for: " + l + " , " + y1);
-					team_mate = true;
-					//return true;
-				}
-			}
-		}
-		else{ //this means it's diagnoal -> x and y is changing at the same rate
+		if(myTeam[y2][x2] != " "){ //arrays are row major for some reason
+			team_mate = true;
+			System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
 
 		}
 
@@ -311,6 +285,27 @@ public class Piece{
 
 		System.out.println(boardPieces[6][2]);
 		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
+	}
+	private boolean isOutOfBounds(int x, int y) {
+		
+		if ((x == 10 || x == -1) || (y == 10 || y == -1)) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	private int[][] removeOutOfBounds(int[][] coords){
+
+		for (int i = 0; i < coords.length; i++) {
+			for (int j = 0; j < coords[i].length; i++) {
+				if ((coords[i][j] == -1) || (coords[i][j] == 10))  {
+					coords[i][0] = -1;
+					coords[i][1] = -1;
+				}
+			}
+		}
+		return coords;
 	}
 
 
