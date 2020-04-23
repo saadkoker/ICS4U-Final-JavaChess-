@@ -28,11 +28,28 @@ public class BoardPieces{
 
     public void click(int[] initialClick , int[] finalClick){
         
-        //System.out.println("the piece at your initial click is: " + boardPieces[initialClick[0]][initialClick[1]]+ " the piece at your future click is " + boardPieces[finalClick[0]][finalClick[1]]);
-        boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
-        boardPieces[initialClick[0]][initialClick[1]] = " ";
+        
+        int[][] legal = piece.getLegalMoves(initialClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
+        boolean valid = false;
 
-        System.out.println("legal moves : " + Arrays.deepToString(piece.getLegalMoves(finalClick, boardPieces[finalClick[0]][finalClick[1]], boardPieces)));
+        System.out.println(Arrays.deepToString(legal));
+
+        for (int i = 0; i < legal.length; i++){
+            for(int j = 0; j < legal[i].length; j++){
+                if ((i == finalClick[0]) && (legal[i][j] == finalClick[1])){
+                    valid = true;
+                    System.out.println("valid move, moving to: " + i + " " + legal[i][j]);
+                }
+            }
+        }
+
+        if (valid){
+            System.out.println("moving piece");
+            boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
+            boardPieces[initialClick[0]][initialClick[1]] = " ";
+        }
+
+        //System.out.println("legal moves : " + Arrays.deepToString(piece.getLegalMoves(finalClick, boardPieces[finalClick[0]][finalClick[1]], boardPieces)));
 
         //System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
         
