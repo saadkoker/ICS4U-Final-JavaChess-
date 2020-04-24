@@ -191,7 +191,7 @@ public class Piece{
 
 		for (int i = 1; i < 8; i++){
 
-			if ((y+i < 9) && (teamInPos(y, x, y++, x2, board, piece, direction)) == false){
+			if ((y+i < 9) && (teamInPos(y, x, y++, x++, board, piece, direction)) == false){ //changed x2 to x++ but im not sure if this is what u intended rory
 				possible[count][0] = y++;
 				possible[count][1] = x;
 			}
