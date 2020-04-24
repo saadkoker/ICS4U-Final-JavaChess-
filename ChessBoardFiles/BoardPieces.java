@@ -23,7 +23,6 @@ public class BoardPieces{
         {" ", " " , " " , " " , " " , " " , " " , " " },
         {"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
         {"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
-        
     };
 
     public void click(int[] initialClick , int[] finalClick){
@@ -95,7 +94,6 @@ public class BoardPieces{
             pawn7 = ImageIO.read(new File("pieces/pawn2.png")); 
             pawn8 = ImageIO.read(new File("pieces/pawn2.png")); 
 
-
             drawPic(Rook1, g, "Rook1");
             drawPic(Knight1, g, "Knight1");
             drawPic(Bishop1, g, "Bishop1");
@@ -130,7 +128,6 @@ public class BoardPieces{
             drawPic(pawn7, g, "pawn7");
             drawPic(pawn8, g, "pawn8");
 
-
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -147,7 +144,6 @@ public class BoardPieces{
             g.drawImage(img, x, y, 50, 50, null);
         }
     }
-
     
     public static int[] searchArr(String arr[][], String target){
         int[] location = new int[2];
@@ -167,6 +163,7 @@ public class BoardPieces{
                 
             }
         }
+
         return location;
     
     }

@@ -19,7 +19,6 @@ import java.util.*;
 
 public class ChessBoard extends JPanel{ //extending JPanel
 
-
     private static BoardPieces bp = new BoardPieces();
     private static int x,y;
 

@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-public class ChessScreen{
+public class ChessScreen{ //this is our main interface where the game operations are conducted
 
 	private static ChessBoard cb = new ChessBoard(); //our ChessBoard object
 	private static ClickListener click = new ClickListener(); //our ClickListener object

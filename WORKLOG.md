@@ -28,3 +28,5 @@
 ## March 26th 2020
 
 - Added a tool bar and a message box to JFrame
+
+## shit we gotta add a bunch of stuff

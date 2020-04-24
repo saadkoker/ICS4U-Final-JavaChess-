@@ -18,11 +18,11 @@ import java.util.*;
 
 public class Main{
 
-    public static ChessScreen main = new ChessScreen();
+    public static ChessScreen screen = new ChessScreen();
     private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
     public static void main(String args[]) throws InterruptedException{
         
-        main.startScreen(450, 450); //calling the startScreen method with a preset resolution
+        screen.startScreen(450, 450); //calling the startScreen method with a preset resolution
     }
 
         public static void introScreen() throws InterruptedException{ //this will be a method used in the future -> it is yet to be effectively implemented 
@@ -58,7 +58,7 @@ public class Main{
                         frame.dispose();
 
                         try{
-                        main.startScreen(472, 450);
+                        screen.startScreen(472, 450);
                         }catch(Exception E){
                         System.out.println("oh dear!");
                         }
@@ -73,7 +73,7 @@ public class Main{
                         frame.setVisible(false);
 
                         try{
-                        main.startScreen(489, 465);
+                        screen.startScreen(489, 465);
                         }catch(Exception E){
                             System.out.println("oh dear!");
                         }
