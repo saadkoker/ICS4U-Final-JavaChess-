@@ -31,6 +31,7 @@ public class BoardPieces{
         int[][] legal = piece.getLegalMoves(initialClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
         boolean valid = false;
 
+        System.out.println("legal moves:");
         System.out.println(Arrays.deepToString(legal));
 
         for (int i = 0; i < legal.length; i++){

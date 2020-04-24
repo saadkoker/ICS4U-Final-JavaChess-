@@ -12,7 +12,7 @@ public class Piece{
 		int[][] legalMoves = new int[63][2];
 
 		if(piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")){
-			legalMoves = getRookMoves(coordinate, board, piece);
+			legalMoves = getRookMoves(coordinate, piece, board);
 		}
 		
 		//else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
@@ -35,85 +35,28 @@ public class Piece{
 		//System.out.println(Arrays.deepToString(legalMoves));
 		return legalMoves;
 	}
-/*
-	private static int[][] rookLegalMoves(int[] coordinate, String piece, String[][] board){
 
-		int y = coordinate[0];
-		int x = coordinate[1];
-		int diffrence = 7 - x; 
-		int counter = 0;
+		public static void assignArbitraryValues(int[][] a){
 
-		int[][] legalMoves = new int[64][2];
-
-		for (int i = 0; i < 7; i++) {
-
-			if((y - i) == -1){ //bad method name but uk what i mean
-				legalMoves[i][0] = -1;
-				legalMoves[i][1] = 	-1;
-				break;
+			for(int i = 0; i < a.length; i++){
+				for(int j = 0; j < a[i].length; j++){
+					a[i][j] = -1;
+				}
 			}
-			else if((y - i) > -1 && teamInPos(y - i, x - i, board, piece) == false){
-				counter++;
-				legalMoves[i][0] = 	y - i;
-				legalMoves[i][1] = 	x;
-			} 
 		}
-
-		for (int i = 0; i < 7; i++) {
-
-			if((y + i) == 8){ //bad method name but uk what i mean
-				legalMoves[counter][0] = -1;
-				legalMoves[counter][1] = -1;
-				break;
-			}
-			else if((y + i) < 8  && teamInPos(y - i, x, board, piece) == false){
-				counter++;
-				legalMoves[counter][0] = 	y + i;
-				legalMoves[counter][1] = 	x;
-			} 
-		}
-
-		for (int i = 0; i < 7; i++) {
-			if((x - i) == -1){ //bad method name but uk what i mean
-				legalMoves[i][0] = -1;
-				legalMoves[i][1] = 	-1;
-				i = 90;
-			}
-			else if((x - i) > -1 && teamInPos(y , x - i, board, piece)){
-				counter++;
-				legalMoves[i][0] = 	y - i;
-				legalMoves[i][1] = 	x;
-			} 
-		}
-		for (int i = counter; i < 7; i++) {
-			if((x + i) == 8){ //bad method name but uk what i mean
-				legalMoves[i][0] = -1;
-				legalMoves[i][1] = 	-1;
-				i = 90;
-			}
-			else if((y + i) < 8  && teamInPos(y, x + i, board, piece)){
-				counter++;
-				legalMoves[i][0] = 	y + i;
-				legalMoves[i][1] = 	x;
-			} 
-		}
-
-		return legalMoves;
-	}
-*/
-
-		public static int[][] getRookMoves(int[] coord, String[][] board, String piece){
+		public static int[][] getRookMoves(int[] coord, String piece, String[][] board){
 
 			int[][] moves = new int[63][2];
+			assignArbitraryValues(moves);
 			int x = coord[1];
 			int y = coord[0];
 			int pos = 0;
-
 
 			//Rules: it must be straight lines
 			// => we have four directions to check
 			//starts at 1 because we dont want it to return itself
 
+			//System.out.println(y + " , " + x);
 
 			for (int i = 1; i < 9; i++){ 
 
@@ -123,19 +66,19 @@ public class Piece{
 					pos++;
 				}
 			
-				if (((x-i) > -1) && (teamInPos(y, x, y, x-i, board, piece, "left") == false)){
+				if (((x-i) >= 0) && (teamInPos(y, x, y, x-i, board, piece, "left") == false)){
 					moves[pos][1] = (x-i);
 					moves[pos][0] = y;
 					pos++;
 				}
 
-				if (((y+i) < 8) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)){ 
+				if (((y+i) < 8) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)){ 
 					moves[pos][1] = x;
 					moves[pos][0] = (y+i);
 					pos++;
 				}
 			
-				if (((y-i) > -1) && (teamInPos(y, x, y-i, x, board, piece, "up") == false)){
+				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "down") == false)){
 					moves[pos][1] = x;
 					moves[pos][0] = (y-i);
 					pos++;
@@ -143,8 +86,6 @@ public class Piece{
 			}
 
 			return moves;
-
-
 	}
 	/*
 	private static int[][] knightLegalMoves(int[] coordinate){
@@ -206,10 +147,52 @@ public class Piece{
 		boolean team_mate = false;
 		String[][] myTeam = getTeam(board, piece);
 
-		if(myTeam[y2][x2] != " "){ //arrays are row major for some reason
-			team_mate = true;
-			System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+		if (direction.equals("up")){
 
+			for(int i = y1; i <= y2; i++){
+
+				if (myTeam[y2][x2] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					return true;
+				}
+			}
+		}
+
+		if (direction.equals("down")){
+
+			for(int i = y2; i <= y1; i++){
+
+				if (myTeam[i][x2] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					return true;
+				}
+			}
+		}
+
+		if (direction.equals("left")){
+
+			for(int i = x2; i <= x1; i++){
+
+				if (myTeam[y2][i] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					return true;
+				}
+			}
+		}
+
+		if (direction.equals("right")){
+
+			for(int i = x1; i <= x2; i++){
+
+				if (myTeam[y2][i] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					return true;
+				}
+			}
 		}
 
 		return team_mate;
@@ -263,6 +246,7 @@ public class Piece{
 
 		return arr;
 	}
+}
 
 
 	/*
@@ -307,96 +291,4 @@ public class Piece{
 		}
 		return coords;
 	}
-
-
-
-public static boolean mobility(int direction, int length, int row, int col){
-
-	boolean mobile = true;
-
-	if (direction == 1){ //incrementing row
-
-		for (int i = 1; i < length; i++){
-			
-			if ((row+i > 9) || (boatLocation[row+i][col] == true)){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 2){ //incrementing row, incrementing column
-		
-		for (int i = 1; i < length; i++){
-			
-			if ((row+i > 9) || (col+i > 9) || (boatLocation[row+i][col+i] == true)){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-			
-	else if (direction == 3){ //incrementing col
-		
-		for (int i = 1; i < length; i++){
-			
-			if ((col+i > 9) || (boatLocation[row][col+i] == true)){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 4){ //decrementing row, incrementing column
-		
-		for (int i = 1; i < length; i++){
-			
-			if (boatLocation[row-i][col+i] == true){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 5){ //decrementing row
-		
-		for (int i = 1; i < length; i++){
-			
-			if (boatLocation[row-i][col] == true){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 6){ //decrementing row decrementing col
-		
-		for (int i = 1; i < length; i++){
-			
-			if ((row-i < 0) || (col-i < 0) || (boatLocation[row-i][col-i] == true)){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 7){//decrementing col
-		
-		for (int i = 1; i < length; i++){
-			
-			if (boatLocation[row][col-i] == true){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	else if (direction == 8){//incrementing row, decrementing col
-		
-		for (int i = 1; i < length; i++){
-			
-			if (boatLocation[row+i][col-i] == true){
-				mobile = false;
-				return false;
-			}
-		}
-	}
-	return mobile;
-}
-*/
-
-}
+	*/
