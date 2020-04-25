@@ -74,15 +74,15 @@ public class Piece{
 					pos++;
 				}
 
-				if (((y+i) <= 8) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)){
-					System.out.println("we movin up");
+				if (((y+i) <= 8) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)){
+					System.out.println("we movin down");
 					moves[pos][1] = x;
 					moves[pos][0] = (y+i);
 					pos++;
 				}
 			
-				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "down") == false)){					
-					System.out.println("we movin down");
+				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "up") == false)){					
+					System.out.println("we movin up");
 					moves[pos][1] = x;
 					moves[pos][0] = (y-i);
 					pos++;
@@ -232,9 +232,9 @@ public class Piece{
 		boolean team_mate = false;
 		String[][] myTeam = getTeam(board, piece);
 
-		if (direction.equals("up")){
+		if (direction.equals("down")){
 
-			for(int i = y1+1; i <= y2; i++){
+			for(int i = y1+1; i < y2; i++){
 
 				if (myTeam[i][x1] != " "){
 					team_mate = true;
@@ -244,9 +244,9 @@ public class Piece{
 			}
 		}
 
-		if (direction.equals("down")){
+		if (direction.equals("up")){
 
-			for(int i = y2+1; i <= y1; i++){
+			for(int i = y2; i < y1; i++){
 
 				if (myTeam[i][x1] != " "){
 					team_mate = true;
@@ -258,7 +258,7 @@ public class Piece{
 
 		if (direction.equals("left")){
 
-			for(int i = x2; i <= x1; i++){
+			for(int i = x2; i <= x1-1; i++){
 
 				if (myTeam[y2][i] != " "){
 					team_mate = true;
@@ -270,7 +270,7 @@ public class Piece{
 
 		if (direction.equals("right")){
 
-			for(int i = x1; i <= x2; i++){
+			for(int i = x1+1; i < x2; i++){
 
 				if (myTeam[y2][i] != " "){
 					team_mate = true;
