@@ -27,7 +27,7 @@ public class BoardPieces{
 
     public void click(int[] initialClick , int[] finalClick){
         
-        
+       
         int[][] legal = piece.getLegalMoves(initialClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
         boolean valid = false;
 
@@ -35,12 +35,11 @@ public class BoardPieces{
         System.out.println(Arrays.deepToString(legal));
 
         for (int i = 0; i < legal.length; i++){
-            for(int j = 0; j < legal[i].length; j++){
-                if ((i == finalClick[0]) && (legal[i][j] == finalClick[1])){
+                if ((legal[i][0] == finalClick[0]) && (legal[i][1] == finalClick[1])){
+                    System.out.println("valid move, moving to: " + finalClick[0] + " " + legal[i][1]);
                     valid = true;
-                    System.out.println("valid move, moving to: " + i + " " + legal[i][j]);
+                    break;
                 }
-            }
         }
 
         if (valid){
@@ -129,6 +128,7 @@ public class BoardPieces{
             drawPic(pawn7, g, "pawn7");
             drawPic(pawn8, g, "pawn8");
 
+            System.out.println("we just painted those bois");
         }catch(IOException e){
             e.printStackTrace();
         }

@@ -62,6 +62,7 @@ public class ChessBoard extends JPanel{ //extending JPanel
       //System.out.println("first click:" + Arrays.toString(initialClick));
       //System.out.println("final click:" + Arrays.toString(finalClick));
       bp.click(initialClick, finalClick);
+      System.out.println("ok we moved em we repainting");
       repaint();
     }
 }

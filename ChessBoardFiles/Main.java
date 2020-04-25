@@ -1,20 +1,11 @@
-import java.awt.Color;
-import java.awt.Container;
 import javax.swing.JFrame;
-import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;
-import java.awt.Container;
 import java.awt.Font;
-import java.util.Scanner;
-import java.util.logging.Handler;
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
-import java.awt.*;
-import java.util.*;
 
 public class Main{
 

@@ -43,18 +43,18 @@ public class ChessScreen{ //this is our main interface where the game operations
         boolean clickyTime = true; 
         int count = 0;
 
-        System.out.println("You have 25 clicks, dont waste them!");
+        System.out.println("You have 250 clicks, dont waste them!");
 
         while(clickyTime){ //just a test loop
             
             int[] initialClick = click.getClick();
-            initialClick = conv.convertArr(initialClick, 60); //Saad this wont work for your resolution--> change the value to 60 for your machine
+            initialClick = conv.convertArr(initialClick, 42); //Saad this wont work for your resolution--> change the value to 60 for your machine
             int[] finalClick = click.getClick();
-            finalClick = conv.convertArr(finalClick, 60);
+            finalClick = conv.convertArr(finalClick, 42); //for mac u need the value 42
             cb.clickSomething(initialClick, finalClick);
             count++;
 
-            if (count == 25)
+            if (count == 250)
                 clickyTime = false;
         }
 
