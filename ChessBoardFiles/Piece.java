@@ -122,14 +122,7 @@ public class Piece{
 		return coords; //return the array
 		
 	}
-
-<<<<<<< HEAD
-	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece, String direction){
-=======
-*/
-
 	private static int[][] lines(int[] coordinate, String[][] board, String piece){
->>>>>>> a4f94e6311854d94896ce21326fae58a2fb7f546
 		
 		int y = coordinate[0];
 		int x = coordinate[1];
