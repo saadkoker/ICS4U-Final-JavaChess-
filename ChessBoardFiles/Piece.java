@@ -24,10 +24,11 @@ public class Piece{
 		//else if (piece.equalsIgnoreCase("Queen1") || piece.equalsIgnoreCase("Queen2")) {
 		//	legalMoves = queenLegalMoves(coordinate);
 		//}
-		//else if (piece.equalsIgnoreCase("King1") || piece.equalsIgnoreCase("King2")) {
-		//	legalMoves = kingLegalMoves(coordinate);
-		//}
-		else{ //sets legal moves for pawns
+		 if (piece.equalsIgnoreCase("King")) {
+			System.out.println("king moved");
+			legalMoves = kingLegalMoves(coordinate, piece, board);
+		}
+		 if (piece.contains("pawn")) { //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate, board, piece);
 		}
 		
@@ -112,25 +113,20 @@ public class Piece{
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
+		//TODO: run team mate checks
 		for (int i = 0; i < squareMaps.length; i++) {
 			coords[i][0] = clickCoordY - squareMaps[i][0];
-			coords[i][1] = clickCoordY - squareMaps[i][1];
+			coords[i][1] = clickCoordX - squareMaps[i][1];
 		}
 
 		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		System.out.println(Arrays.deepToString(coords) + "\n");
+		System.out.println("king coords" + Arrays.deepToString(coords) + "\n");
 		return coords; //return the array
 		
 	}
 
-<<<<<<< HEAD
-	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece, String direction){
-=======
-*/
-
 	private static int[][] lines(int[] coordinate, String[][] board, String piece){
->>>>>>> a4f94e6311854d94896ce21326fae58a2fb7f546
-		
+
 		int y = coordinate[0];
 		int x = coordinate[1];
 		int count = 0;
