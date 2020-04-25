@@ -27,9 +27,9 @@ public class Piece{
 		//else if (piece.equalsIgnoreCase("King1") || piece.equalsIgnoreCase("King2")) {
 		//	legalMoves = kingLegalMoves(coordinate);
 		//}
-		//else{ //sets legal moves for pawns
-		//	legalMoves = pawnLegalMoves(coordinate);
-		//}
+		else{ //sets legal moves for pawns
+			legalMoves = pawnLegalMoves(coordinate, board, piece);
+		}
 		
 
 		//System.out.println(Arrays.deepToString(legalMoves));
@@ -46,7 +46,7 @@ public class Piece{
 		}
 		public static int[][] getRookMoves(int[] coord, String piece, String[][] board){
 
-			int[][] moves = new int[63][2];
+			int[][] moves = new int[256][2];
 			assignArbitraryValues(moves);
 			int x = coord[1];
 			int y = coord[0];
@@ -60,25 +60,29 @@ public class Piece{
 
 			for (int i = 1; i < 9; i++){ 
 
-				if (((x+i) < 8) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
+				if (((x+i) <= 8) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
+					System.out.println("we movin right");
 					moves[pos][1] = (x+i);
 					moves[pos][0] = y;
 					pos++;
 				}
 			
 				if (((x-i) >= 0) && (teamInPos(y, x, y, x-i, board, piece, "left") == false)){
+					System.out.println("we movin left");
 					moves[pos][1] = (x-i);
 					moves[pos][0] = y;
 					pos++;
 				}
 
-				if (((y+i) < 8) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)){ 
+				if (((y+i) <= 8) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)){
+					System.out.println("we movin up");
 					moves[pos][1] = x;
 					moves[pos][0] = (y+i);
 					pos++;
 				}
 			
-				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "down") == false)){
+				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "down") == false)){					
+					System.out.println("we movin down");
 					moves[pos][1] = x;
 					moves[pos][0] = (y-i);
 					pos++;
@@ -122,7 +126,7 @@ public class Piece{
 
 */
 
-	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece, String direction){
+	private static int[][] lines(int[] coordinate, String[][] board, String piece){
 		
 		int y = coordinate[0];
 		int x = coordinate[1];
@@ -132,12 +136,91 @@ public class Piece{
 
 		for (int i = 1; i < 8; i++){
 
-			if ((y+i < 9) && (teamInPos(y, x, y++, x++, board, piece, direction)) == false){ //changed x2 to x++ but im not sure if this is what u intended rory
-				possible[count][0] = y++;
+			if (((y+i) < 7) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)) { 
+				possible[count][0] = y+i;
 				possible[count][1] = x;
+				System.out.println("we movin up");
+				count++;
+			}
+			
+			if (((y-i) > 0) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)) {
+				possible[count][0] = y-i;
+				possible[count][1] = x;
+				System.out.println("we movin down");
+				count++;
+			}
+			
+			else
+				i=8;
+		}
+		
+		return possible;
+	}
+	
+	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece){
+		
+		int y = coordinate[0];
+		int x = coordinate[1];
+		int count = 0;
+		int[][] possible = new int[4][2];
+		assignArbitraryValues(possible);
+		
+		//String[][] team = getTeam(board, piece);
+		
+		if ((y == 1) && (board[3][x] == " ")){
+			possible[count][0] = 3;
+			possible[count][1] = x;
+			count++;
+		}
+		
+		else if ((y == 6) && (board[4][x] == " ")){ //pawns get to move 2 blocks on first move (P1 varient)
+			possible[count][0] = 4;
+			possible[count][1] = x;
+			count++;
+		}
+		
+		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))){ //we are checking if the first character in the piece is lowercase		
+			
+			if(y > 0) {
+				
+				if(board[y-1][x] == " ") {
+					possible[count][0] = y-1;
+					possible[count][1]= x;
+				}
+			
+				if((x > 1) && (board[y-1][x-1] != " ")) { //checking if there's a piece diagnolly available -> up and to the left
+					possible[count][0] = y-1;
+					possible[count][1] = x-1;
+				}
+	
+				if((x < 7) && (board[y-1][x+1] != " ")) { //checking if there's a piece diagnolly available --> up and to the right
+					possible[count][0] = y-1;
+					possible[count][1] = x+1;
+				}
 			}
 		}
-
+		
+		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))){
+			
+			if(y < 7) {
+				
+				if((board[y+1][x] == " ")){
+					possible[count][0] = y+1;
+					possible[count][1]= x;
+				}
+				
+				if((x > 1) && (board[y+1][x-1] != " ")) { //checking if there's a piece diagnolly available -> down and to the left
+					possible[count][0] = y+1;
+					possible[count][1] = x-1;
+				}
+	
+				if((x < 7) && (board[y+1][x+1] != " ")) { //checking if there's a piece diagnolly available --> down and to the right
+					possible[count][0] = y+1;
+					possible[count][1] = x+1;
+				}
+			}
+		}
+		
 		return possible;
 	}
 
@@ -149,11 +232,11 @@ public class Piece{
 
 		if (direction.equals("up")){
 
-			for(int i = y1; i <= y2; i++){
+			for(int i = y1+1; i <= y2; i++){
 
-				if (myTeam[y2][x2] != " "){
+				if (myTeam[i][x1] != " "){
 					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					System.out.println("You have a team mate @ y: " + i + " and x: " + x2 + " it's a " + myTeam[i][x2]);
 					return true;
 				}
 			}
@@ -161,11 +244,11 @@ public class Piece{
 
 		if (direction.equals("down")){
 
-			for(int i = y2; i <= y1; i++){
+			for(int i = y2+1; i <= y1; i++){
 
-				if (myTeam[i][x2] != " "){
+				if (myTeam[i][x1] != " "){
 					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					System.out.println("You have a team mate @ y: " + i + " and x: " + x2 + " it's a " + myTeam[i][x2]);
 					return true;
 				}
 			}
@@ -177,7 +260,7 @@ public class Piece{
 
 				if (myTeam[y2][i] != " "){
 					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + i + " it's a " + myTeam[y2][i]);
 					return true;
 				}
 			}
@@ -189,7 +272,7 @@ public class Piece{
 
 				if (myTeam[y2][i] != " "){
 					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + x2 + " it's a " + myTeam[y2][x2]);
+					System.out.println("You have a team mate @ y: " + y2 + " and x: " + i + " it's a " + myTeam[y2][i]);
 					return true;
 				}
 			}
