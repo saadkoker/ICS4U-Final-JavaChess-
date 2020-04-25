@@ -186,16 +186,19 @@ public class Piece{
 				if(board[y-1][x] == " ") {
 					possible[count][0] = y-1;
 					possible[count][1]= x;
+					count++;
 				}
 			
-				if((x > 1) && (board[y-1][x-1] != " ")) { //checking if there's a piece diagnolly available -> up and to the left
+				if((x > 0) && (board[y-1][x-1] != " ")) { //checking if there's a piece diagnolly available -> up and to the left
 					possible[count][0] = y-1;
 					possible[count][1] = x-1;
+					count++;
 				}
 	
 				if((x < 7) && (board[y-1][x+1] != " ")) { //checking if there's a piece diagnolly available --> up and to the right
 					possible[count][0] = y-1;
 					possible[count][1] = x+1;
+					count++;
 				}
 			}
 		}
@@ -207,16 +210,19 @@ public class Piece{
 				if((board[y+1][x] == " ")){
 					possible[count][0] = y+1;
 					possible[count][1]= x;
+					count++;
 				}
 				
 				if((x > 1) && (board[y+1][x-1] != " ")) { //checking if there's a piece diagnolly available -> down and to the left
 					possible[count][0] = y+1;
 					possible[count][1] = x-1;
+					count++;
 				}
 	
 				if((x < 7) && (board[y+1][x+1] != " ")) { //checking if there's a piece diagnolly available --> down and to the right
 					possible[count][0] = y+1;
 					possible[count][1] = x+1;
+					count++;
 				}
 			}
 		}
