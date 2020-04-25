@@ -104,29 +104,32 @@ public class Piece{
 		
 		return coordinate;
 	}
-	
+	*/
 	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 		
+		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
 		int clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
-		coords[0][0] = clickCoordY + 1; //Every move is hard coded, even if it goes out of bounds
-		coords[0][1] = clickCoordX + 1;
-		coords[1][0] = clickCoordY + 1;
-		coords[1][1] = clickCoordX;
-		coords[2][1] = clickCoordY;
-		coords[2][1] = clickCoordX + 1;
+		for (int i = 0; i < squareMaps.length; i++) {
+			coords[i][0] = clickCoordY - squareMaps[i][0];
+			coords[i][1] = clickCoordY - squareMaps[i][1];
+		}
 
-		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-
-		return finalCoords; //return the array
+		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+		System.out.println(Arrays.deepToString(coords) + "\n");
+		return coords; //return the array
 		
 	}
 
+<<<<<<< HEAD
+	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece, String direction){
+=======
 */
 
 	private static int[][] lines(int[] coordinate, String[][] board, String piece){
+>>>>>>> a4f94e6311854d94896ce21326fae58a2fb7f546
 		
 		int y = coordinate[0];
 		int x = coordinate[1];
