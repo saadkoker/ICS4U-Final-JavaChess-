@@ -92,11 +92,24 @@ public class Piece{
 
 			return moves;
 	}
-	/*
+	
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
-		return coordinate;
+		int[][] squareMaps = {{-2, 1}, {-1, 2},{1, 2},{2, 1},{2, -1},{2, -1},{-1, -2},{-2, -1}};
+		int clickCoordY = coordinate[0];
+		int clickCoordX = coordinate[1];
+		int[][] coords = new int[8][2];
+
+		for (int i = 0; i < squareMaps.length; i++) {
+			coords[i][0] = clickCoordY - squareMaps[i][0];
+			coords[i][1] = clickCoordX - squareMaps[i][1];
+		}
+
+		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+
+		return coords;
 	}
+	/*
 	private static int[][] bishopLegalMoves(int[] coordinate){
 		
 		return coordinate;
