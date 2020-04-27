@@ -1,3 +1,5 @@
+import javax.swing.Timer;
+
 public class ChessClock {
 
 	private int timeInSec = 0;

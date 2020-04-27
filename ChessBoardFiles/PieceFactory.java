@@ -30,11 +30,11 @@ public class PieceFactory extends JPanel{
 
 		try{
 
-            image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
-            graph.drawImage(image, 200, 150, 50, 50, null);
+			image = ImageIO.read(getClass().getResourceAsStream("pieces/rook2.png"));
+			graph.drawImage(image, 200, 150, 50, 50, null);
 
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 }

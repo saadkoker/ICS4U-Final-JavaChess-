@@ -11,7 +11,7 @@ public class ClickListener extends MouseAdapter{
 		//System.out.println("click");
 
 			synchronized(ClickListener.this) //synchronized to THIS clicklistner class
-        	{
+			{
 				//x = convertPos(e.getX()); //converting the coords
 				//y = convertPos(e.getY());
 				
@@ -20,8 +20,8 @@ public class ClickListener extends MouseAdapter{
 				//System.out.println(x + " " + y);
 				notify();//letting all the other threads know a click has happened, should they be waiting for one
 				//System.out.println("notified");
-             
-          } /* synchronized */
+			 
+		  } /* synchronized */
 		}/* mouseClicked */
 		
 	private static int convertPos(int coordinate){ //converting resolution values into implementable coordinates
@@ -58,16 +58,16 @@ public class ClickListener extends MouseAdapter{
 		//System.out.println("getClick");
 		int[] userClick = new int[2];
 
-        synchronized(ClickListener.this){ //also synced to this specific class
+		synchronized(ClickListener.this){ //also synced to this specific class
 	
 			//System.out.println("waiting");
 			wait(); //waiting for a click to happen -> we are now concurrantly ruining with the click method
 			
-            userClick[0] = y;//--> row major
+			userClick[0] = y;//--> row major
 			userClick[1] = x;
-            //System.out.println("not waiting");
-        }
-        return userClick; //returning the click
+			//System.out.println("not waiting");
+		}
+		return userClick; //returning the click
 	}
 	
 }
