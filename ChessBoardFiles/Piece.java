@@ -14,10 +14,9 @@ public class Piece{
 		if(piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")){
 			legalMoves = getRookMoves(coordinate, piece, board);
 		}
-		
-		//else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
-		//	legalMoves = knightLegalMoves(coordinate);
-	//	}
+		else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
+				legalMoves = knightLegalMoves(coordinate);
+		}
 		//else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
 		//	legalMoves = bishopLegalMoves(coordinate);
 		//}
@@ -28,12 +27,11 @@ public class Piece{
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
 		}
-		 
-		 if (piece.contains("Pawn") || piece.contains("pawn")) { //sets legal moves for pawns
+		 if (piece.contains("pawn")) { //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate, board, piece);
 		}
 
-		 
+
 		//System.out.println(Arrays.deepToString(legalMoves));
 		return legalMoves;
 	}
@@ -60,7 +58,7 @@ public class Piece{
 
 			//System.out.println(y + " , " + x);
 
-			for (int i = 1; i < 9; i++){ 
+			for (int i = 1; i < 9; i++){
 
 				if (((x+i) <= 8) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
 					System.out.println("we movin right");
@@ -68,7 +66,7 @@ public class Piece{
 					moves[pos][0] = y;
 					pos++;
 				}
-			
+
 				if (((x-i) >= 0) && (teamInPos(y, x, y, x-i, board, piece, "left") == false)){
 					System.out.println("we movin left");
 					moves[pos][1] = (x-i);
@@ -82,8 +80,8 @@ public class Piece{
 					moves[pos][0] = (y+i);
 					pos++;
 				}
-			
-				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "up") == false)){					
+
+				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "up") == false)){
 					System.out.println("we movin up");
 					moves[pos][1] = x;
 					moves[pos][0] = (y-i);
@@ -93,35 +91,35 @@ public class Piece{
 
 			return moves;
 	}
-	
+
 	private static int[][] knightLegalMoves(int[] coordinate){
-		
+
 		int[][] squareMaps = {{-2, 1}, {-1, 2},{1, 2},{2, 1},{2, -1},{2, -1},{-1, -2},{-2, -1}};
 		int clickCoordY = coordinate[0];
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
 		for (int i = 0; i < squareMaps.length; i++) {
-			coords[i][0] = clickCoordY - squareMaps[i][0];
-			coords[i][1] = clickCoordX - squareMaps[i][1];
+			coords[i][0] = clickCoordY + squareMaps[i][0];
+			coords[i][1] = clickCoordX + squareMaps[i][1];
 		}
 
-		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-
-		return coords;
+		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+		System.out.println(Arrays.deepToString(finalCoords));
+		return finalCoords;
 	}
 	/*
 	private static int[][] bishopLegalMoves(int[] coordinate){
-		
+
 		return coordinate;
 	}
 	private static int[][] queenLegalMoves(int[] coordinate){
-		
+
 		return coordinate;
 	}
 	*/
 	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
-		
+
 		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
 		int clickCoordY = coordinate[0]; //idk whether y or x is supposed to be first but id rather kms then figure out
 		int clickCoordX = coordinate[1];
@@ -133,10 +131,10 @@ public class Piece{
 			coords[i][1] = clickCoordX - squareMaps[i][1];
 		}
 
-		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		System.out.println("king coords" + Arrays.deepToString(coords) + "\n");
-		return coords; //return the array
-		
+		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+		System.out.println("king coords" + Arrays.deepToString(coords) + "\n") + "king coords" + Arrays.deepToString(finalCoords);
+		return finalCoords; //return the array
+
 	}
 
 	private static int[][] lines(int[] coordinate, String[][] board, String piece){
@@ -149,65 +147,65 @@ public class Piece{
 
 		for (int i = 1; i < 8; i++){
 
-			if (((y+i) < 7) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)) { 
+			if (((y+i) < 7) && (teamInPos(y, x, y+i, x, board, piece, "up") == false)) {
 				possible[count][0] = y+i;
 				possible[count][1] = x;
 				System.out.println("we movin up");
 				count++;
 			}
-			
+
 			if (((y-i) > 0) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)) {
 				possible[count][0] = y-i;
 				possible[count][1] = x;
 				System.out.println("we movin down");
 				count++;
 			}
-			
+
 			else
 				i=8;
 		}
-		
+
 		return possible;
 	}
-	
+
 	private static int[][] pawnLegalMoves(int[] coordinate, String[][] board, String piece){
-		
+
 		int y = coordinate[0];
 		int x = coordinate[1];
 		int count = 0;
 		int[][] possible = new int[4][2];
 		assignArbitraryValues(possible);
-		
+
 		//String[][] team = getTeam(board, piece);
-		
+
 		if ((y == 1) && (board[3][x] == " ")){
 			possible[count][0] = 3;
 			possible[count][1] = x;
 			count++;
 		}
-		
+
 		else if ((y == 6) && (board[4][x] == " ")){ //pawns get to move 2 blocks on first move (P1 varient)
 			possible[count][0] = 4;
 			possible[count][1] = x;
 			count++;
 		}
-		
-		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))){ //we are checking if the first character in the piece is lowercase		
-			
+
+		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))){ //we are checking if the first character in the piece is lowercase
+
 			if(y > 0) {
-				
+
 				if(board[y-1][x] == " ") {
 					possible[count][0] = y-1;
 					possible[count][1]= x;
 					count++;
 				}
-			
+
 				if((x > 0) && (board[y-1][x-1] != " ")) { //checking if there's a piece diagnolly available -> up and to the left
 					possible[count][0] = y-1;
 					possible[count][1] = x-1;
 					count++;
 				}
-	
+
 				if((x < 7) && (board[y-1][x+1] != " ")) { //checking if there's a piece diagnolly available --> up and to the right
 					possible[count][0] = y-1;
 					possible[count][1] = x+1;
@@ -215,23 +213,23 @@ public class Piece{
 				}
 			}
 		}
-		
+
 		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))){
-			
+
 			if(y < 7) {
-				
+
 				if((board[y+1][x] == " ")){
 					possible[count][0] = y+1;
 					possible[count][1]= x;
 					count++;
 				}
-				
+
 				if((x > 1) && (board[y+1][x-1] != " ")) { //checking if there's a piece diagnolly available -> down and to the left
 					possible[count][0] = y+1;
 					possible[count][1] = x-1;
 					count++;
 				}
-	
+
 				if((x < 7) && (board[y+1][x+1] != " ")) { //checking if there's a piece diagnolly available --> down and to the right
 					possible[count][0] = y+1;
 					possible[count][1] = x+1;
@@ -239,13 +237,13 @@ public class Piece{
 				}
 			}
 		}
-		
+
 		return possible;
 	}
 
-	
+
 	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece, String direction){
-		
+
 		boolean team_mate = false;
 		String[][] myTeam = getTeam(board, piece);
 
@@ -307,28 +305,28 @@ public class Piece{
 
 		if (piece.charAt(0) == Character.toLowerCase(piece.charAt(0))){ //we are checking if the first character in the piece is lowercase
 
-			for(int i = 0; i < teamBoard.length; i++){ //row 
+			for(int i = 0; i < teamBoard.length; i++){ //row
 
 				for(int j = 0; j < teamBoard[i].length; j++){ //collumns
-				
+
 					if (teamBoard[i][j].charAt(0) == (Character.toUpperCase(teamBoard[i][j].charAt(0)))){
 						teamBoard[i][j] = " "; //get rid off it because its upper case and thus not on the same team
 					}
-					
+
 				}
 			}
 		}
 
 		else{ //if the piece is an uppercase type type
 
-			for(int i = 0; i < teamBoard.length; i++){ //row 
+			for(int i = 0; i < teamBoard.length; i++){ //row
 
 				for(int j = 0; j < teamBoard[i].length; j++){ //collumns
-			
+
 					if (teamBoard[i][j].charAt(0) == (Character.toLowerCase(teamBoard[i][j].charAt(0)))){
 						teamBoard[i][j] = " "; //get rid off it because its lower case and thus not on the same team
 					}
-				
+
 				}
 			}
 		}
@@ -339,7 +337,7 @@ public class Piece{
 	}
 
 	private static String[][] deepCopyOf(String board[][]){
-		
+
 		String[][] arr = new String[8][8]; //revise this later to make for more inclusive OOC
 
 		for (int i = 0; i < 8; i++) {
@@ -371,21 +369,22 @@ public class Piece{
 
 		System.out.println(boardPieces[6][2]);
 		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
-	}
+*/
 	private boolean isOutOfBounds(int x, int y) {
-		
-		if ((x == 10 || x == -1) || (y == 10 || y == -1)) {
+
+		if ((x >= 8 || x <= -1) || (y >= 8 || y == -1)) {
 			return true;
 		}
 		else{
 			return false;
 		}
 	}
+
 	private int[][] removeOutOfBounds(int[][] coords){
 
 		for (int i = 0; i < coords.length; i++) {
 			for (int j = 0; j < coords[i].length; i++) {
-				if ((coords[i][j] == -1) || (coords[i][j] == 10))  {
+				if ((coords[i][j] <= -1) || (coords[i][j] >= 8))  {
 					coords[i][0] = -1;
 					coords[i][1] = -1;
 				}
@@ -393,4 +392,3 @@ public class Piece{
 		}
 		return coords;
 	}
-	*/
