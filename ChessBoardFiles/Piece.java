@@ -15,15 +15,16 @@ public class Piece{
 			legalMoves = getRookMoves(coordinate, piece, board);
 		}
 		
-		//else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
-		//	legalMoves = knightLegalMoves(coordinate);
-	//	}
+		else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
+			legalMoves = knightLegalMoves(coordinate);
+		}
 		//else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
 		//	legalMoves = bishopLegalMoves(coordinate);
 		//}
 		//else if (piece.equalsIgnoreCase("Queen1") || piece.equalsIgnoreCase("Queen2")) {
 		//	legalMoves = queenLegalMoves(coordinate);
 		//}
+		
 		 if (piece.equalsIgnoreCase("King")) {
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
@@ -62,7 +63,7 @@ public class Piece{
 
 			for (int i = 1; i < 9; i++){ 
 
-				if (((x+i) <= 8) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
+				if (((x+i) <= 7) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
 					System.out.println("we movin right");
 					moves[pos][1] = (x+i);
 					moves[pos][0] = y;
@@ -76,7 +77,7 @@ public class Piece{
 					pos++;
 				}
 
-				if (((y+i) <= 8) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)){
+				if (((y+i) <= 7) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)){
 					System.out.println("we movin down");
 					moves[pos][1] = x;
 					moves[pos][0] = (y+i);
@@ -96,20 +97,22 @@ public class Piece{
 	
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
-		int[][] squareMaps = {{-2, 1}, {-1, 2},{1, 2},{2, 1},{2, -1},{2, -1},{-1, -2},{-2, -1}};
+		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{-2, -1},{1,-2}};
 		int clickCoordY = coordinate[0];
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
 		for (int i = 0; i < squareMaps.length; i++) {
-			coords[i][0] = clickCoordY - squareMaps[i][0];
-			coords[i][1] = clickCoordX - squareMaps[i][1];
+			coords[i][0] = clickCoordY + squareMaps[i][0];
+			coords[i][1] = clickCoordX + squareMaps[i][1];
 		}
 
 		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
 
 		return coords;
 	}
+	
+
 	/*
 	private static int[][] bishopLegalMoves(int[] coordinate){
 		
