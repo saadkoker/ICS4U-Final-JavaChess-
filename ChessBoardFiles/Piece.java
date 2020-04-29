@@ -105,9 +105,10 @@ public class Piece{
 			coords[i][1] = clickCoordX + squareMaps[i][1];
 		}
 
-		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		System.out.println(Arrays.deepToString(finalCoords));
-		return finalCoords;
+		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+		//System.out.println(Arrays.deepToString(finalCoords));
+		removeOutOfBounds(coords);
+		return coords;
 	}
 	
 
@@ -158,9 +159,9 @@ public class Piece{
 			coords[i][1] = clickCoordX - squareMaps[i][1];
 		}
 
-		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		System.out.println("king coords" + Arrays.deepToString(coords) + "\n" + "king coords" + Arrays.deepToString(finalCoords));
-		return finalCoords; //return the array
+		removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
+		//System.out.println("king coords" + Arrays.deepToString(coords) + "\n" + "king coords" + Arrays.deepToString(finalCoords));
+		return coords; //return the array
 
 	}
 
@@ -406,7 +407,7 @@ public class Piece{
 			return false;
 	}
 	
-	private static int[][] removeOutOfBounds(int[][] coords){
+	private static void removeOutOfBounds(int[][] coords){
 
 		for (int i = 0; i < coords.length; i++) {
 				if (isOutOfBounds(coords[i][0], coords[i][1])) {
@@ -415,6 +416,12 @@ public class Piece{
 				}
 			}
 		
+		//return coords;
+	}
+	
+	private static int[][] removeInvalidPieces(int[][] coords, int y1, int x1, String[][] board, String piece, String direction){
+		
+		removeOutOfBounds(coords);
 		return coords;
 	}
 }
