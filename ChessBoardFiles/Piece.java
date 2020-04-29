@@ -9,21 +9,20 @@ public class Piece{
 
 	public int[][] getLegalMoves(int[] coordinate, String piece, String board[][]){ //takes in string since it can just take in the name of the file found in the board array
 
-		int[][] legalMoves = new int[63][2];
+		int[][] legalMoves = new int[92][2];
 
 		if(piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")){
-			legalMoves = getRookMoves(coordinate, piece, board);
+			legalMoves = getRookMoves(coordinate, board, piece);
 		}
-		
 		else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
 			legalMoves = knightLegalMoves(coordinate);
 		}
 		else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
-			legalMoves = bishopLegalMoves(coordinate);
+			legalMoves = bishopLegalMoves(coordinate, board, piece);
 		}
-		//else if (piece.equalsIgnoreCase("Queen1") || piece.equalsIgnoreCase("Queen2")) {
-		//	legalMoves = queenLegalMoves(coordinate);
-		//}
+		else if (piece.equalsIgnoreCase("Queen")) {
+			legalMoves = queenLegalMoves(coordinate, board, piece);
+		}
 		else if (piece.equalsIgnoreCase("King")) {
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
@@ -45,9 +44,9 @@ public class Piece{
 				}
 			}
 		}
-		public static int[][] getRookMoves(int[] coord, String piece, String[][] board){
+		public static int[][] getRookMoves(int[] coord, String[][] board, String piece){
 
-			int[][] moves = new int[64][2];
+			int[][] moves = new int[64][2]; //fix this bruh
 			assignArbitraryValues(moves);
 			int x = coord[1];
 			int y = coord[0];
@@ -107,45 +106,74 @@ public class Piece{
 
 		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
 		//System.out.println(Arrays.deepToString(finalCoords));
+		
 		removeOutOfBounds(coords);
 		return coords;
 	}
 	
 
 	
-	private static int[][] bishopLegalMoves(int[] coordinate){
+	private static int[][] bishopLegalMoves(int[] coordinate, String[][] board, String piece){
 
 		int[][] moves = new int[28][2];
 		
 		int y_pos = coordinate[0];
 		int x_pos = coordinate[1];
 		
+		String[][] team = getTeam(board, piece);
+		
 		for(int i = 0; i < 28;) { //we're adding all possible diagnol movements here
 			for(int j = 1; j < 8; j++) {
-				moves[i][0] = y_pos+j;
-				moves[i][1] = x_pos+j;
-				i++;
-				moves[i][0] = y_pos+j;
-				moves[i][1] = x_pos-j;
-				i++;
-				moves[i][0] = y_pos-j;
-				moves[i][1] = x_pos-j;
-				i++;
-				moves[i][0] = y_pos-j;
-				moves[i][1] = x_pos+j;
-				i++;
+				
+				if((!isOutOfBounds((y_pos+j), (x_pos+j))) && (team[y_pos+j][x_pos+j].equals(" "))) {
+					moves[i][0] = y_pos+j;
+					moves[i][1] = x_pos+j;
+					i++;
+				}
+				
+				if((!isOutOfBounds((y_pos+j), (x_pos-j))) && (team[y_pos+j][x_pos-j].equals(" "))) {
+					moves[i][0] = y_pos+j;
+					moves[i][1] = x_pos-j;
+					i++;
+				}
+				
+				if((!isOutOfBounds((y_pos-j), (x_pos-j))) && (team[y_pos-j][x_pos-j].equals(" "))) {
+					moves[i][0] = y_pos-j;
+					moves[i][1] = x_pos-j;
+					i++;
+				}
+				
+				if((!isOutOfBounds((y_pos-j), (x_pos+j))) && (team[y_pos-j][x_pos+j].equals(" "))) {
+					moves[i][0] = y_pos-j;
+					moves[i][1] = x_pos+j;
+					i++;
+				}
 			}
 		}
 		
 		return moves;
 		
 	}
-	/*
-	private static int[][] queenLegalMoves(int[] coordinate){
+	
+	private static int[][] queenLegalMoves(int[] coordinate, String[][] board, String piece){
 
-		return coordinate;
+		int[][] moves = new int[92][2];
+		int[][] arrOne = bishopLegalMoves(coordinate, board, piece);
+		int[][] arrTwo = getRookMoves(coordinate, board, piece);
+		
+		for(int i = 0; i < 29; i++) { //making those diagonal moves
+			moves[i][0] = arrOne[i][0];
+			moves[i][1] = arrOne[i][1];
+		}	
+		
+		for(int i = 28; i < 93; i++) { //making those diagonal moves
+			moves[i][0] = arrTwo[i][0];
+			moves[i][1] = arrTwo[i][1];
+		}	
+		
+		return moves;
 	}
-	*/
+	
 	private static int[][] kingLegalMoves(int[] coordinate, String piece, String[][] board){
 
 		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
@@ -161,6 +189,7 @@ public class Piece{
 
 		removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
 		//System.out.println("king coords" + Arrays.deepToString(coords) + "\n" + "king coords" + Arrays.deepToString(finalCoords));
+		
 		return coords; //return the array
 
 	}
@@ -322,6 +351,32 @@ public class Piece{
 				}
 			}
 		}
+		
+		if (direction.equals("diagOne")) {
+			
+			for(int i = x1+1; i < x2; i++) { //this is the easier variant of the diagonal relationship
+				
+				if (myTeam[i][i] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + i + " and x: " + i + " it's a " + myTeam[i][i]);
+					return true;
+				}
+			}
+		}
+		
+		if (direction.equals("diagTwo")) {
+			
+			
+			for(int i = y2+1, j = x1; i < y1 && j < x2; i++, j++) { //this is the harder variant of the diagonal relationship
+				
+				if (myTeam[i][j] != " "){
+					team_mate = true;
+					System.out.println("You have a team mate @ y: " + i + " and x: " + j + " it's a " + myTeam[i][j]);
+					return true;
+				}
+			}
+				
+		}	
 
 		return team_mate;
 	}
@@ -419,9 +474,17 @@ public class Piece{
 		//return coords;
 	}
 	
-	private static int[][] removeInvalidPieces(int[][] coords, int y1, int x1, String[][] board, String piece, String direction){
+	private static void removeInvalidPieces(int[][] coords, int y1, int x1, String[][] board, String piece, String direction){
 		
 		removeOutOfBounds(coords);
-		return coords;
+		
+		for (int i = 0; i < coords.length; i++) {
+			if(teamInPos(y1, x1, coords[i][0], coords[i][1], board, piece, direction)) {
+				coords[i][0] = -1;
+				coords[i][1] = -1;
+			}
+		}
+		
 	}
+
 }
