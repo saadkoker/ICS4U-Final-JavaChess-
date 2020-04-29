@@ -18,18 +18,17 @@ public class Piece{
 		else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
 			legalMoves = knightLegalMoves(coordinate);
 		}
-		//else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
-		//	legalMoves = bishopLegalMoves(coordinate);
-		//}
+		else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
+			legalMoves = bishopLegalMoves(coordinate);
+		}
 		//else if (piece.equalsIgnoreCase("Queen1") || piece.equalsIgnoreCase("Queen2")) {
 		//	legalMoves = queenLegalMoves(coordinate);
 		//}
-		
-		 if (piece.equalsIgnoreCase("King")) {
+		else if (piece.equalsIgnoreCase("King")) {
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
 		}
-		 if (piece.contains("pawn")) { //sets legal moves for pawns
+		else if (piece.contains("pawn")) { //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate, board, piece);
 		}
 
@@ -48,7 +47,7 @@ public class Piece{
 		}
 		public static int[][] getRookMoves(int[] coord, String piece, String[][] board){
 
-			int[][] moves = new int[256][2];
+			int[][] moves = new int[64][2];
 			assignArbitraryValues(moves);
 			int x = coord[1];
 			int y = coord[0];
@@ -60,7 +59,7 @@ public class Piece{
 
 			//System.out.println(y + " , " + x);
 
-			for (int i = 1; i < 9; i++){
+			for (int i = 1; i < 8; i++){
 
 				if (((x+i) <= 7) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
 					System.out.println("we movin right");
@@ -112,11 +111,35 @@ public class Piece{
 	}
 	
 
-	/*
+	
 	private static int[][] bishopLegalMoves(int[] coordinate){
 
-		return coordinate;
+		int[][] moves = new int[28][2];
+		
+		int y_pos = coordinate[0];
+		int x_pos = coordinate[1];
+		
+		for(int i = 0; i < 28;) { //we're adding all possible diagnol movements here
+			for(int j = 1; j < 8; j++) {
+				moves[i][0] = y_pos+j;
+				moves[i][1] = x_pos+j;
+				i++;
+				moves[i][0] = y_pos+j;
+				moves[i][1] = x_pos-j;
+				i++;
+				moves[i][0] = y_pos-j;
+				moves[i][1] = x_pos-j;
+				i++;
+				moves[i][0] = y_pos-j;
+				moves[i][1] = x_pos+j;
+				i++;
+			}
+		}
+		
+		return moves;
+		
 	}
+	/*
 	private static int[][] queenLegalMoves(int[] coordinate){
 
 		return coordinate;
