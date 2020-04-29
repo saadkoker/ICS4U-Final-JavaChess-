@@ -4,7 +4,7 @@ import java.util.Arrays;
 public class Piece{
 
 
-	private Coordinate coordinate;
+	//private Coordinate coordinate;
 
 
 	public int[][] getLegalMoves(int[] coordinate, String piece, String board[][]){ //takes in string since it can just take in the name of the file found in the board array
@@ -96,7 +96,7 @@ public class Piece{
 
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
-		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{-2, -1},{1,-2}};
+		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{1,-2}};
 		int clickCoordY = coordinate[0];
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
@@ -136,7 +136,7 @@ public class Piece{
 		}
 
 		int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		System.out.println("king coords" + Arrays.deepToString(coords) + "\n") + "king coords" + Arrays.deepToString(finalCoords);
+		System.out.println("king coords" + Arrays.deepToString(coords) + "\n" + "king coords" + Arrays.deepToString(finalCoords));
 		return finalCoords; //return the array
 
 	}
@@ -350,7 +350,6 @@ public class Piece{
 
 		return arr;
 	}
-}
 
 
 	/*
@@ -374,25 +373,25 @@ public class Piece{
 		System.out.println(boardPieces[6][2]);
 		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
 */
-	private boolean isOutOfBounds(int x, int y) {
 
-		if ((x >= 8 || x <= -1) || (y >= 8 || y == -1)) {
+	private static boolean isOutOfBounds(int y, int x) {
+
+		if ((x >= 8 || x <= 0) || (y >= 8 || y <= 0)) 
 			return true;
-		}
-		else{
+		
+		else
 			return false;
-		}
 	}
-
-	private int[][] removeOutOfBounds(int[][] coords){
+	
+	private static int[][] removeOutOfBounds(int[][] coords){
 
 		for (int i = 0; i < coords.length; i++) {
-			for (int j = 0; j < coords[i].length; i++) {
-				if ((coords[i][j] <= -1) || (coords[i][j] >= 8))  {
+				if (isOutOfBounds(coords[i][0], coords[i][1])) {
 					coords[i][0] = -1;
 					coords[i][1] = -1;
 				}
 			}
-		}
+		
 		return coords;
 	}
+}
