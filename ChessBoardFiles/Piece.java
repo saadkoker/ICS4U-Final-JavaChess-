@@ -28,11 +28,12 @@ public class Piece{
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
 		}
-		 if (piece.contains("pawn")) { //sets legal moves for pawns
+		 
+		 if (piece.contains("Pawn") || piece.contains("pawn")) { //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate, board, piece);
 		}
-		
 
+		 
 		//System.out.println(Arrays.deepToString(legalMoves));
 		return legalMoves;
 	}
