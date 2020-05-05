@@ -1,0 +1,185 @@
+ICS4U Final Project 2020
+
+You will build a game. 
+You may make use of the Board and Coordinate classes or the Eleven's Lab starter code. 
+
+There will likely be some limitations to our Board class or the Elevens Lab that 
+require you to modify the rules or the scope of the game you are creating. 
+You will need to decide how to handle this. 
+
+Part 1: Problem Definition and Program Requirements:
+
+	You will submit a project description which outlines:
+		- The general description of what you intend YOUR final version 
+		  of the game to do. 
+		- The programming concepts you plan to use (selection, search, 
+		  loops, classes, inheritance, 2-D arrays, recursion, sorting, 
+		  exception handling, etc) [minimum 3]
+		- An explanation of how you intend to make use of each of the 
+		  above chosen concepts in your program(s). 
+		- Any concepts you may have to research on your own
+		- An outline of when you plan to have each component completed
+	
+Part 2: Problem Analysis and Design
+
+	Start with a plan. What is the end goal? What does the main method 
+	actually do?
+	What helper methods will you use? Do you need to build any custom classes?
+	
+	Outline the methods you will create and their role in the application. 
+		- A short explanation of each methods' purpose
+		- Pseudocode for each method
+		- Start a work log. Each day entering what you have completed, 
+		  and what you plan to do next. 
+	
+Part 3: Implementation
+
+	Begin coding in Java, keeping track of deadlines and completing 
+	your work log. 
+
+Part 4: Documentation
+
+	- Create a user manual for your program which explains how to use 
+	  the application and its features. 
+	- Create a flow chart (or flow charts) for the main method you 
+	  defined. 
+	- Ensure all code is commented
+	- Ensure all indentation and variable naming meets expected 
+	  standards.  
+	- Continue updating your work log.
+	
+Part 5: Testing and 'Marketing'
+
+	You will test your program by explaining it to at least 2 peers 
+	(who are not in ICS4U) and then allowing them to try using the 
+	program. 
+		- Create a document for feedback during testing (both 
+		  positive and negative), errors that occurred, and any changes 
+		  to the program that may need to be made before (theoretical) 
+		  distribution. 
+		- Continue updating your work log. 
+		
+FINAL SUBMISSION
+
+	To hand in: 
+		- Project description as laid out in Part 1. 
+		- Method outlines as laid out in Part 2. 
+		- All necessary java files. 
+		- Your completed work log. 
+		- User manual
+		- Flow chart(s)
+		- Field test notes as laid out in Part 5
+		
+	Marking:
+		Project Description: 
+			(30) Levelled:
+				R - Incomplete
+			
+				1 - Description has major omissions or errors. 
+					Intended use and/or programming concepts are 
+					unclear. 
+					Timeline incomplete. 
+					Proposed game lacks definition. 
+							
+				2 - Description has a few omissions or errors. 
+					Intended use and/or programming concepts are 
+					laid out vaguely. 
+					Timeline for completion of project has been
+					completed. 
+					Proposed game seems unreasonable to build - teacher 
+					aided re-design needed.  
+							
+				3 - Description is complete with at most minor errors 
+				    or omissions. 
+					Intended use and programming concepts are clearly 
+					laid out.
+					Timeline for completion is completed reasonably. 
+					Proposed game seems reasonable to build. 
+							
+				4 - Description is thorough. 
+					Intended use and programming concepts are clearly 
+					laid out. 
+					Timeline for completion is detailed, demonstrating 
+					a strong planning ability. 
+					Proposed game seems reasonable to build. 
+							
+		Method Outlines:
+			(6) Checklist:
+				Method(s) have a short description (2)
+				Pseudocode planning completed in some detail(2)
+				Pseudocode meets standard conventions. (2)
+			
+		Java Files:
+			(50) Levelled:
+				R - Program may or may not work but code is 
+				    indecipherable. 
+					
+				1 - Program solves problem but with major errors. 
+					Disorganized; small sections may be formatted 
+					well, but overall code generally unusable. 
+					
+				2 - Minor errors are present, it can be expected that
+					the average user may run into omissions or cases
+					which do not work. 
+					Naming and casing conventions often followed. 
+					Omissions in formatting and commenting do not make 
+					code unusable, but falls below standards.
+					Game may be excessively simple. 
+					
+				3 - Problem Solved, any errors or omissions do not
+					effect the general/intended use of program. 
+					Correct use naming and casing conventions.
+					Code is commented, flows logically, clean format
+					leads to easy use. 
+					Game is of a level of complexity which is
+					reasonable for your programming skill level
+					and the time frame. 
+					
+				4 - Problem effectively solved, code is structured for 
+				    efficiency and avoids errors or issues which may be
+				    unexpected.
+					Correct use naming and casing conventions.
+					Goes beyond expectations to make program
+					fool-proof.
+					Formatting and commenting are clear and
+					flow logically.
+					I/O is exceptionally easy to navigate. 
+					Game is sufficiently complex. 
+						
+		Work Log:
+			(9) Checklist:
+				Every odd day of the school schedule has a work log entry.
+				Includes what was done and what is next. 
+				
+		User Manual:
+			(10) Levelled:
+				R - Incomplete
+			
+				1 - Description has major omissions or errors. 
+					Directions are unclear. 
+							
+				2 - Description has a few omissions or errors. 
+					Directions are laid out vaguely. 
+							
+				3 - Description is complete with at most minor errors 
+				    or omissions. 
+					Instructions are clearly laid out for a layman
+					user.
+							
+				4 - Description is thorough. 
+					Instructions are exceptionally easy to follow for 
+					average user. 
+					
+		Flow Chart(s):
+			(5) Checklist:
+				Models main method accurately (2)
+				With reasonable detail (1)
+				Follows conventions accurately (2)
+				
+		Testing Feedback Log:
+			(5) Checklist:
+				Includes notes on feedback from at least 2 tests (2)
+				Errors, issues, or valuable observations that occurred (2)
+				Any changes to the program that may need to be made (1)
+				
+	TOTAL :     /115
