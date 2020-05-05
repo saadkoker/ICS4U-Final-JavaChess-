@@ -27,7 +27,7 @@ public class Piece{
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(coordinate, piece, board);
 		}
-		else if (piece.contains("pawn")) { //sets legal moves for pawns
+		else if (piece.contains("pawn") || piece.contains("Pawn")) { //sets legal moves for pawns
 			legalMoves = pawnLegalMoves(coordinate, board, piece);
 		}
 
@@ -161,12 +161,12 @@ public class Piece{
 		int[][] arrOne = bishopLegalMoves(coordinate, board, piece);
 		int[][] arrTwo = getRookMoves(coordinate, board, piece);
 		
-		for(int i = 0; i < 29; i++) { //making those diagonal moves
+		for(int i = 0; i < arrOne.length; i++) { //making those diagonal moves
 			moves[i][0] = arrOne[i][0];
 			moves[i][1] = arrOne[i][1];
 		}	
 		
-		for(int i = 28; i < 93; i++) { //making those diagonal moves
+		for(int i = arrOne.length; i < 92; i++) { //making those diagonal moves
 			moves[i][0] = arrTwo[i][0];
 			moves[i][1] = arrTwo[i][1];
 		}	
