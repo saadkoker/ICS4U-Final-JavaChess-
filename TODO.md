@@ -10,7 +10,7 @@ loops, classes, inheritance, 2-D arrays, recursion, sorting, exception handling,
 ## Part 2: Problem Analysis and Design
 - A short explanation of each methods' purpose
 - Pseudocode for each method
-- Start a work log. Each day entering what you have completed, and what you plan to do next.
+- ~~Start a work log~~. Each day entering what you have completed, and what you plan to do next.
 
 ## Part 3: Implementation
  - Finished "beta" verion of Chess
