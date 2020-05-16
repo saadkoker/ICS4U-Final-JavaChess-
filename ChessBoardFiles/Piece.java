@@ -3,7 +3,7 @@ import java.util.*;
 public class Piece{
 
 
-	//private Coordinate coordinate;
+	//private static Coordinate coord = new Coordinate();
 
 
 	public int[][] getLegalMoves(int[] coordinate, String piece, String board[][]){ //takes in string since it can just take in the name of the file found in the board array
