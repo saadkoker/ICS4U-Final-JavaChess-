@@ -37,18 +37,17 @@ public class Piece{
 		return legalMoves;
 	}
 
-		public static void assignArbitraryValues(int[][] a){
+	public static void assignArbitraryValues(int[][] a){
 
-			for(int i = 0; i < a.length; i++){
-				for(int j = 0; j < a[i].length; j++){
-					a[i][j] = -1;
-				}
+		for(int i = 0; i < a.length; i++){
+			for(int j = 0; j < a[i].length; j++){
+				a[i][j] = -1;
 			}
 		}
-		public static int[][] getRookMoves(int[] coord, String[][] board, String piece){
+	}
+	public static int[][] getRookMoves(int[] coord, String[][] board, String piece){
 
-			int[][] moves = new int[64][2]; //fix this bruh
-			assignArbitraryValues(moves);
+			ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 			int x = coord[1];
 			int y = coord[0];
 			int pos = 0;
@@ -63,55 +62,63 @@ public class Piece{
 
 				if (((x+i) <= 7) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
 					System.out.println("we movin right");
-					moves[pos][1] = (x+i);
-					moves[pos][0] = y;
+					moves.add(new Coordinate((x+i), y));
 					pos++;
 				}
 
 				if (((x-i) >= 0) && (teamInPos(y, x, y, x-i, board, piece, "left") == false)){
 					System.out.println("we movin left");
-					moves[pos][1] = (x-i);
-					moves[pos][0] = y;
+					moves.add(new Coordinate((x-i), y));
 					pos++;
 				}
 
 				if (((y+i) <= 7) && (teamInPos(y, x, y+i, x, board, piece, "down") == false)){
 					System.out.println("we movin down");
-					moves[pos][1] = x;
-					moves[pos][0] = (y+i);
+					moves.add(new Coordinate(x, (y+i)));
 					pos++;
 				}
 
 				if (((y-i) >= 0) && (teamInPos(y, x, y-i, x, board, piece, "up") == false)){
 					System.out.println("we movin up");
-					moves[pos][1] = x;
-					moves[pos][0] = (y-i);
+					moves.add(new Coordinate(x, (y-i)));
 					pos++;
 				}
 			}
 
-			moves = removeArbValue(moves);
+			int[][] finalCoords = new int[moves.size()][2];
+
+			for (int i = 0; i < finalCoords.length; i++) {
+				finalCoords[i][0] = moves.get(i).getX();
+				finalCoords[i][1] = moves.get(i).getY();
+			}
+			return finalCoords;
 			
-			return moves;
 	}
 
 	private static int[][] knightLegalMoves(int[] coordinate){
 		
 		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{1,-2}};
+		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 		int clickCoordY = coordinate[0];
 		int clickCoordX = coordinate[1];
 		int[][] coords = new int[8][2];
 
 		for (int i = 0; i < squareMaps.length; i++) {
-			coords[i][0] = clickCoordY + squareMaps[i][0];
-			coords[i][1] = clickCoordX + squareMaps[i][1];
+			moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
 		}
 
-		//int[][] finalCoords = removeOutOfBounds(coords); //this method changes any out of bounds coordinates in the array to [-1,-1]
-		//System.out.println(Arrays.deepToString(finalCoords));
-		
-		removeOutOfBounds(coords);
-		return coords;
+		for (int i = 0; i < moves.size(); i++) {
+			if(moves.get(i).getX() == -1){
+				moves.remove(i);
+			}
+		}
+		int[][] finalCoords = new int[moves.size()][2];
+
+		for (int i = 0; i < finalCoords.length; i++) {
+			finalCoords[i][0] = moves.get(i).getX();
+			finalCoords[i][1] = moves.get(i).getY();
+		}
+		return finalCoords;
 	}
 	
 

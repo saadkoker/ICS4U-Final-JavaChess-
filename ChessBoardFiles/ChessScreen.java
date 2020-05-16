@@ -46,9 +46,9 @@ public class ChessScreen{ //this is our main interface where the game operations
 		while(clickyTime){ //just a test loop
 			
 			int[] initialClick = click.getClick();
-			initialClick = conv.convertArr(initialClick, 42); //Saad this wont work for your resolution--> change the value to 60 for your machine
+			initialClick = conv.convertArr(initialClick, 62); //Saad this wont work for your resolution--> change the value to 60 for your machine
 			int[] finalClick = click.getClick();
-			finalClick = conv.convertArr(finalClick, 42); //for mac u need the value 42
+			finalClick = conv.convertArr(finalClick, 62); //for mac u need the value 42
 			cb.clickSomething(initialClick, finalClick);
 			count++;
 
