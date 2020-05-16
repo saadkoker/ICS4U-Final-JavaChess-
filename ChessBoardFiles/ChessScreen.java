@@ -1,10 +1,8 @@
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JToolBar;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 

@@ -1,5 +1,6 @@
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Piece{
 
@@ -115,44 +116,49 @@ public class Piece{
 	
 	private static int[][] bishopLegalMoves(int[] coordinate, String[][] board, String piece){
 
-		int[][] moves = new int[28][2];
-		
-		int y_pos = coordinate[0];
-		int x_pos = coordinate[1];
-		
-		String[][] team = getTeam(board, piece);
-		
-		for(int i = 0; i < 28;) { //we're adding all possible diagnol movements here
-			for(int j = 1; j < 8; j++) {
-				
-				if((!isOutOfBounds((y_pos+j), (x_pos+j))) && (team[y_pos+j][x_pos+j].equals(" "))) {
-					moves[i][0] = y_pos+j;
-					moves[i][1] = x_pos+j;
-					i++;
-				}
-				
-				if((!isOutOfBounds((y_pos+j), (x_pos-j))) && (team[y_pos+j][x_pos-j].equals(" "))) {
-					moves[i][0] = y_pos+j;
-					moves[i][1] = x_pos-j;
-					i++;
-				}
-				
-				if((!isOutOfBounds((y_pos-j), (x_pos-j))) && (team[y_pos-j][x_pos-j].equals(" "))) {
-					moves[i][0] = y_pos-j;
-					moves[i][1] = x_pos-j;
-					i++;
-				}
-				
-				if((!isOutOfBounds((y_pos-j), (x_pos+j))) && (team[y_pos-j][x_pos+j].equals(" "))) {
-					moves[i][0] = y_pos-j;
-					moves[i][1] = x_pos+j;
-					i++;
-				}
+		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+
+		String[][] teamBoard = getTeam(board, piece);
+
+		for (int j = coordinate[1] + 1, i = coordinate[1] + 1; j < board.length && i < board.length; j++, i++) {
+			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+				coords.add(new Coordinate(j, i));
+			}
+			else{
+				break;
 			}
 		}
-		
-		return moves;
-		
+		for (int j = coordinate[1] - 1, i = coordinate[0] + 1; j > -1 && i < board.length; j--, i++) {
+			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+				coords.add(new Coordinate(j, i));
+			}
+			else{
+				break;
+			}
+		}
+		for (int j = coordinate[1] - 1, i = coordinate[0] - 1; j > -1 && i > -1; j--, i--) {
+			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+				coords.add(new Coordinate(j, i));
+			}
+			else{
+				break;
+			}
+		}
+		for (int j = coordinate[1] + 1, i = coordinate[0] - 1; j < board.length && i > -1; j++, i--) {
+			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+				coords.add(new Coordinate(j, i));
+			}
+			else{
+				break;
+			}
+		}
+		int[][] finalCoords = new int[coords.size()][2];
+
+		for (int i = 0; i < finalCoords.length; i++) {
+			finalCoords[i][0] = coords.get(i).getX();
+			finalCoords[i][1] = coords.get(i).getY();
+		}
+		return finalCoords;
 	}
 	
 	private static int[][] queenLegalMoves(int[] coordinate, String[][] board, String piece){
