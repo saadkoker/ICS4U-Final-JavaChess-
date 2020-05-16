@@ -90,6 +90,8 @@ public class Piece{
 				}
 			}
 
+			moves = removeArbValue(moves);
+			
 			return moves;
 	}
 
@@ -436,29 +438,6 @@ public class Piece{
 		return arr;
 	}
 
-
-	/*
-	public static void main(String[] args){
-
-		int[] click = new int [2];
-		click[0] = 3;
-		click[1] = 2;
-
-		String boardPieces[][] = new String[][]{
-			{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
-			{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
-			{" ", " " , " " , " " , " " , " " , " " , " " },
-			{" ", " " , " " , " " , " " , " " , " " , " " },
-			{" ", " " , " " , " " , " " , " " , " " , " " },
-			{" ", " " , " " , " " , " " , " " , " " , " " },
-			{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
-			{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
-		};
-
-		System.out.println(boardPieces[6][2]);
-		System.out.println("legal moves : " + Arrays.deepToString(getRookMoves(click, boardPieces, "rook1")));
-*/
-
 	private static boolean isOutOfBounds(int y, int x) {
 
 		if ((x >= 8 || x <= 0) || (y >= 8 || y <= 0)) 
@@ -492,5 +471,26 @@ public class Piece{
 		}
 		
 	}
-
+	
+	private static int[][] removeArbValue(int[][] coords){
+		
+		int n = 0;
+		
+		for(int j = 0; j < coords[0].length; j++) {
+			
+			if (coords[0][j] == -1) {
+				n++;
+			}
+		}
+		
+		int[][] freshArr = new int[2][coords.length-n];
+		
+		for(int i = 0; i < 2; i++) {
+			Arrays.sort(coords[i]);
+			freshArr[i] = Arrays.copyOfRange(coords[i], n+1, coords.length);
+			System.out.println("new arr row: " + i + " is: " + Arrays.toString(freshArr[i]));
+		}
+		
+		return freshArr;
+	}
 }
