@@ -12,7 +12,7 @@ public class BoardPieces{
 	private static BufferedImage Rook1, Knight1 , Bishop1 , Queen , King , Bishop2 , Knight2 , Rook2, Pawn1 , Pawn2 , Pawn3 , Pawn4 , Pawn5 , Pawn6 , Pawn7 , Pawn8; //black pieces 
 	private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
 	private static Convert conv = new Convert();
-	private static Piece piece = new Piece();
+	private static PieceTest piece = new PieceTest();
 
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -27,8 +27,8 @@ public class BoardPieces{
 
 	public void click(int[] initialClick , int[] finalClick){
 		
-	   
-		int[][] legal = piece.getLegalMoves(initialClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
+		Coordinate firstClick = new Coordinate(initialClick[0], initialClick[1]);
+		int[][] legal = piece.getLegalMoves(firstClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
 		boolean valid = false;
 
 		System.out.println("legal moves:");
@@ -44,8 +44,8 @@ public class BoardPieces{
 
 		if (valid){
 			System.out.println("moving piece");
-			boardPieces[finalClick[0]][finalClick[1]] = boardPieces[initialClick[0]][initialClick[1]];
-			boardPieces[initialClick[0]][initialClick[1]] = " ";
+			boardPieces[finalClick[0]][finalClick[1]] = boardPieces[firstClick.getX()][firstClick.getY()];
+			boardPieces[firstClick.getX()][firstClick.getY()] = " ";
 		}
 
 		//System.out.println("legal moves : " + Arrays.deepToString(piece.getLegalMoves(finalClick, boardPieces[finalClick[0]][finalClick[1]], boardPieces)));
