@@ -58,6 +58,8 @@ public class Piece{
 
 			//System.out.println(y + " , " + x);
 
+			//ROOKS, BISHOP, QUEEN
+
 			for (int i = 1; i < 8; i++){
 
 				if (((x+i) <= 7) && (teamInPos(y, x, y, x+i, board, piece, "right") == false)){ //remember boolean order of operations here!
