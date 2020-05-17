@@ -303,7 +303,7 @@ public class PieceTest {
 
 	private static boolean isOutOfBounds(int y, int x) {
 
-		if ((x >= 8 || x < 0) || (y >= 8 || y < 0))
+		if ((x >= 8 || x < 0) || (y >= 8 || y <= 0))
 			return true;
 
 		else
@@ -347,6 +347,45 @@ public class PieceTest {
 
 		return teamBoard;
 	}
+
+	public static String[][] getEnemyTeam(String[][] board, String piece) {
+
+		String[][] teamBoard = deepCopyOf(board); // we dont want to override our current board
+
+		if (piece.charAt(0) == Character.toLowerCase(piece.charAt(0))) { // we are checking if the first character in
+																			// the piece is lowercase
+
+			for (int i = 0; i < teamBoard.length; i++) { // row
+
+				for (int j = 0; j < teamBoard[i].length; j++) { // collumns
+
+					if (teamBoard[i][j].charAt(0) == (Character.toLowerCase(teamBoard[i][j].charAt(0)))) {
+						teamBoard[i][j] = " "; // get rid off it because its upper case and thus not on the same team
+					}
+
+				}
+			}
+		}
+
+		else { // if the piece is an uppercase type type
+
+			for (int i = 0; i < teamBoard.length; i++) { // row
+
+				for (int j = 0; j < teamBoard[i].length; j++) { // collumns
+
+					if (teamBoard[i][j].charAt(0) == (Character.toUpperCase(teamBoard[i][j].charAt(0)))) {
+						teamBoard[i][j] = " "; // get rid off it because its lower case and thus not on the same team
+					}
+				}
+			}
+		}
+
+		 System.out.println("our enemies: " + Arrays.deepToString(teamBoard));
+
+		return teamBoard;
+	}
+
+
 
 	private static String[][] deepCopyOf(String board[][]) {
 
