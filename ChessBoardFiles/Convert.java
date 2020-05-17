@@ -64,13 +64,20 @@ public class Convert{
 		return coor;
 	}
 	
-	public int [] convertArr(int arr[], int resolutionFactor){
+	public int[] convertArr(int arr[], int resolutionFactor){
 
 		arr[0] = convertPos(arr[0], resolutionFactor);
 		arr[1] = convertPos(arr[1], 0);
 
 		return arr;
 		
+	}
+
+	public Coordinate convCoor(Coordinate coord, int resolutionFactor){
+
+		Coordinate newCoord = new Coordinate(convertPos(coord.getY(), resolutionFactor), convertPos(coord.getX(), resolutionFactor));
+
+		return newCoord;
 	}
 
 }

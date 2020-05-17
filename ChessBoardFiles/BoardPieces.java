@@ -25,6 +25,11 @@ public class BoardPieces{
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
 
+	public int[][] movement(Coordinate coord){
+
+		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
+	}
+
 	public void click(int[] initialClick , int[] finalClick){
 		
 		Coordinate firstClick = new Coordinate(initialClick[0], initialClick[1]);

@@ -13,13 +13,16 @@ public class PieceTest {
 			legalMoves.addAll(getRookMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
-			Collections.copy(legalMoves, knightLegalMoves(location, board, piece));
+			//Collections.copy(legalMoves, knightLegalMoves(location, board, piece));
+			legalMoves.addAll(knightLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
-			Collections.copy(legalMoves, bishopLegalMoves(location, board, piece));
+			//Collections.copy(legalMoves, bishopLegalMoves(location, board, piece));
+			legalMoves.addAll(bishopLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Queen")) {
-			Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
+			//Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
+			legalMoves.addAll(queenLegalMoves(location, board, piece));
 
 	/*	} else if (piece.equalsIgnoreCase("King")) {
 			System.out.println("king moved");

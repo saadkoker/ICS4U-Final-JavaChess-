@@ -53,21 +53,23 @@ public class ClickListener extends MouseAdapter{
 		return coordinate;
 	}
 
-	public int[] getClick() throws InterruptedException{ //this is called by other methods that wish to get a click
+	public Coordinate getClick() throws InterruptedException{ //this is called by other methods that wish to get a click
 		
 		//System.out.println("getClick");
-		int[] userClick = new int[2];
+		//int[] userClick = new int[2];
+		Coordinate click;
 
 		synchronized(ClickListener.this){ //also synced to this specific class
 	
 			//System.out.println("waiting");
 			wait(); //waiting for a click to happen -> we are now concurrantly ruining with the click method
 			
-			userClick[0] = y;//--> row major
-			userClick[1] = x;
+			click = new Coordinate(y,x);
+			//userClick[0] = y;//--> row major
+			//userClick[1] = x;
 			//System.out.println("not waiting");
 		}
-		return userClick; //returning the click
+		return click; //returning the click
 	}
 	
 }

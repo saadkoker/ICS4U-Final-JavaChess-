@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,13 +46,21 @@ public class ChessScreen{ //this is our main interface where the game operations
 		System.out.println("You have 250 clicks, dont waste them!");
 
 		while(clickyTime){ //just a test loop
-			
+		/*
 			int[] initialClick = click.getClick();
 			initialClick = conv.convertArr(initialClick, 62); //Saad this wont work for your resolution--> change the value to 60 for your machine
 			int[] finalClick = click.getClick();
 			finalClick = conv.convertArr(finalClick, 62); //for mac u need the value 42
 			cb.clickSomething(initialClick, finalClick);
 			count++;
+		*/
+
+			Coordinate initialClick = click.getClick();
+			initialClick = conv.convCoor(initialClick, 42);
+			BoardPieces moves = new BoardPieces();
+
+			System.out.println("The legal moves for the click at location: " + initialClick.getY() + " , " + initialClick.getX() + " are: "
+			+ Arrays.deepToString(moves.movement(initialClick)));
 
 			if (count == 250)
 				clickyTime = false;
