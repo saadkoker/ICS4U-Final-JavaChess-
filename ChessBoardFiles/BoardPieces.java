@@ -37,12 +37,13 @@ public class BoardPieces{
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
 
+	*/
 	public ArrayList<Coordinate> movement(Coordinate coord){
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
-	*/
-
+	
+/*
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
 		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
@@ -50,8 +51,7 @@ public class BoardPieces{
 	}
 
 
-	/*
-
+*/
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 

@@ -74,21 +74,27 @@ public class ChessScreen{ //this is our main interface where the game operations
 			click1 = conv.convCoor(click1, 42);
 			click2 = conv.convCoor(click2, 42);
 
+			
 			ArrayList<Coordinate> legalMoves = moves.movement(click1);
 
 			boolean legal = false;
+
 			for (Coordinate c: legalMoves){
 				
-				if(c.equals(c))
+				if(c.equals(click2)){
 					legal = true;
+					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
+				}
 			}
 
-			if(legal)
+			if(legal){
 				cb.clickSomething(click1, click2);
+			}
 
-			else
+			else if (!legal){
 				System.out.println("invalid move, please try again");
-
+			}
+			
 
 			if (count == 250)
 				clickyTime = false;
