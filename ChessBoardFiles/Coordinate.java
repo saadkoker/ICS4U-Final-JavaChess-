@@ -18,4 +18,15 @@ public class Coordinate
 	{
 		return y; //returns y
 	}
+
+	private boolean equals(Coordinate coord){
+
+		boolean equality = false;
+
+		if (coord.getX() == x && coord.getY() == y){
+			equality = true;
+		}
+
+		return equality;
+	}
 } 

@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
 import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
+import java.util.ArrayList;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
@@ -45,7 +45,10 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 		System.out.println("You have 250 clicks, dont waste them!");
 
+		BoardPieces moves = new BoardPieces();
+
 		while(clickyTime){ //just a test loop
+
 		/*
 			int[] initialClick = click.getClick();
 			initialClick = conv.convertArr(initialClick, 62); //Saad this wont work for your resolution--> change the value to 60 for your machine
@@ -53,7 +56,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 			finalClick = conv.convertArr(finalClick, 62); //for mac u need the value 42
 			cb.clickSomething(initialClick, finalClick);
 			count++;
-		*/
+		
 
 			Coordinate initialClick = click.getClick();
 
@@ -63,6 +66,29 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			System.out.println("The legal moves for the click at location: " + initialClick.getY() + " , " + initialClick.getX() + " are: "
 			+ Arrays.deepToString(moves.movement(initialClick)));
+		*/
+
+			Coordinate click1 = click.getClick();
+			System.out.println("Click recieved, please click a destination");
+			Coordinate click2 = click.getClick();
+			click1 = conv.convCoor(click1, 42);
+			click2 = conv.convCoor(click2, 42);
+
+			ArrayList<Coordinate> legalMoves = moves.movement(click1);
+
+			boolean legal = false;
+			for (Coordinate c: legalMoves){
+				if(c.equals(c))
+					legal = true;
+			}
+
+			if(legal)
+				cb.clickSomething(click1, click2);
+
+			else
+				System.out.println("invalid move, please try again");
+
+
 
 			if (count == 250)
 				clickyTime = false;
