@@ -167,36 +167,38 @@ public class PieceTest {
 
 		String[][] teamBoard = getTeam(board, piece);
 
-		for (int j = x + 1, i = y + 1; j < board.length && i < board.length; j++, i++) {
-			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+		for (int j = x, i = y; j < board.length && i < board.length; j++, i++) {
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x - 1, i = y + 1; j > -1 && i < board.length; j--, i++) {
-			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+		for (int j = x, i = y; j > -1 && i < board.length; j--, i++) {
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x - 1, i = y - 1; j > -1 && i > -1; j--, i--) {
-			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+		for (int j = x, i = y; j > -1 && i > -1; j--, i--) {
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x + 1, i = y - 1; j < board.length && i > -1; j++, i--) {
-			if ((!isOutOfBounds(j, i)) && (teamBoard[j][i].equals(" "))) {
+		for (int j = x, i = y; j < board.length && i > -1; j++, i--) {
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
 		return coords;
+
 	}
+
 	public static ArrayList<Coordinate> knightLegalMoves(Coordinate location, String[][] board, String piece) {
 
 		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{1,-2}};
