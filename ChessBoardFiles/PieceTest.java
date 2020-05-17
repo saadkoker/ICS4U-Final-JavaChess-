@@ -46,8 +46,6 @@ public class PieceTest {
 		
 		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>();
 
-<<<<<<< HEAD
-=======
 		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
 		String[][] myTeam = getTeam(board, piece);
 
@@ -60,7 +58,6 @@ public class PieceTest {
 			}
 		}
 
->>>>>>> 741e35f94f3c1526d3c6ccdd9465ef5a4d6cebf0
 		return kingMoves;
 
 	}

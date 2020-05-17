@@ -42,9 +42,17 @@ public class BoardPieces{
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
-<<<<<<< HEAD
 	*/
-=======
+
+	public void click(Coordinate coordStart, Coordinate coordDestination){
+
+		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
+		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
+	}
+
+
+	/*
+
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
@@ -53,7 +61,7 @@ public class BoardPieces{
 	}
 
 	/*
->>>>>>> 741e35f94f3c1526d3c6ccdd9465ef5a4d6cebf0
+
 	public void click(int[] initialClick , int[] finalClick){
 		
 		Coordinate firstClick = new Coordinate(initialClick[0], initialClick[1]);
