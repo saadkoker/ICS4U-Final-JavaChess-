@@ -129,6 +129,7 @@ public class PieceTest {
 
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 		String[][] myTeam = getTeam(board, piece);
+		String[][] enemyTeam = getEnemyTeam(board, piece);
 		int x = location.getX();
 		int y = location.getY();
 
@@ -141,28 +142,28 @@ public class PieceTest {
 		// ROOKS, BISHOP, QUEEN
 
 		for (int i = x + 1, j = y; i < board.length; i++) { // Generates all possible moves going up
-			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
 		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going down
-			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
-		for (int j = y + 1, i = x; i < board.length; i++) { // Generates all possible moves going right
-			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
+		for (int j = y + 1, i = x; i < board.length; j++) { // Generates all possible moves going right
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
-		for (int j = y - 1, i = x; i < board.length; i++) { // Generates all possible moves going left
-			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
+		for (int j = y - 1, i = x; i < board.length; j--) { // Generates all possible moves going left
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
