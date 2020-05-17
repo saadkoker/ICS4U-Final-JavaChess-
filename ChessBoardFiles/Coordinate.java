@@ -19,7 +19,7 @@ public class Coordinate
 		return y; //returns y
 	}
 
-	private boolean equals(Coordinate coord){
+	public boolean equals(Coordinate coord){
 
 		boolean equality = false;
 

@@ -69,10 +69,10 @@ public class ChessScreen{ //this is our main interface where the game operations
 		*/
 
 			Coordinate click1 = click.getClick();
-			System.out.println("Click recieved, please click a destination");
+			message.setText("Click recieved, please click a destination");
 			Coordinate click2 = click.getClick();
-			click1 = conv.convCoor(click1, 42);
-			click2 = conv.convCoor(click2, 42);
+			click1 = conv.convCoor(click1, 60);
+			click2 = conv.convCoor(click2, 60);
 
 			
 			ArrayList<Coordinate> legalMoves = moves.movement(click1);
@@ -80,7 +80,6 @@ public class ChessScreen{ //this is our main interface where the game operations
 			boolean legal = false;
 
 			for (Coordinate c: legalMoves){
-				
 				if(c.equals(click2)){
 					legal = true;
 					System.out.println("black beans");
@@ -90,10 +89,11 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			if(legal){
 				cb.clickSomething(click1, click2);
+				message.setText("Piece Moved");
 			}
 
 			else if (!legal){
-				System.out.println("invalid move, please try again");
+				message.setText("Invalid move, please try again");
 			}
 			
 
