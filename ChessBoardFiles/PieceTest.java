@@ -203,19 +203,19 @@ public class PieceTest {
 
 		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{1,-2}};
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
-		int clickCoordY = location.getX();
-		int clickCoordX = location.getY();
+		int clickCoordY = location.getY();
+		int clickCoordX = location.getX();
 		int[][] coords = new int[8][2];
+		String[][] myTeam = getTeam(board, piece);
 
 		for (int i = 0; i < squareMaps.length; i++) {
-			moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
-		}
 
-		for (int i = 0; i < moves.size(); i++) {
-			if(moves.get(i).getX() == -1){
-				moves.remove(i);
+			if ((!isOutOfBounds(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1])) && myTeam[clickCoordY + squareMaps[i][0]][clickCoordX + squareMaps[i][1]].equals(" ")){
+			
+				moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
 			}
 		}
+
 		return moves;
 	}
 
