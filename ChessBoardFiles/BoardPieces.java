@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.imageio.ImageIO;
 
 public class BoardPieces{
@@ -34,7 +33,10 @@ public class BoardPieces{
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
 		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
+		System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
 		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
+
+		
 	}
 
 	/*

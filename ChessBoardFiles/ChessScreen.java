@@ -78,6 +78,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			boolean legal = false;
 			for (Coordinate c: legalMoves){
+				
 				if(c.equals(c))
 					legal = true;
 			}
@@ -87,7 +88,6 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			else
 				System.out.println("invalid move, please try again");
-
 
 
 			if (count == 250)
