@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
@@ -25,11 +26,18 @@ public class BoardPieces{
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
 
-	public int[][] movement(Coordinate coord){
+	public ArrayList<Coordinate> movement(Coordinate coord){
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
 
+	public void click(Coordinate coordStart, Coordinate coordDestination){
+
+		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
+		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
+	}
+
+	/*
 	public void click(int[] initialClick , int[] finalClick){
 		
 		Coordinate firstClick = new Coordinate(initialClick[0], initialClick[1]);
@@ -60,6 +68,7 @@ public class BoardPieces{
 		//System.out.println("current array: " + Arrays.deepToString(boardPieces));
 
 	}
+*/
 
 	public void setupPieces(Graphics g){
 
@@ -133,7 +142,6 @@ public class BoardPieces{
 			drawPic(pawn7, g, "pawn7");
 			drawPic(pawn8, g, "pawn8");
 
-			System.out.println("we just painted those bois");
 		}catch(IOException e){
 			e.printStackTrace();
 		}

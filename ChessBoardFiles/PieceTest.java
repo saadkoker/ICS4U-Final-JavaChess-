@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class PieceTest {
 
-	public int[][] getLegalMoves(Coordinate location, String piece, String[][] board) {
+	public ArrayList<Coordinate> getLegalMoves(Coordinate location, String piece, String[][] board) {
 
 		ArrayList<Coordinate> legalMoves = new ArrayList<Coordinate>();
 
@@ -39,7 +39,7 @@ public class PieceTest {
 			finalSend[i][1] = legalMoves.get(i).getX();
 			finalSend[i][0] = legalMoves.get(i).getY();
 		}
-		return finalSend;
+		return legalMoves;
 	}
 
 	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece){

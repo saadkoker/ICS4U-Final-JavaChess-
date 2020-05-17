@@ -42,7 +42,7 @@ public class ChessBoard extends JPanel{ //extending JPanel
 		bp.setupPieces(g);
 	}
 
-	public void clickSomething(int[] initialClick, int[] finalClick){
+	public void clickSomething(Coordinate initialClick, Coordinate finalClick){
 
 	  //System.out.println("first click:" + Arrays.toString(initialClick));
 	  //System.out.println("final click:" + Arrays.toString(finalClick));
