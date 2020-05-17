@@ -121,29 +121,29 @@ public class PieceTest {
 		// ROOKS, BISHOP, QUEEN
 
 		for (int i = x + 1, j = y; i < board.length; i++) { // Generates all possible moves going up
-			if (!isOutOfBounds(i, j) && myTeam[i][j] == " ") {
+			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
 		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going down
-			if (!isOutOfBounds(i, j) && myTeam[i][j] == " ") {
+			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
 				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
-		for (int i = y + 1, j = x; i < board.length; i++) { // Generates all possible moves going right
+		for (int j = y + 1, i = x; i < board.length; i++) { // Generates all possible moves going right
 			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
-				moves.add(new Coordinate(i, j));
+				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
 		}
-		for (int i = y - 1, j = x; i < board.length; i++) { // Generates all possible moves going left
+		for (int j = y - 1, i = x; i < board.length; i++) { // Generates all possible moves going left
 			if (!isOutOfBounds(j, i) && myTeam[j][i] == " ") {
-				moves.add(new Coordinate(i, j));
+				moves.add(new Coordinate(j, i));
 			} else {
 				break;
 			}
@@ -167,28 +167,28 @@ public class PieceTest {
 
 		String[][] teamBoard = getTeam(board, piece);
 
-		for (int j = x, i = y; j < board.length && i < board.length; j++, i++) {
+		for (int j = x+1, i = y+1; j < board.length && i < board.length; j++, i++) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x, i = y; j > -1 && i < board.length; j--, i++) {
+		for (int j = x-1, i = y+1; j > -1 && i < board.length; j--, i++) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x, i = y; j > -1 && i > -1; j--, i--) {
+		for (int j = x-1, i = y-1; j > -1 && i > -1; j--, i--) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x, i = y; j < board.length && i > -1; j++, i--) {
+		for (int j = x+1, i = y-1; j < board.length && i > -1; j++, i--) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
