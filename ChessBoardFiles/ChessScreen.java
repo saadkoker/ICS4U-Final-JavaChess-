@@ -81,7 +81,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			for (Coordinate c: legalMoves){
 				
-				if(c.equals(click2)){
+				if(c.isEquals(click2)){
 					legal = true;
 					System.out.println("black beans");
 					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());

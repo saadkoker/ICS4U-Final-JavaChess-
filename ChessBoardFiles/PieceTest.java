@@ -319,7 +319,7 @@ public class PieceTest {
 			}
 		}
 
-		 System.out.println("our enemies: " + Arrays.deepToString(teamBoard));
+		 //System.out.println("our enemies: " + Arrays.deepToString(teamBoard));
 
 		return teamBoard;
 	}
