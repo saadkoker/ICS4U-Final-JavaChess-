@@ -42,6 +42,14 @@ public class PieceTest {
 		return finalSend;
 	}
 
+	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece){
+		
+		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>();
+
+		
+
+	}
+
 	public static ArrayList<Coordinate> pawnLegalMoves(Coordinate location, String[][] board, String piece){
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<Coordinate>();
