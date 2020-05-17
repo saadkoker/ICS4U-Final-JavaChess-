@@ -24,10 +24,10 @@ public class PieceTest {
 			//Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
 			legalMoves.addAll(queenLegalMoves(location, board, piece));
 
-	/*	} else if (piece.equalsIgnoreCase("King")) {
+		} else if (piece.equalsIgnoreCase("King")) {
 			System.out.println("king moved");
-			legalMoves = kingLegalMoves(location, piece, board);
-*/
+			legalMoves = kingLegalMoves(location, board, piece);
+
 		} else if (piece.contains("pawn") || piece.contains("Pawn")) { // sets legal moves for pawns
 			//Collections.copy(legalMoves, pawnLegalMoves(location, board, piece));
 			legalMoves.addAll(pawnLegalMoves(location, board, piece));
@@ -46,7 +46,19 @@ public class PieceTest {
 		
 		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>();
 
-		
+		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
+		String[][] myTeam = getTeam(board, piece);
+
+		int clickCoordY = location.getY(); 
+		int clickCoordX = location.getX();
+
+		for (int i = 0; i < squareMaps.length; i++) {
+			if (!isOutOfBounds((clickCoordY - squareMaps[i][0]), clickCoordX - squareMaps[i][1]) && (myTeam[clickCoordY - squareMaps[i][0]][clickCoordX - squareMaps[i][1]] == " ")){
+				kingMoves.add(new Coordinate(clickCoordY - squareMaps[i][0], clickCoordX - squareMaps[i][1]));
+			}
+		}
+
+		return kingMoves;
 
 	}
 
@@ -225,88 +237,6 @@ public class PieceTest {
 		}
 
 		return moves;
-	}
-
-	public static boolean teamInPos(int y1, int x1, int y2, int x2, String[][] board, String piece, String direction) {
-
-		boolean team_mate = false;
-		String[][] myTeam = getTeam(board, piece);
-
-		if (direction.equals("down")) {
-
-			for (int i = y1 + 1; i < y2; i++) {
-
-				if (myTeam[i][x1] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + i + " and x: " + x2 + " it's a " + myTeam[i][x2]);
-					return true;
-				}
-			}
-		}
-
-		if (direction.equals("up")) {
-
-			for (int i = y2; i < y1; i++) {
-
-				if (myTeam[i][x1] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + i + " and x: " + x2 + " it's a " + myTeam[i][x2]);
-					return true;
-				}
-			}
-		}
-
-		if (direction.equals("left")) {
-
-			for (int i = x2; i <= x1 - 1; i++) {
-
-				if (myTeam[y2][i] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + i + " it's a " + myTeam[y2][i]);
-					return true;
-				}
-			}
-		}
-
-		if (direction.equals("right")) {
-
-			for (int i = x1 + 1; i < x2; i++) {
-
-				if (myTeam[y2][i] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + y2 + " and x: " + i + " it's a " + myTeam[y2][i]);
-					return true;
-				}
-			}
-		}
-
-		if (direction.equals("diagOne")) {
-
-			for (int i = x1 + 1; i < x2; i++) { // this is the easier variant of the diagonal relationship
-
-				if (myTeam[i][i] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + i + " and x: " + i + " it's a " + myTeam[i][i]);
-					return true;
-				}
-			}
-		}
-
-		if (direction.equals("diagTwo")) {
-
-			for (int i = y2 + 1, j = x1; i < y1 && j < x2; i++, j++) { // this is the harder variant of the diagonal
-																		// relationship
-
-				if (myTeam[i][j] != " ") {
-					team_mate = true;
-					System.out.println("You have a team mate @ y: " + i + " and x: " + j + " it's a " + myTeam[i][j]);
-					return true;
-				}
-			}
-
-		}
-
-		return team_mate;
 	}
 
 	private static boolean isOutOfBounds(int y, int x) {
