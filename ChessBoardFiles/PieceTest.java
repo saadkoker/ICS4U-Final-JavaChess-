@@ -303,7 +303,7 @@ public class PieceTest {
 
 	private static boolean isOutOfBounds(int y, int x) {
 
-		if ((x >= 8 || x <= 0) || (y >= 8 || y <= 0))
+		if ((x >= 8 || x < 0) || (y >= 8 || y < 0))
 			return true;
 
 		else
