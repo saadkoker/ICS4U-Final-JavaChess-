@@ -56,7 +56,9 @@ public class ChessScreen{ //this is our main interface where the game operations
 		*/
 
 			Coordinate initialClick = click.getClick();
-			initialClick = conv.convCoor(initialClick, 42);
+
+			System.out.println("res values: " + initialClick.getY() + " , " + initialClick.getX());
+			initialClick = conv.convCoor(initialClick, 42);//mac: 42
 			BoardPieces moves = new BoardPieces();
 
 			System.out.println("The legal moves for the click at location: " + initialClick.getY() + " , " + initialClick.getX() + " are: "

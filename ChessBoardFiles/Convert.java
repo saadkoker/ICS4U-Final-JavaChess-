@@ -75,7 +75,7 @@ public class Convert{
 
 	public Coordinate convCoor(Coordinate coord, int resolutionFactor){
 
-		Coordinate newCoord = new Coordinate(convertPos(coord.getY(), resolutionFactor), convertPos(coord.getX(), resolutionFactor));
+		Coordinate newCoord = new Coordinate(convertPos(coord.getY(), resolutionFactor), convertPos(coord.getX(), 0));
 
 		return newCoord;
 	}
