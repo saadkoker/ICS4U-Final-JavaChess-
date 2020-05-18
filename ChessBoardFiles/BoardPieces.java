@@ -57,7 +57,6 @@ public class BoardPieces{
 		System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
 		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
 
-		
 	}
 
 	/*

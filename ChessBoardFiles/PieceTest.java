@@ -141,34 +141,45 @@ public class PieceTest {
 
 		// ROOKS, BISHOP, QUEEN
 
-		for (int i = x + 1, j = y; i < board.length; i++) { // Generates all possible moves going up
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+		for (int i = x + 1, j = y; i < 8; i++) { // Generates all possible moves right
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
-				break;
+			
+				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
+					break;
+				}
 			}
 		}
-		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going down
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going left
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
-				break;
+			
+				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
+					break;
+				}
 			}
 		}
-		for (int j = y + 1, i = x; i < board.length; j++) { // Generates all possible moves going right
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+		for (int j = y + 1, i = x; j < 8; j++) { // Generates all possible moves going down
+			
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
-				break;
+			
+				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
+					break;
+				}
 			}
 		}
-		for (int j = y - 1, i = x; i < board.length; j--) { // Generates all possible moves going left
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+		for (int j = y - 1, i = x; j < 8; j--) { // Generates all possible moves going up
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
-				break;
+			
+				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
+					break;
+				}
 			}
+
 		}
+		
 		return moves;
 	}
 
