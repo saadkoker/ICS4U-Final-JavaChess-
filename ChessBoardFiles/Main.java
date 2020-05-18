@@ -13,7 +13,7 @@ public class Main{
 	private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
 	public static void main(String args[]) throws InterruptedException{
 		
-		screen.startScreen(450, 450); //calling the startScreen method with a preset resolution
+		screen.startScreen(450, 470); //calling the startScreen method with a preset resolution
 	}
 
 		public static void introScreen() throws InterruptedException{ //this will be a method used in the future -> it is yet to be effectively implemented 
