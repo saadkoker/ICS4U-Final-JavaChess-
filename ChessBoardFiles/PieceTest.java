@@ -9,19 +9,19 @@ public class PieceTest {
 		ArrayList<Coordinate> legalMoves = new ArrayList<Coordinate>();
 
 		if (piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")) {
-			//Collections.copy(legalMoves, getRookMoves(location, board, piece));
+			// Collections.copy(legalMoves, getRookMoves(location, board, piece));
 			legalMoves.addAll(getRookMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
-			//Collections.copy(legalMoves, knightLegalMoves(location, board, piece));
+			// Collections.copy(legalMoves, knightLegalMoves(location, board, piece));
 			legalMoves.addAll(knightLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
-			//Collections.copy(legalMoves, bishopLegalMoves(location, board, piece));
+			// Collections.copy(legalMoves, bishopLegalMoves(location, board, piece));
 			legalMoves.addAll(bishopLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("Queen")) {
-			//Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
+			// Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
 			legalMoves.addAll(queenLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("King")) {
@@ -29,7 +29,7 @@ public class PieceTest {
 			legalMoves = kingLegalMoves(location, board, piece);
 
 		} else if (piece.contains("pawn") || piece.contains("Pawn")) { // sets legal moves for pawns
-			//Collections.copy(legalMoves, pawnLegalMoves(location, board, piece));
+			// Collections.copy(legalMoves, pawnLegalMoves(location, board, piece));
 			legalMoves.addAll(pawnLegalMoves(location, board, piece));
 		}
 
@@ -42,18 +42,19 @@ public class PieceTest {
 		return legalMoves;
 	}
 
-	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece){
-		
+	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece) {
+
 		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>();
 
-		int[][] squareMaps = {{1, 0}, {0, 1},{-1, 0},{0, -1},{1, 1},{-1, 1},{-1, -1},{1, -1}};
+		int[][] squareMaps = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 1 }, { -1, 1 }, { -1, -1 }, { 1, -1 } };
 		String[][] myTeam = getTeam(board, piece);
 
-		int clickCoordY = location.getY(); 
+		int clickCoordY = location.getY();
 		int clickCoordX = location.getX();
 
 		for (int i = 0; i < squareMaps.length; i++) {
-			if (!isOutOfBounds((clickCoordY - squareMaps[i][0]), clickCoordX - squareMaps[i][1]) && (myTeam[clickCoordY - squareMaps[i][0]][clickCoordX - squareMaps[i][1]] == " ")){
+			if (!isOutOfBounds((clickCoordY - squareMaps[i][0]), clickCoordX - squareMaps[i][1])
+					&& (myTeam[clickCoordY - squareMaps[i][0]][clickCoordX - squareMaps[i][1]] == " ")) {
 				kingMoves.add(new Coordinate(clickCoordY - squareMaps[i][0], clickCoordX - squareMaps[i][1]));
 			}
 		}
@@ -62,61 +63,66 @@ public class PieceTest {
 
 	}
 
-	public static ArrayList<Coordinate> pawnLegalMoves(Coordinate location, String[][] board, String piece){
+	public static ArrayList<Coordinate> pawnLegalMoves(Coordinate location, String[][] board, String piece) {
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<Coordinate>();
 
 		int y = location.getY();
-        int x = location.getX();
-        int count = 0;
+		int x = location.getX();
+		int count = 0;
 
-		if ((y == 1) && (board[3][x] == " ")){
-			pawnMoves.add(new Coordinate(3,x)); //legalising 2 square movement on the first move
+		if ((y == 1) && (board[3][x] == " ")) {
+			pawnMoves.add(new Coordinate(3, x)); // legalising 2 square movement on the first move
 			count++;
 		}
 
-		else if ((y == 6) && (board[4][x] == " ")){ //pawns get to move 2 blocks on first move (P1 varient)
-			pawnMoves.add(new Coordinate(4,x));
+		else if ((y == 6) && (board[4][x] == " ")) { // pawns get to move 2 blocks on first move (P1 varient)
+			pawnMoves.add(new Coordinate(4, x));
 			count++;
 		}
 
-		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))){ //we are checking if the first character in the piece is lowercase
+		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
+																			// the piece is lowercase
 
-			if(y > 0) {
+			if (y > 0) {
 
-				if(board[y-1][x] == " ") {
-					pawnMoves.add(new Coordinate(y-1, x));
+				if (board[y - 1][x] == " ") {
+					pawnMoves.add(new Coordinate(y - 1, x));
 					count++;
 				}
 
-				if((x > 0) && (board[y-1][x-1] != " ")) { //checking if there's a piece diagnolly available -> up and to the left
-					pawnMoves.add(new Coordinate(y-1, x-1));
+				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
+																// and to the left
+					pawnMoves.add(new Coordinate(y - 1, x - 1));
 					count++;
 				}
 
-				if((x < 7) && (board[y-1][x+1] != " ")) { //checking if there's a piece diagnolly available --> up and to the right
-					pawnMoves.add(new Coordinate(y-1, x+1));
+				if ((x <= 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+																// up and to the right
+					pawnMoves.add(new Coordinate(y - 1, x + 1));
 					count++;
 				}
 			}
 		}
 
-		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))){
+		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))) {
 
-			if(y < 7) {
+			if (y <= 7) {
 
-				if((board[y+1][x] == " ")){
-					pawnMoves.add(new Coordinate(y+1, x));
+				if ((board[y + 1][x] == " ")) {
+					pawnMoves.add(new Coordinate(y + 1, x));
 					count++;
 				}
 
-				if((x > 1) && (board[y+1][x-1] != " ")) { //checking if there's a piece diagnolly available -> down and to the left
-					pawnMoves.add(new Coordinate(y+1, x-1));
+				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
+																// down and to the left
+					pawnMoves.add(new Coordinate(y + 1, x - 1));
 					count++;
 				}
 
-				if((x < 7) && (board[y+1][x+1] != " ")) { //checking if there's a piece diagnolly available --> down and to the right
-					pawnMoves.add(new Coordinate(y+1, x+1));
+				if ((x <= 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+																// down and to the right
+					pawnMoves.add(new Coordinate(y + 1, x + 1));
 					count++;
 				}
 			}
@@ -125,6 +131,7 @@ public class PieceTest {
 		return pawnMoves;
 
 	}
+
 	public static ArrayList<Coordinate> getRookMoves(Coordinate location, String[][] board, String piece) {
 
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
@@ -132,6 +139,7 @@ public class PieceTest {
 		String[][] enemyTeam = getEnemyTeam(board, piece);
 		int x = location.getX();
 		int y = location.getY();
+		int counter = 0;
 
 		// Rules: it must be straight lines
 		// => we have four directions to check
@@ -142,30 +150,49 @@ public class PieceTest {
 		// ROOKS, BISHOP, QUEEN
 
 		for (int i = x + 1, j = y; i < board.length; i++) { // Generates all possible moves going up
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
+			}
+			if(!isOutOfBounds(j, i) && ((enemyTeam[j][i] != " " && counter == 0))){
+				moves.add(new Coordinate(j, i));
+			} 
+			else {
 				break;
 			}
 		}
+		counter = 0;
 		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going down
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
+			}
+			if(!isOutOfBounds(j, i) && ((enemyTeam[j][i] != " " && counter == 0))){
+				moves.add(new Coordinate(j, i));
+			} 
+			else {
 				break;
 			}
 		}
+		counter = 0;
 		for (int j = y + 1, i = x; i < board.length; j++) { // Generates all possible moves going right
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
+			}
+			if(!isOutOfBounds(j, i) && (((myTeam[j][i] == " ")) && (enemyTeam[j][i] != " " && counter == 0))){
+				moves.add(new Coordinate(j, i));
+			} 
+			else {
 				break;
 			}
 		}
+		counter = 0;
 		for (int j = y - 1, i = x; i < board.length; j--) { // Generates all possible moves going left
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " ") && (enemyTeam[j][i] == " "))) {
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
 				moves.add(new Coordinate(j, i));
-			} else {
+			}
+			else if(!isOutOfBounds(j, i) && ((enemyTeam[j][i] != " " && counter == 0))){
+				moves.add(new Coordinate(j, i));
+			} 
+			else {
 				break;
 			}
 		}
@@ -173,7 +200,7 @@ public class PieceTest {
 	}
 
 	public static ArrayList<Coordinate> queenLegalMoves(Coordinate location, String[][] board, String piece) {
-		
+
 		ArrayList<Coordinate> moves = getRookMoves(location, board, piece);
 		moves.addAll(bishopLegalMoves(location, board, piece));
 
@@ -188,28 +215,28 @@ public class PieceTest {
 
 		String[][] teamBoard = getTeam(board, piece);
 
-		for (int j = x+1, i = y+1; j < board.length && i < board.length; j++, i++) {
+		for (int j = x + 1, i = y + 1; j < board.length && i < board.length; j++, i++) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x-1, i = y+1; j > -1 && i < board.length; j--, i++) {
+		for (int j = x - 1, i = y + 1; j > -1 && i < board.length; j--, i++) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x-1, i = y-1; j > -1 && i > -1; j--, i--) {
+		for (int j = x - 1, i = y - 1; j > -1 && i > -1; j--, i--) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
 				break;
 			}
 		}
-		for (int j = x+1, i = y-1; j < board.length && i > -1; j++, i--) {
+		for (int j = x + 1, i = y - 1; j < board.length && i > -1; j++, i--) {
 			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
 				coords.add(new Coordinate(i, j));
 			} else {
@@ -222,7 +249,7 @@ public class PieceTest {
 
 	public static ArrayList<Coordinate> knightLegalMoves(Coordinate location, String[][] board, String piece) {
 
-		int[][] squareMaps = {{-2, 1},{-1, 2},{1, 2},{2, 1},{2, -1},{-2, -1},{-1, -2},{1,-2}};
+		int[][] squareMaps = { { -2, 1 }, { -1, 2 }, { 1, 2 }, { 2, 1 }, { 2, -1 }, { -2, -1 }, { -1, -2 }, { 1, -2 } };
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 		int clickCoordY = location.getY();
 		int clickCoordX = location.getX();
@@ -231,8 +258,9 @@ public class PieceTest {
 
 		for (int i = 0; i < squareMaps.length; i++) {
 
-			if ((!isOutOfBounds(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1])) && myTeam[clickCoordY + squareMaps[i][0]][clickCoordX + squareMaps[i][1]].equals(" ")){
-			
+			if ((!isOutOfBounds(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]))
+					&& myTeam[clickCoordY + squareMaps[i][0]][clickCoordX + squareMaps[i][1]].equals(" ")) {
+
 				moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
 			}
 		}
@@ -282,7 +310,7 @@ public class PieceTest {
 			}
 		}
 
-		// System.out.println("our team: " + Arrays.deepToString(teamBoard));
+		System.out.println("our team: " + Arrays.deepToString(teamBoard));
 
 		return teamBoard;
 	}
@@ -319,12 +347,10 @@ public class PieceTest {
 			}
 		}
 
-		 //System.out.println("our enemies: " + Arrays.deepToString(teamBoard));
+		System.out.println("our enemies: " + Arrays.deepToString(teamBoard));
 
 		return teamBoard;
 	}
-
-
 
 	private static String[][] deepCopyOf(String board[][]) {
 

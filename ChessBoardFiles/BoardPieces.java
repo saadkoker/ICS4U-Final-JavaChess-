@@ -14,6 +14,7 @@ public class BoardPieces{
 	private static Convert conv = new Convert();
 	private static PieceTest piece = new PieceTest();
 	
+	/*
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
 		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
@@ -24,8 +25,8 @@ public class BoardPieces{
 		{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
+	*/
 	
-	/*
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
 		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
@@ -36,8 +37,7 @@ public class BoardPieces{
 		{" " , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
-
-	*/
+	
 	public ArrayList<Coordinate> movement(Coordinate coord){
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
