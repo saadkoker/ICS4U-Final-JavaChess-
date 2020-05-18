@@ -71,8 +71,8 @@ public class ChessScreen{ //this is our main interface where the game operations
 			Coordinate click1 = click.getClick();
 			message.setText("Click recieved, please click a destination");
 			Coordinate click2 = click.getClick();
-			click1 = conv.convCoor(click1, 60);
-			click2 = conv.convCoor(click2, 60);
+			click1 = conv.convCoor(click1, 42);
+			click2 = conv.convCoor(click2, 42);
 
 			
 			ArrayList<Coordinate> legalMoves = moves.movement(click1);
