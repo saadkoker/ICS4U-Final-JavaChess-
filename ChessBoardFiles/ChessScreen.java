@@ -11,11 +11,11 @@ public class ChessScreen{ //this is our main interface where the game operations
 	private static ChessBoard cb = new ChessBoard(); //our ChessBoard object
 	private static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
+	private static JLabel message = new JLabel("This fat bruh moment");
 
 	public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 		
 		JFrame board = new JFrame("Chess");
-		JLabel message = new JLabel("This fat bruh moment");
 		JToolBar tools = new JToolBar();
 		JButton newGame = new JButton("New");
 		JButton saveGame = new JButton("Save");
@@ -40,69 +40,72 @@ public class ChessScreen{ //this is our main interface where the game operations
 		board.setResizable(true);
 
 
-		boolean clickyTime = true; 
+		//boolean clickyTime = true; 
+
 		int count = 0;
 
-		System.out.println("You have 250 clicks, dont waste them!");
+		//System.out.println("You have 250 clicks, dont waste them!");
 
+			boolean checkmate = false;
+
+			//for(int i = 1; checkmate == false; i++){ //occelating between white and black team
+
+			int i = 1;
+
+			while(!checkmate){
+			
+				if (i % 2 != 0){ //odd so it's white turn
+					message.setText("White's move");
+					myGame(0);
+					i++;
+				}
+
+				else { //even so black's turn
+					message.setText("Black's move");
+					myGame(1);
+					i++;
+				}
+			}
+	}
+	
+	public static void myGame(int team)throws InterruptedException{//team: 0 for white, 1 for black
+
+		boolean legal = false;
+
+		while(!legal){
+
+		Coordinate click1 = click.getClick();
+		message.setText("Click recieved, please click a destination");
+		Coordinate click2 = click.getClick();
+		click1 = conv.convCoor(click1, 42);
+		click2 = conv.convCoor(click2, 42);
+		
 		BoardPieces moves = new BoardPieces();
 
-		while(clickyTime){ //just a test loop
-
-		/*
-			int[] initialClick = click.getClick();
-			initialClick = conv.convertArr(initialClick, 62); //Saad this wont work for your resolution--> change the value to 60 for your machine
-			int[] finalClick = click.getClick();
-			finalClick = conv.convertArr(finalClick, 62); //for mac u need the value 42
-			cb.clickSomething(initialClick, finalClick);
-			count++;
-		
-
-			Coordinate initialClick = click.getClick();
-
-			System.out.println("res values: " + initialClick.getY() + " , " + initialClick.getX());
-			initialClick = conv.convCoor(initialClick, 42);//mac: 42
-			BoardPieces moves = new BoardPieces();
-
-			System.out.println("The legal moves for the click at location: " + initialClick.getY() + " , " + initialClick.getX() + " are: "
-			+ Arrays.deepToString(moves.movement(initialClick)));
-		*/
-
-			Coordinate click1 = click.getClick();
-			message.setText("Click recieved, please click a destination");
-			Coordinate click2 = click.getClick();
-			click1 = conv.convCoor(click1, 42);
-			click2 = conv.convCoor(click2, 42);
-
-			
-			ArrayList<Coordinate> legalMoves = moves.movement(click1);
-
-			boolean legal = false;
+		ArrayList<Coordinate> legalMoves = moves.movement(click1);
 
 			for (Coordinate c: legalMoves){
-				if(c.equals(click2)){
+				if(c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
 					legal = true;
 					System.out.println("black beans");
 					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
 				}
+
+				if(moves.getCase(click1.getY(), click1.getX()) != team)
+					message.setText("Invalid team");
 			}
 
 			if(legal){
 				cb.clickSomething(click1, click2);
 				message.setText("Piece Moved");
+				break;
 			}
 
 			else if (!legal){
 				message.setText("Invalid move, please try again");
 			}
-			
-
-			if (count == 250)
-				clickyTime = false;
 		}
 
-		System.out.println("clicky time has ended");
-
-	}		
+	}
 
 }

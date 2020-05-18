@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
+import java.util.Collections;
 
 public class BoardPieces{
 
@@ -24,34 +25,31 @@ public class BoardPieces{
 		{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
-	
-	/*
-	private static String boardPieces[][] = new String[][]{
-		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
-		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" " , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
-		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
-	};
 
-	*/
+	public String[][] getBoard(){
+		
+		return boardPieces;
+	}
+	
+	public int getCase(int y, int x){
+
+		if((boardPieces[y][x].charAt(0) == Character.toLowerCase(boardPieces[y][x].charAt(0))))
+			return 0; //lowercase
+		
+		
+		else if((boardPieces[y][x].charAt(0) == Character.toUpperCase(boardPieces[y][x].charAt(0))))
+			return 1; //uppercase
+		
+
+		else
+			return -1;
+	}
+
 	public ArrayList<Coordinate> movement(Coordinate coord){
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
 	
-/*
-	public void click(Coordinate coordStart, Coordinate coordDestination){
-
-		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
-		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
-	}
-
-
-*/
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
