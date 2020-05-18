@@ -1,24 +1,41 @@
 import java.util.*;
 import java.io.*;
 
-public class Save{
+public class Save {
 
-	private String[][] boardState;
-	private int time;
-
-	public Save(String[][] board, int saveTime){
-
-		this.time = saveTime;
-		this.boardState = Array.copyOf(board, board.length);
+	public Save() {
 
 	}
 
-	public static String[] stringFileScan(String fileName) throws IOException {
+	/*
+	 * public String[][] import(String fileName) throws IOException {
+	 * 
+	 * File input = new File(fileName); Scanner scan = new Scanner(input); int
+	 * counter = 0;
+	 * 
+	 * return convertArray; }
+	 */
+	public void export(String[][] board, String directory) {
 
-		File input = new File(fileName);
-		Scanner scan = new Scanner(input);
-		int counter = 0;
+		try {
+			
+			PrintWriter print = new PrintWriter(new File("saveTest.cb"));
 
-		return convertArray;
+			for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[i].length; j++) {
+					if(board[i][j] == " "){
+						print.println("\n");
+						System.out.println(board[i][j]);
+					}
+					else if(board[i][j] != " "){
+						print.println(board[i][j]);
+						System.out.println(board[i][j]);
+					}
+				}
+			}
+			print.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 }

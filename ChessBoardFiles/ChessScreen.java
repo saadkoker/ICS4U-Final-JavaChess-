@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
-import java.util.Arrays;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
-import java.util.ArrayList;
+import java.awt.event.*;  
+import javax.swing.*;    
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
@@ -12,6 +14,18 @@ public class ChessScreen{ //this is our main interface where the game operations
 	private static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
 	private static JLabel message = new JLabel("This fat bruh moment");
+	private static Save gameSave = new Save();
+
+	private static String boardPieces[][] = new String[][]{
+		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
+		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
+		{" ", " " , " " , " " , " " , " " , " " , " " },
+		{" ", " " , " " , " " , " " , " " , " " , " " },
+		{" ", " " , " " , " " , " " , " " , " " , " " },
+		{" ", " " , " " , " " , " " , " " , " " , " " },
+		{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
+		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
+	};
 
 	public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 		
@@ -19,6 +33,16 @@ public class ChessScreen{ //this is our main interface where the game operations
 		JToolBar tools = new JToolBar();
 		JButton newGame = new JButton("New");
 		JButton saveGame = new JButton("Save");
+		saveGame.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+				/*
+				JFileChooser f = new JFileChooser();
+				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+				f.showSaveDialog(null);
+				*/
+				gameSave.export(boardPieces, null);
+				}  
+			});  
 		JButton undoButton = new JButton("Undo");
 		JButton resignButton = new JButton("Resign");
 		tools.setFloatable(false);
