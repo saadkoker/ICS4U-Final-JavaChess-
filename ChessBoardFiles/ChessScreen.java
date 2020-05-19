@@ -18,7 +18,6 @@ public class ChessScreen{ //this is our main interface where the game operations
 	private static Convert conv = new Convert(); //our Convert object
 	private static JLabel message = new JLabel("This fat bruh moment");
 	private static Save gameSave = new Save();
-	private static String[][] newBoard;
 
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -56,7 +55,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 		JButton openButton = new JButton("Open");
 		
 		openButton.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){  
+			public void actionPerformed(ActionEvent e){
 				
 				JFileChooser f = new JFileChooser();
 				JButton open = new JButton();
@@ -66,7 +65,9 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
 					String path = f.getSelectedFile().getAbsolutePath();
-					System.out.println(Arrays.deepToString(gameSave.fromSave(path)));
+					System.out.println(path);
+					String[][] newBoard = gameSave.fromSave(path);
+					System.out.println(Arrays.deepToString(newBoard));
 				}
 			}  
 		});  

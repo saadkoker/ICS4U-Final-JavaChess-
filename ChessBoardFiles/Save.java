@@ -3,24 +3,24 @@ import java.io.*;
 
 public class Save {
 
-	public String[][] fromSave(String fileName) {
+	public String[][] fromSave(String directory) {
 
 		String[][] board = new String[8][8];
 
 		try {
-			File input = new File(fileName);
-			Scanner scan;
+			File input = new File(directory);
+			
+			Scanner scan = new Scanner(input);
 
-			scan = new Scanner(input);
-
-			for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					String temp = scan.next();
-					if (temp.equals("space")) {
+			for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[i].length; j++) {
+					
+					String tempString = scan.nextLine();
+					if (tempString.equals("space")) {
 						board[i][j] = " ";
 					}
 					else{
-						board[i][j] = scan.next();
+						board[i][j] = tempString;
 					}
 				}
 			}
