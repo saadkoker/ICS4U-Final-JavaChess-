@@ -27,8 +27,95 @@ public class PieceTest {
 		} else if (piece.contains("pawn") || piece.contains("Pawn")) { //if piece is pawn call pawnLegalMoves and save it to legalMoves
 			legalMoves.addAll(pawnLegalMoves(location, board, piece));
 		}
+		else if(piece.contains("p_attack")){
+			legalMoves.addAll(getPawnAttack(location, board, piece));
+		}
 
 		return legalMoves; //return legalMoves
+	}
+
+	public ArrayList<Coordinate> getEnemyMoves(boolean whiteTeam, String[][] board){
+		
+		String[][] enemyBoard;
+		ArrayList<Coordinate> enemyMoves = new ArrayList<>();
+
+		if(whiteTeam){
+
+			enemyBoard = getEnemyTeam(board, "a"); //lowercase 'a' is just a place holder for the team value
+		}
+
+		else { //black team
+
+			enemyBoard = getEnemyTeam(board, "A"); //uppercase 'a' is just a place holder for the team value
+		}
+
+
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+
+				if((enemyBoard[i][j] != " ") && !(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn"))){
+					enemyMoves.addAll(getLegalMoves(new Coordinate(i,j), enemyBoard[i][j], board));
+				}
+
+				if(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn")){
+					enemyMoves.addAll(getLegalMoves(new Coordinate(i,j), "p_attack", board));
+				}
+			}
+		}
+
+		return enemyMoves;
+	}
+
+	public static ArrayList<Coordinate> getPawnAttack(Coordinate location, String[][] board, String piece){
+
+		ArrayList<Coordinate> pawnMoves = new ArrayList<>();
+		
+		int x = location.getX();
+		int y = location.getY();
+
+		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
+																			// the piece is lowercase
+
+			if (y > 0) { //when its 0 it should become a queen
+
+				if (board[y - 1][x] == " ") {
+					pawnMoves.add(new Coordinate(y - 1, x));
+				}
+
+				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
+																// and to the left
+					pawnMoves.add(new Coordinate(y - 1, x - 1));
+				}
+
+				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+																// up and to the right
+					pawnMoves.add(new Coordinate(y - 1, x + 1));
+					
+				}
+			}
+		}
+
+		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))) {
+
+			if (y < 7) {
+
+				if ((board[y + 1][x] == " ")) {
+					pawnMoves.add(new Coordinate(y + 1, x));
+				}
+
+				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
+																// down and to the left
+					pawnMoves.add(new Coordinate(y + 1, x - 1));
+				}
+
+				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+																// down and to the right
+					pawnMoves.add(new Coordinate(y + 1, x + 1));
+				}
+			}
+		}
+
+		return pawnMoves;
 	}
 
 	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece) { //method that returns the legalMoves of a king
@@ -55,6 +142,8 @@ public class PieceTest {
 	public static ArrayList<Coordinate> pawnLegalMoves(Coordinate location, String[][] board, String piece) {
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<Coordinate>();
+		String[][] teamMate = getTeam(board, piece);
+		String[][] enemyTeam = getTeam(board, piece);
 
 		int y = location.getY();
 		int x = location.getX();
@@ -69,7 +158,7 @@ public class PieceTest {
 		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
 																			// the piece is lowercase
 
-			if (y > 0) {
+			if (y > 0) { //when its 0 it should become a queen
 
 				if (board[y - 1][x] == " ") {
 					pawnMoves.add(new Coordinate(y - 1, x));
@@ -85,11 +174,12 @@ public class PieceTest {
 					pawnMoves.add(new Coordinate(y - 1, x + 1));
 				}
 			}
+
 		}
 
 		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))) {
 
-			if (y <= 7) {
+			if (y < 7) {
 
 				if ((board[y + 1][x] == " ")) {
 					pawnMoves.add(new Coordinate(y + 1, x));
@@ -159,7 +249,7 @@ public class PieceTest {
 			}
 			
 		}
-		for (int j = y - 1, i = x; j < 8; j--) { // Generates all possible moves going up
+		for (int j = y - 1, i = x; j > -1; j--) { // Generates all possible moves going up
 			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
 				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
 			}
@@ -286,12 +376,10 @@ public class PieceTest {
 					if (teamBoard[i][j].charAt(0) == (Character.toLowerCase(teamBoard[i][j].charAt(0)))) {
 						teamBoard[i][j] = " "; // get rid off it because its lower case and thus not on the same team
 					}
-
 				}
 			}
 		}
 
-		System.out.println("our team: " + Arrays.deepToString(teamBoard));
 
 		return teamBoard;
 	}

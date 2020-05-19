@@ -13,7 +13,7 @@ public class BoardPieces{
 	private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
 	private static Convert conv = new Convert();
 	private static PieceTest piece = new PieceTest();
-	
+	private static Check check = new Check();
 	
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -50,12 +50,34 @@ public class BoardPieces{
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
 	
+	public ArrayList<Coordinate> getLegalMoves(boolean whiteTeam){
+
+		return piece.getEnemyMoves(whiteTeam, boardPieces);
+	}
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
 		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
 		System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
 		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
+
+	}
+
+	public static boolean boardTester(Coordinate c1, Coordinate c2){
+
+		boolean whiteTeam = false;
+
+		String[][] boardState = deepCopyOf(boardPieces); //copying 
+
+		boardState[c2.getY()][c2.getX()] = boardState[c1.getY()][c1.getX()];
+		boardState[c1.getY()][c1.getX()] = " ";
+
+		if(boardState[c1.getY()][c1.getX()].charAt(0) == Character.toLowerCase(boardState[c1.getY()][c1.getX()].charAt(0))){ //determining team
+			whiteTeam = true;
+		}
+
+		return check.getCheck(boardState, whiteTeam); //checking if this board state would put the king in check
+			
 
 	}
 
@@ -171,6 +193,7 @@ public class BoardPieces{
 		return location;
 	
 	}
+
 	public void setBoard(String[][] board){ //takes in an array and updates the board state to the given board state
 
 		for (int i = 0; i < board.length; i++) {
@@ -178,5 +201,16 @@ public class BoardPieces{
 				boardPieces[i][j] = board[i][j];
 			}
 		}
+	}
+
+	private static String[][] deepCopyOf(String board[][]) { //creates a copy of the current board so we dont mutate the original one
+
+		String[][] arr = new String[8][8]; // revise this later to make for more inclusive OOC
+
+		for (int i = 0; i < 8; i++) {
+			arr[i] = Arrays.copyOf(board[i], board[i].length);
+		}
+
+		return arr;
 	}
 }
