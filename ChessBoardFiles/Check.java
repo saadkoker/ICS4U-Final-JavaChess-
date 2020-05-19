@@ -1,12 +1,8 @@
+import java.util.ArrayList;
 public class Check {
     
     private String[][] board;
     public static PieceTest piece = new PieceTest();
-
-    public Check(String[][] cur_board){
-
-        board = cur_board;
-    }
 
     public boolean getCheck(String[][] boardState, boolean whiteTeam){
         
@@ -34,7 +30,7 @@ public class Check {
        ArrayList<Coordinate> enemyMoves = piece.getEnemyMoves(whiteTeam, boardState);
 
        for(Coordinate c: enemyMoves){
-            if(c.getY().equals(king.getY()) && c.getX().equals(king.getX()))
+            if((c.getY() == (king.getY())) && (c.getX() == (king.getX())))
                 check = true;
        }
 
