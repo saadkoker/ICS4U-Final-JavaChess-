@@ -128,7 +128,7 @@ public class PieceTest {
 		String[][] enemyTeam = getEnemyTeam(board, piece);
 		int x = location.getX();
 		int y = location.getY();
-		int counter = 0;
+
 
 		// Rules: it must be straight lines
 		// => we have four directions to check
@@ -190,62 +190,62 @@ public class PieceTest {
 
 	private static ArrayList<Coordinate> bishopLegalMoves(Coordinate location, String[][] board, String piece) {
 
-		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+		ArrayList<Coordinate> coords = new ArrayList<Coordinate>(); //inizalizing variables
 		int x = location.getX();
 		int y = location.getY();
 
-		String[][] teamBoard = getTeam(board, piece);
+		String[][] teamBoard = getTeam(board, piece); //getting a board with just allies to use for move generation
 
-		for (int j = x + 1, i = y + 1; j < board.length && i < board.length; j++, i++) {
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
+		for (int j = x + 1, i = y + 1; j < board.length && i < board.length; j++, i++) { //creates moves for bottom right diagonal
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else {
+			} else { //breaking when move is out of bounds
 				break;
 			}
 		}
-		for (int j = x - 1, i = y + 1; j > -1 && i < board.length; j--, i++) {
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
+		for (int j = x - 1, i = y + 1; j > -1 && i < board.length; j--, i++) { //creates moves for bottom left diagonal
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else {
+			} else { //breaking when move is out of bounds
 				break;
 			}
 		}
-		for (int j = x - 1, i = y - 1; j > -1 && i > -1; j--, i--) {
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
+		for (int j = x - 1, i = y - 1; j > -1 && i > -1; j--, i--) { //creates moves for top left diagonal
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else {
+			} else { //breaking when move is out of bounds
 				break;
 			}
 		}
-		for (int j = x + 1, i = y - 1; j < board.length && i > -1; j++, i--) {
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) {
+		for (int j = x + 1, i = y - 1; j < board.length && i > -1; j++, i--) { //creates moves for top right diagonal
+			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else {
+			} else { //breaking when move is out of bounds
 				break;
 			}
 		}
-		return coords;
+		return coords; //returning the arrayList of legalMoves
 
 	}
 
 	public static ArrayList<Coordinate> knightLegalMoves(Coordinate location, String[][] board, String piece) {
 
-		int[][] squareMaps = { { -2, 1 }, { -1, 2 }, { 1, 2 }, { 2, 1 }, { 2, -1 }, { -2, -1 }, { -1, -2 }, { 1, -2 } };
-		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
+		int[][] squareMaps = { { -2, 1 }, { -1, 2 }, { 1, 2 }, { 2, 1 }, { 2, -1 }, { -2, -1 }, { -1, -2 }, { 1, -2 } }; //creating a 2D array of "offsets" that the knight can move in
+		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();//inizalizing variables
 		int clickCoordY = location.getY();
 		int clickCoordX = location.getX();
-		String[][] myTeam = getTeam(board, piece);
+		String[][] myTeam = getTeam(board, piece); //getting a board with just allies to use for move generation
 
-		for (int i = 0; i < squareMaps.length; i++) {
+		for (int i = 0; i < squareMaps.length; i++) { //iterating through the offsets and adding them to the source coord to create legalMoves
 
 			if ((!isOutOfBounds(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]))
-					&& myTeam[clickCoordY + squareMaps[i][0]][clickCoordX + squareMaps[i][1]].equals(" ")) {
+					&& myTeam[clickCoordY + squareMaps[i][0]][clickCoordX + squareMaps[i][1]].equals(" ")) { //making sure that the move is legal
 
-				moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
+				moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1])); //adding the moves
 			}
 		}
 
-		return moves;
+		return moves; //returning the legal moves
 	}
 
 	private static boolean isOutOfBounds(int y, int x) { //returns true or false based on if the coordinate is between 0-7
@@ -257,7 +257,7 @@ public class PieceTest {
 			return false;
 	}
 
-	public static String[][] getTeam(String[][] board, String piece) {
+	public static String[][] getTeam(String[][] board, String piece) { //returns a version of the board state with just allies
 
 		String[][] teamBoard = deepCopyOf(board); // we dont want to override our current board
 
@@ -295,7 +295,7 @@ public class PieceTest {
 		return teamBoard;
 	}
 
-	public static String[][] getEnemyTeam(String[][] board, String piece) {
+	public static String[][] getEnemyTeam(String[][] board, String piece) { //returns a version of the board state with just the opponents
 
 		String[][] teamBoard = deepCopyOf(board); // we dont want to override our current board
 
@@ -332,7 +332,7 @@ public class PieceTest {
 		return teamBoard;
 	}
 
-	private static String[][] deepCopyOf(String board[][]) {
+	private static String[][] deepCopyOf(String board[][]) { //creates a copy of the current board so we dont mutate the original one
 
 		String[][] arr = new String[8][8]; // revise this later to make for more inclusive OOC
 
