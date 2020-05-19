@@ -6,60 +6,49 @@ public class PieceTest {
 
 	public ArrayList<Coordinate> getLegalMoves(Coordinate location, String piece, String[][] board) {
 
-		ArrayList<Coordinate> legalMoves = new ArrayList<Coordinate>();
+		ArrayList<Coordinate> legalMoves = new ArrayList<Coordinate>(); //creating an ArrayList called legalMoves to store the returned moves
 
-		if (piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")) {
-			// Collections.copy(legalMoves, getRookMoves(location, board, piece));
+		if (piece.equalsIgnoreCase("Rook1") || piece.equalsIgnoreCase("Rook2")) { //if piece is rook call getRookMoves and save it to legalMoves
 			legalMoves.addAll(getRookMoves(location, board, piece));
 
-		} else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) {
-			// Collections.copy(legalMoves, knightLegalMoves(location, board, piece));
+		} else if (piece.equalsIgnoreCase("Knight1") || piece.equalsIgnoreCase("Knight2")) { //if piece is knight call knigtLegalMoves and save it to legalMoves
 			legalMoves.addAll(knightLegalMoves(location, board, piece));
 
-		} else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) {
-			// Collections.copy(legalMoves, bishopLegalMoves(location, board, piece));
+		} else if (piece.equalsIgnoreCase("Bishop1") || piece.equalsIgnoreCase("Bishop2")) { //if piece is bishop call bishopLegalMoves and save it to legalMoves
 			legalMoves.addAll(bishopLegalMoves(location, board, piece));
 
-		} else if (piece.equalsIgnoreCase("Queen")) {
-			// Collections.copy(legalMoves, queenLegalMoves(location, board, piece));
+		} else if (piece.equalsIgnoreCase("Queen")) { //if piece is Queen call queenLegalMoves
 			legalMoves.addAll(queenLegalMoves(location, board, piece));
 
-		} else if (piece.equalsIgnoreCase("King")) {
+		} else if (piece.equalsIgnoreCase("King")) { //if piece is king call kingLegalMoves
 			System.out.println("king moved");
 			legalMoves = kingLegalMoves(location, board, piece);
 
-		} else if (piece.contains("pawn") || piece.contains("Pawn")) { // sets legal moves for pawns
-			// Collections.copy(legalMoves, pawnLegalMoves(location, board, piece));
+		} else if (piece.contains("pawn") || piece.contains("Pawn")) { //if piece is pawn call pawnLegalMoves and save it to legalMoves
 			legalMoves.addAll(pawnLegalMoves(location, board, piece));
 		}
 
-		int[][] finalSend = new int[legalMoves.size()][2];
-
-		for (int i = 0; i < legalMoves.size(); i++) {
-			finalSend[i][1] = legalMoves.get(i).getX();
-			finalSend[i][0] = legalMoves.get(i).getY();
-		}
-		return legalMoves;
+		return legalMoves; //return legalMoves
 	}
 
-	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece) {
+	public static ArrayList<Coordinate> kingLegalMoves(Coordinate location, String[][] board, String piece) { //method that returns the legalMoves of a king
 
-		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>();
+		ArrayList<Coordinate> kingMoves = new ArrayList<Coordinate>(); //creates an ArrayList to store the legal moves in
 
-		int[][] squareMaps = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 1 }, { -1, 1 }, { -1, -1 }, { 1, -1 } };
-		String[][] myTeam = getTeam(board, piece);
+		int[][] squareMaps = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 1 }, { -1, 1 }, { -1, -1 }, { 1, -1 } }; //creating a 2D array of "offsets" to iterate through and create coordinates with
+		String[][] myTeam = getTeam(board, piece); //get teamMates to check for legal moves with
 
-		int clickCoordY = location.getY();
+		int clickCoordY = location.getY(); //get the x and y stored in the coordinate of the source location
 		int clickCoordX = location.getX();
 
-		for (int i = 0; i < squareMaps.length; i++) {
+		for (int i = 0; i < squareMaps.length; i++) { //iterate through the array of offsets and creates 
 			if (!isOutOfBounds((clickCoordY - squareMaps[i][0]), clickCoordX - squareMaps[i][1])
-					&& (myTeam[clickCoordY - squareMaps[i][0]][clickCoordX - squareMaps[i][1]] == " ")) {
+					&& (myTeam[clickCoordY - squareMaps[i][0]][clickCoordX - squareMaps[i][1]] == " ")) { //adds the new point if the point is in bounds and if there are no allies there
 				kingMoves.add(new Coordinate(clickCoordY - squareMaps[i][0], clickCoordX - squareMaps[i][1]));
 			}
 		}
 
-		return kingMoves;
+		return kingMoves; //returns arrayList of legal moves
 
 	}
 
@@ -193,10 +182,10 @@ public class PieceTest {
 
 	public static ArrayList<Coordinate> queenLegalMoves(Coordinate location, String[][] board, String piece) {
 
-		ArrayList<Coordinate> moves = getRookMoves(location, board, piece);
-		moves.addAll(bishopLegalMoves(location, board, piece));
+		ArrayList<Coordinate> moves = getRookMoves(location, board, piece); //initalizing the array to store the legal moves and get rook legal moves for the source coordinate
+		moves.addAll(bishopLegalMoves(location, board, piece)); //add the bishop legal moves the to the moves array
 
-		return moves;
+		return moves; //return the array
 	}
 
 	private static ArrayList<Coordinate> bishopLegalMoves(Coordinate location, String[][] board, String piece) {
@@ -245,7 +234,6 @@ public class PieceTest {
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 		int clickCoordY = location.getY();
 		int clickCoordX = location.getX();
-		int[][] coords = new int[8][2];
 		String[][] myTeam = getTeam(board, piece);
 
 		for (int i = 0; i < squareMaps.length; i++) {
@@ -260,7 +248,7 @@ public class PieceTest {
 		return moves;
 	}
 
-	private static boolean isOutOfBounds(int y, int x) {
+	private static boolean isOutOfBounds(int y, int x) { //returns true or false based on if the coordinate is between 0-7
 
 		if ((x >= 8 || x < 0) || (y >= 8 || y < 0))
 			return true;
