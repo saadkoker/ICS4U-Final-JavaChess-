@@ -55,6 +55,8 @@ public class PieceTest {
 	public static ArrayList<Coordinate> pawnLegalMoves(Coordinate location, String[][] board, String piece) {
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<Coordinate>();
+		String[][] teamMate = getTeam(board, piece);
+		String[][] enemyTeam = getTeam(board, piece);
 
 		int y = location.getY();
 		int x = location.getX();
@@ -73,7 +75,7 @@ public class PieceTest {
 		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
 																			// the piece is lowercase
 
-			if (y > 0) {
+			if (y > 0) { //when its 0 it should become a queen
 
 				if (board[y - 1][x] == " ") {
 					pawnMoves.add(new Coordinate(y - 1, x));
@@ -86,17 +88,18 @@ public class PieceTest {
 					count++;
 				}
 
-				if ((x <= 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// up and to the right
 					pawnMoves.add(new Coordinate(y - 1, x + 1));
 					count++;
 				}
 			}
+
 		}
 
 		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))) {
 
-			if (y <= 7) {
+			if (y < 7) {
 
 				if ((board[y + 1][x] == " ")) {
 					pawnMoves.add(new Coordinate(y + 1, x));
@@ -109,7 +112,7 @@ public class PieceTest {
 					count++;
 				}
 
-				if ((x <= 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// down and to the right
 					pawnMoves.add(new Coordinate(y + 1, x + 1));
 					count++;
@@ -169,7 +172,7 @@ public class PieceTest {
 			}
 			
 		}
-		for (int j = y - 1, i = x; j < 8; j--) { // Generates all possible moves going up
+		for (int j = y - 1, i = x; j > -1; j--) { // Generates all possible moves going up
 			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
 				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
 			}
