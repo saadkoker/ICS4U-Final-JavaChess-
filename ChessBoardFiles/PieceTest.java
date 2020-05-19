@@ -139,45 +139,48 @@ public class PieceTest {
 		// ROOKS, BISHOP, QUEEN
 
 		for (int i = x + 1, j = y; i < 8; i++) { // Generates all possible moves right
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
-				moves.add(new Coordinate(j, i));
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
+				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
+			}
 			
-				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
-					break;
-				}
+			if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
+				break;
 			}
 		}
+
 		for (int i = x - 1, j = y; i > -1; i--) { // Generates all possible moves going left
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
-				moves.add(new Coordinate(j, i));
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
+				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
+			}
 			
-				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
-					break;
-				}
+			if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
+				break;
 			}
 		}
+
 		for (int j = y + 1, i = x; j < 8; j++) { // Generates all possible moves going down
 			
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
-				moves.add(new Coordinate(j, i));
-			
-				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
-					break;
-				}
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
+				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
 			}
+			
+			if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
+				break;
+			}
+			
 		}
 		for (int j = y - 1, i = x; j < 8; j--) { // Generates all possible moves going up
-			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) {
-				moves.add(new Coordinate(j, i));
-			
-				if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){
-					break;
-				}
+			if (!isOutOfBounds(j, i) && ((myTeam[j][i] == " "))) { //checks if the current branch is out of bounds or contains a teamate or is out of bounds
+				moves.add(new Coordinate(j, i)); //adds a coordinate to the current list
+			}
+
+			if ((enemyTeam[j][i] != " ") || (isOutOfBounds(j, i)) || (myTeam[j][i] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
+				break;
 			}
 
 		}
 		
-		return moves;
+		return moves; //return list
 	}
 
 	public static ArrayList<Coordinate> queenLegalMoves(Coordinate location, String[][] board, String piece) {
@@ -185,7 +188,7 @@ public class PieceTest {
 		ArrayList<Coordinate> moves = getRookMoves(location, board, piece); //initalizing the array to store the legal moves and get rook legal moves for the source coordinate
 		moves.addAll(bishopLegalMoves(location, board, piece)); //add the bishop legal moves the to the moves array
 
-		return moves; //return the array
+		return moves; //return the list
 	}
 
 	private static ArrayList<Coordinate> bishopLegalMoves(Coordinate location, String[][] board, String piece) {
@@ -194,33 +197,41 @@ public class PieceTest {
 		int x = location.getX();
 		int y = location.getY();
 
-		String[][] teamBoard = getTeam(board, piece); //getting a board with just allies to use for move generation
+		String[][] myTeam = getTeam(board, piece); //getting a board with just allies to use for move generation
+		String[][] enemyTeam = getEnemyTeam(board, piece); //getting a board of the enemies for finding the termination conditions of our branches
 
 		for (int j = x + 1, i = y + 1; j < board.length && i < board.length; j++, i++) { //creates moves for bottom right diagonal
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
-				coords.add(new Coordinate(i, j));
-			} else { //breaking when move is out of bounds
+			if ((!isOutOfBounds(i, j)) && (myTeam[i][j].equals(" "))) { //making sure there is no teammate the move isnt out of bounds
+				coords.add(new Coordinate(i, j)); //adding coordinate to the list
+			}
+
+			if ((enemyTeam[i][j] != " ") || (isOutOfBounds(i, j)) || (myTeam[i][j] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
 				break;
 			}
 		}
 		for (int j = x - 1, i = y + 1; j > -1 && i < board.length; j--, i++) { //creates moves for bottom left diagonal
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
+			if ((!isOutOfBounds(i, j)) && (myTeam[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else { //breaking when move is out of bounds
+			} 
+			if ((enemyTeam[i][j] != " ") || (isOutOfBounds(i, j)) || (myTeam[i][j] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
 				break;
 			}
 		}
 		for (int j = x - 1, i = y - 1; j > -1 && i > -1; j--, i--) { //creates moves for top left diagonal
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
+			if ((!isOutOfBounds(i, j)) && (myTeam[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else { //breaking when move is out of bounds
+			}
+
+			if ((enemyTeam[i][j] != " ") || (isOutOfBounds(i, j)) || (myTeam[i][j] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
 				break;
 			}
 		}
 		for (int j = x + 1, i = y - 1; j < board.length && i > -1; j++, i--) { //creates moves for top right diagonal
-			if ((!isOutOfBounds(i, j)) && (teamBoard[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
+			if ((!isOutOfBounds(i, j)) && (myTeam[i][j].equals(" "))) { //making sure there is no teammate/ the move isnt out of bounds
 				coords.add(new Coordinate(i, j));
-			} else { //breaking when move is out of bounds
+			} 
+
+			if ((enemyTeam[i][j] != " ") || (isOutOfBounds(i, j)) || (myTeam[i][j] != " ")){ //terminates branch if the above conditions are true OR an enemy player is present on the branch
 				break;
 			}
 		}
