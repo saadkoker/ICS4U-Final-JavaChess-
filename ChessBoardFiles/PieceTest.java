@@ -58,16 +58,12 @@ public class PieceTest {
 
 		int y = location.getY();
 		int x = location.getX();
-		int count = 0;
-
 		if ((y == 1) && (board[3][x] == " ")) {
 			pawnMoves.add(new Coordinate(3, x)); // legalising 2 square movement on the first move
-			count++;
 		}
 
 		else if ((y == 6) && (board[4][x] == " ")) { // pawns get to move 2 blocks on first move (P1 varient)
 			pawnMoves.add(new Coordinate(4, x));
-			count++;
 		}
 
 		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
@@ -77,19 +73,16 @@ public class PieceTest {
 
 				if (board[y - 1][x] == " ") {
 					pawnMoves.add(new Coordinate(y - 1, x));
-					count++;
 				}
 
 				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
 																// and to the left
 					pawnMoves.add(new Coordinate(y - 1, x - 1));
-					count++;
 				}
 
-				if ((x <= 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// up and to the right
 					pawnMoves.add(new Coordinate(y - 1, x + 1));
-					count++;
 				}
 			}
 		}
@@ -100,19 +93,16 @@ public class PieceTest {
 
 				if ((board[y + 1][x] == " ")) {
 					pawnMoves.add(new Coordinate(y + 1, x));
-					count++;
 				}
 
 				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
 																// down and to the left
 					pawnMoves.add(new Coordinate(y + 1, x - 1));
-					count++;
 				}
 
-				if ((x <= 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// down and to the right
 					pawnMoves.add(new Coordinate(y + 1, x + 1));
-					count++;
 				}
 			}
 		}
