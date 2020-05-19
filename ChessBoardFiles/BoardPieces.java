@@ -9,7 +9,6 @@ import java.util.Collections;
 
 public class BoardPieces{
 
-	//private static ClickListener click = new ClickListener();
 	private static BufferedImage Rook1, Knight1 , Bishop1 , Queen , King , Bishop2 , Knight2 , Rook2, Pawn1 , Pawn2 , Pawn3 , Pawn4 , Pawn5 , Pawn6 , Pawn7 , Pawn8; //black pieces 
 	private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
 	private static Convert conv = new Convert();
@@ -27,24 +26,6 @@ public class BoardPieces{
 		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
 	};
 	
-	/*
-	private static String boardPieces[][] = new String[][]{
-		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
-		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" " , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
-		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
-	};
-	*/
-	/*
-	public ArrayList<Coordinate> movement(Coordinate coord){
-
-		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
-	}
-	*/
 	public String[][] getBoard(){
 		
 		return boardPieces;
@@ -78,39 +59,6 @@ public class BoardPieces{
 
 	}
 
-	/*
-
-	public void click(int[] initialClick , int[] finalClick){
-		
-		Coordinate firstClick = new Coordinate(initialClick[0], initialClick[1]);
-		int[][] legal = piece.getLegalMoves(firstClick, boardPieces[initialClick[0]][initialClick[1]], boardPieces);
-		boolean valid = false;
-
-		System.out.println("legal moves:");
-		System.out.println(Arrays.deepToString(legal));
-
-		for (int i = 0; i < legal.length; i++){
-				if ((legal[i][0] == finalClick[0]) && (legal[i][1] == finalClick[1])){
-					System.out.println("valid move, moving to: " + finalClick[0] + " " + legal[i][1]);
-					valid = true;
-					break;
-				}
-		}
-
-		if (valid){
-			System.out.println("moving piece");
-			boardPieces[finalClick[0]][finalClick[1]] = boardPieces[firstClick.getX()][firstClick.getY()];
-			boardPieces[firstClick.getX()][firstClick.getY()] = " ";
-		}
-
-		//System.out.println("legal moves : " + Arrays.deepToString(piece.getLegalMoves(finalClick, boardPieces[finalClick[0]][finalClick[1]], boardPieces)));
-
-		//System.out.println("moving : " + boardPieces[initialClick[0]][initialClick[1]] + " to the square occupied by " + boardPieces[finalClick[0]][finalClick[1]]);
-		
-		//System.out.println("current array: " + Arrays.deepToString(boardPieces));
-
-	}
-*/
 
 	public void setupPieces(Graphics g){
 
