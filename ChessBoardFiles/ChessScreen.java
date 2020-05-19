@@ -1,20 +1,24 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
-import java.awt.event.*;  
-import javax.swing.*;    
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
-	private static ChessBoard cb = new ChessBoard(); //our ChessBoard object
+	private static ChessBoard cb = new ChessBoard(); // our ChessBoard object
 	private static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
 	private static JLabel message = new JLabel("This fat bruh moment");
 	private static Save gameSave = new Save();
+	private static String[][] newBoard;
 
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -35,22 +39,51 @@ public class ChessScreen{ //this is our main interface where the game operations
 		JButton saveGame = new JButton("Save");
 		saveGame.addActionListener(new ActionListener(){  
 			public void actionPerformed(ActionEvent e){  
-				/*
+				
 				JFileChooser f = new JFileChooser();
-				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-				f.showSaveDialog(null);
-				*/
-				gameSave.export(boardPieces, null);
-				}  
-			});  
-		JButton undoButton = new JButton("Undo");
+				JButton open = new JButton();
+				f.setCurrentDirectory(new File("."));
+				f.setDialogTitle("Save as");
+				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION){
+					String path = f.getSelectedFile().getAbsolutePath();
+					System.out.println(path);
+					gameSave.export(boardPieces, path);
+				}
+			}  
+		});  
+		JButton openButton = new JButton("Open");
+		
+		openButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+				
+				JFileChooser f = new JFileChooser();
+				JButton open = new JButton();
+				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
+				f.setDialogTitle("Open file");
+				f.setCurrentDirectory(new File("."));
+
+				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+					String path = f.getSelectedFile().getAbsolutePath();
+					System.out.println(Arrays.deepToString(gameSave.fromSave(path)));
+				}
+			}  
+		});  
 		JButton resignButton = new JButton("Resign");
+		resignButton.addActionListener(new ActionListener(){  
+			public void actionPerformed(ActionEvent e){  
+				
+				board.dispose();
+				System.exit(-1);
+			}  
+		});
 		tools.setFloatable(false);
 		board.add(cb);
 		board.add(tools, BorderLayout.PAGE_START);
 		tools.add(newGame);
 		tools.add(saveGame); 
-		tools.add(undoButton); 
+		tools.add(openButton); 
 		tools.addSeparator();
 		tools.add(resignButton); 
 		tools.addSeparator();
