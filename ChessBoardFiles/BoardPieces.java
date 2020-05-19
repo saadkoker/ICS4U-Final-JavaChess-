@@ -50,6 +50,10 @@ public class BoardPieces{
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
 	
+	public ArrayList<Coordinate> getLegalMoves(boolean whiteTeam){
+
+		return piece.getEnemyMoves(whiteTeam, boardPieces);
+	}
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
