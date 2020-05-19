@@ -35,17 +35,17 @@ public class ChessScreen{ //this is our main interface where the game operations
 		JFrame board = new JFrame("Chess");
 		JToolBar tools = new JToolBar();
 		JButton newGame = new JButton("New");
-		JButton saveGame = new JButton("Save");
-		saveGame.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){  
+		JButton saveGame = new JButton("Save"); //used for saving the current board state
+		saveGame.addActionListener(new ActionListener(){  //creating an action listener to listen for clicks
+			public void actionPerformed(ActionEvent e){
 				
-				JFileChooser f = new JFileChooser();
-				JButton open = new JButton();
-				f.setCurrentDirectory(new File("."));
-				f.setDialogTitle("Save as");
-				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				JFileChooser f = new JFileChooser(); //creating a fileChooser class
+				JButton open = new JButton(); //creating an open button for the file chooser
+				f.setCurrentDirectory(new File(".")); //setting the current directory to the directory of the java file for the sake of ease
+				f.setDialogTitle("Save As"); //setting the frame title to Save as
+				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); //making sure they can only select directories and not files
 
-				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION){
+				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION){ //if they click the save button then get the path and pass on board state and path to method which exports
 					String path = f.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
 					gameSave.export(boardPieces, path);
@@ -71,16 +71,16 @@ public class ChessScreen{ //this is our main interface where the game operations
 				}
 			}  
 		});  
-		JButton resignButton = new JButton("Resign");
+		JButton resignButton = new JButton("Resign"); //TODO: add a little menu to congratulate player on winning
 		resignButton.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e){  
+			public void actionPerformed(ActionEvent e){  //if resign is clicked close program
 				
 				board.dispose();
 				System.exit(-1);
 			}  
 		});
 		tools.setFloatable(false);
-		board.add(cb);
+		board.add(cb); //add all of the created componenets to the JFrame to be displated
 		board.add(tools, BorderLayout.PAGE_START);
 		tools.add(newGame);
 		tools.add(saveGame); 
@@ -93,14 +93,14 @@ public class ChessScreen{ //this is our main interface where the game operations
 		board.addMouseListener(click);
 		board.setSize(h,l);
 
-		board.setVisible(true);
-		board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		board.setResizable(true);
+		board.setVisible(true); //setting the frame to be visable 
+		board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //making sure that the exit button actually closes the program
+		board.setResizable(true); //making the board resizeable
 
 
 		//boolean clickyTime = true; 
 
-		int count = 0;
+
 
 		//System.out.println("You have 250 clicks, dont waste them!");
 
@@ -125,7 +125,6 @@ public class ChessScreen{ //this is our main interface where the game operations
 				}
 			}
 	}
-	
 	public static void myGame(int team)throws InterruptedException{//team: 0 for white, 1 for black
 
 		boolean legal = false;
