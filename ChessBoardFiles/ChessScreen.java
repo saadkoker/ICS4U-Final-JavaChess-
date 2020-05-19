@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
@@ -19,27 +20,28 @@ public class ChessScreen{ //this is our main interface where the game operations
 	private static JLabel message = new JLabel("This fat bruh moment");
 	private static Save gameSave = new Save();
 
-	private static String boardPieces[][] = new String[][]{
-		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
-		{"Pawn1" , "Pawn2" , "Pawn3" , "Pawn4" , "Pawn5" , "Pawn6" , "Pawn7" , "Pawn8"},
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{" ", " " , " " , " " , " " , " " , " " , " " },
-		{"pawn1" , "pawn2" , "pawn3" , "pawn4" , "pawn5" , "pawn6" , "pawn7" , "pawn8"},
-		{"rook1", "knight1" , "bishop1" , "queen" , "king" , "bishop2" , "knight2" , "rook2"}
-	};
-
 	public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 		
-		JFrame board = new JFrame("Chess");
-		JToolBar tools = new JToolBar();
-		JButton newGame = new JButton("New");
+		JFrame board = new JFrame("Chess"); //creating the jframe for all the components
+		JToolBar tools = new JToolBar(); //creating a toolbox to create a task bar
+		JButton newGame = new JButton("New"); //creating a button for a new game
+		newGame.addActionListener(new ActionListener(){  //creating an action listener to listen for clicks
+			public void actionPerformed(ActionEvent e){
+				
+				int input = 0;
+
+				input = JOptionPane.showConfirmDialog(null, "Are you sure? (board will not be automatically saved)"); // 0=yes, 1=no, 2=cancel
+				
+				if (input == JOptionPane.YES_OPTION) {
+					cb.resetBoardState();
+				}
+			}  
+		}); 
 		JButton saveGame = new JButton("Save"); //used for saving the current board state
 		saveGame.addActionListener(new ActionListener(){  //creating an action listener to listen for clicks
 			public void actionPerformed(ActionEvent e){
 				
-				JFileChooser f = new JFileChooser(); //creating a fileChooser class
+				JFileChooser f = new JFileChooser(); //creating a fileChooser object
 				JButton open = new JButton(); //creating an open button for the file chooser
 				f.setCurrentDirectory(new File(".")); //setting the current directory to the directory of the java file for the sake of ease
 				f.setDialogTitle("Save As"); //setting the frame title to Save as
@@ -48,26 +50,25 @@ public class ChessScreen{ //this is our main interface where the game operations
 				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION){ //if they click the save button then get the path and pass on board state and path to method which exports
 					String path = f.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
-					gameSave.export(boardPieces, path);
+					gameSave.export(cb.getBoardState(), path);
 				}
 			}  
 		});  
 		JButton openButton = new JButton("Open");
 		
-		openButton.addActionListener(new ActionListener(){  
+		openButton.addActionListener(new ActionListener(){  //creating an action listener for clicks
 			public void actionPerformed(ActionEvent e){
 				
-				JFileChooser f = new JFileChooser();
-				JButton open = new JButton();
-				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
+				JFileChooser f = new JFileChooser(); //creating a filechooser object
+				JButton open = new JButton(); //creating a button for the filechooser
+				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //making it so they can select files and directories
 				f.setDialogTitle("Open file");
-				f.setCurrentDirectory(new File("."));
+				f.setCurrentDirectory(new File(".")); //setting the directory of the filechooser to start in the java files directory
 
-				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) { //if the user clikcs open the board will import from the selected save file
 					String path = f.getSelectedFile().getAbsolutePath();
-					System.out.println(path);
 					String[][] newBoard = gameSave.fromSave(path);
-					System.out.println(Arrays.deepToString(newBoard));
+					cb.setBoardState(newBoard);
 				}
 			}  
 		});  
@@ -134,8 +135,8 @@ public class ChessScreen{ //this is our main interface where the game operations
 		Coordinate click1 = click.getClick();
 		message.setText("Click recieved, please click a destination");
 		Coordinate click2 = click.getClick();
-		click1 = conv.convCoor(click1, 42);
-		click2 = conv.convCoor(click2, 42);
+		click1 = conv.convCoor(click1, 60);
+		click2 = conv.convCoor(click2, 60);
 		
 		BoardPieces moves = new BoardPieces();
 

@@ -223,4 +223,12 @@ public class BoardPieces{
 		return location;
 	
 	}
+	public void setBoard(String[][] board){ //takes in an array and updates the board state to the given board state
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				boardPieces[i][j] = board[i][j];
+			}
+		}
+	}
 }
