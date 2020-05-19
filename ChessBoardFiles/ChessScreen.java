@@ -98,16 +98,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 		board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //making sure that the exit button actually closes the program
 		board.setResizable(true); //making the board resizeable
 
-
-		//boolean clickyTime = true; 
-
-
-
-		//System.out.println("You have 250 clicks, dont waste them!");
-
 			boolean checkmate = false;
-
-			//for(int i = 1; checkmate == false; i++){ //occelating between white and black team
 
 			int i = 1;
 
@@ -126,6 +117,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 				}
 			}
 	}
+
 	public static void myGame(int team)throws InterruptedException{//team: 0 for white, 1 for black
 
 		boolean legal = false;
@@ -145,7 +137,6 @@ public class ChessScreen{ //this is our main interface where the game operations
 			for (Coordinate c: legalMoves){
 				if(c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
 					legal = true;
-					System.out.println("black beans");
 					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
 				}
 
