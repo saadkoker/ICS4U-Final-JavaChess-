@@ -299,12 +299,10 @@ public class PieceTest {
 					if (teamBoard[i][j].charAt(0) == (Character.toLowerCase(teamBoard[i][j].charAt(0)))) {
 						teamBoard[i][j] = " "; // get rid off it because its lower case and thus not on the same team
 					}
-
 				}
 			}
 		}
 
-		System.out.println("our team: " + Arrays.deepToString(teamBoard));
 
 		return teamBoard;
 	}
