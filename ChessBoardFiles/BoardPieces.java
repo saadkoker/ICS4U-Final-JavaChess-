@@ -62,7 +62,7 @@ public class BoardPieces{
 
 	}
 
-	public static boolean boardTester(Coordinate c1, Coordinate c2){
+	public boolean boardTester(Coordinate c1, Coordinate c2){
 
 		boolean whiteTeam = false;
 		Check check = new Check();
@@ -77,7 +77,17 @@ public class BoardPieces{
 		}
 
 		return check.getCheck(boardState, whiteTeam); //checking if this board state would put the king in check
-			
+	}
+
+	public boolean boardTester(int team){ //yay polymorphism
+
+		Check check = new Check();
+		boolean whiteTeam = false;
+
+		if(team == 0)
+			whiteTeam = true;
+
+		return check.getCheck(boardPieces, whiteTeam);
 	}
 
 	public void setupPieces(Graphics g){

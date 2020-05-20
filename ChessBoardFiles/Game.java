@@ -18,49 +18,74 @@ public class Game {
 
 		while(!legal){
 
+        
 		Coordinate click1 = click.getClick();
 		Coordinate click2 = click.getClick();
 		click1 = conv.convCoor(click1, 42);
 		click2 = conv.convCoor(click2, 42);
-		
+
         BoardPieces moves = new BoardPieces();
-        Check kingSafety = new Check();
+        boolean inCheck = moves.boardTester(team);
 
-		ArrayList<Coordinate> legalMoves = moves.movement(click1);
+        String teamName = "black";
+        Boolean whiteTeam = false;
 
-			for (Coordinate c: legalMoves){
-				
-				if (c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
-					legal = true;
-					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
+        if(team == 0){
+            teamName = "white";
+            whiteTeam = true;
+        }
+
+
+        if(inCheck){
+            
+            ArrayList<Coordinate> legalMoves = moves.getLegalMoves(whiteTeam);
+
+            for(Coordinate c2: legalMoves){
+                if (moves.boardTester(click1, c2)){ //if this move results in the king staying in check we should remove it from the legal moves
+                    legalMoves.remove(c2);
                 }
             }
-            
-            if(moves.getCase(click1.getY(), click1.getX()) != team){
-                message.setText("Invalid team");
-                vibrate(frame);
-                errorSound();
-            }
 
-            else if (moves.boardTester(click1, click2)){ //if the move would put the king in check
-                message.setText("That would put your king in check");
-                vibrate(frame);
-                errorSound();
-				legal = false;
-            }
-            
-            else if(legal == false){
-                message.setText("Illegal move");
-                vibrate(frame);
-                errorSound();
-            }
-
-			if(legal){
-				cb.clickSomething(click1, click2);
-				message.setText("Piece Moved");
-				break;
+            if(legalMoves.size() < 1){
+                message.setText("Game over !" + teamName + " wins");
             }
         }
+
+            ArrayList<Coordinate> legalMoves = moves.movement(click1);
+
+                for (Coordinate c: legalMoves){
+                    
+                    if (c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
+                        legal = true;
+                        System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
+                    }
+                }
+                
+                if(moves.getCase(click1.getY(), click1.getX()) != team){
+                    message.setText("Invalid team");
+                    vibrate(frame);
+                    errorSound();
+                }
+
+                else if (moves.boardTester(click1, click2)){ //if the move would put the king in check
+                    message.setText("That would put your king in check");
+                    vibrate(frame);
+                    errorSound();
+                    legal = false;
+                }
+                
+                else if(legal == false){
+                    message.setText("Illegal move");
+                    vibrate(frame);
+                    errorSound();
+                }
+
+                if(legal){
+                    cb.clickSomething(click1, click2);
+                    message.setText("Piece Moved");
+                    break;
+                }
+            }
     }
 
     public static void vibrate(JFrame f) { 
