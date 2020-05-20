@@ -13,28 +13,25 @@ public class Check {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
 
-                if(whiteTeam){
-                    if(boardState[i][j].contains("king")){
-                        king = new Coordinate(i,j);
-                    }
-                 }
+                if(boardState[i][j].equals("king") && whiteTeam == true){
+                    king = new Coordinate(i,j);
+                }
 
-                else if(whiteTeam == false){
-                    if(boardState[i][j].contains("King")){
-                        king = new Coordinate(i,j);
-                    }
+                else if(boardState[i][j].equals("King") && whiteTeam == false){
+                    king = new Coordinate(i,j);
                 }
             }
         }
 
-       ArrayList<Coordinate> enemyMoves = piece.getEnemyMoves(whiteTeam, boardState);
+        ArrayList<Coordinate> enemyMoves = piece.getEnemyMoves(whiteTeam, boardState);
+        System.out.println("king located at @ " + king.getY() + "," + king.getX());
 
-       for(Coordinate c: enemyMoves){
+        for(Coordinate c: enemyMoves){
             if((c.getY() == (king.getY())) && (c.getX() == (king.getX())))
                 check = true;
-       }
+        }
 
-       return check;
+        return check;
     }
     
 }

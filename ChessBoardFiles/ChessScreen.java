@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -14,15 +13,15 @@ import javax.swing.JToolBar;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
-	private static ChessBoard cb = new ChessBoard(); // our ChessBoard object
-	private static ClickListener click = new ClickListener(); //our ClickListener object
+	public static ChessBoard cb = new ChessBoard(); // our ChessBoard object
+	public static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
-	private static JLabel message = new JLabel("This fat bruh moment");
+	public static JLabel message = new JLabel("This fat bruh moment");
 	private static Save gameSave = new Save();
+	public static JFrame board = new JFrame("Chess"); //creating the jframe for all the components
 
 	public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 		
-		JFrame board = new JFrame("Chess"); //creating the jframe for all the components
 		JToolBar tools = new JToolBar(); //creating a toolbox to create a task bar
 		JButton newGame = new JButton("New"); //creating a button for a new game
 		newGame.addActionListener(new ActionListener(){  //creating an action listener to listen for clicks
@@ -31,12 +30,13 @@ public class ChessScreen{ //this is our main interface where the game operations
 				int input = 0;
 
 				input = JOptionPane.showConfirmDialog(null, "Are you sure? (board will not be automatically saved)"); // 0=yes, 1=no, 2=cancel
-				
+	
 				if (input == JOptionPane.YES_OPTION) {
 					cb.resetBoardState();
 				}
 			}  
 		}); 
+
 		JButton saveGame = new JButton("Save"); //used for saving the current board state
 		saveGame.addActionListener(new ActionListener(){  //creating an action listener to listen for clicks
 			public void actionPerformed(ActionEvent e){
@@ -80,6 +80,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 				System.exit(-1);
 			}  
 		});
+
 		tools.setFloatable(false);
 		board.add(cb); //add all of the created componenets to the JFrame to be displated
 		board.add(tools, BorderLayout.PAGE_START);
@@ -103,58 +104,23 @@ public class ChessScreen{ //this is our main interface where the game operations
 			int i = 1;
 
 			while(!checkmate){
+
+				Game play = new Game();
 			
 				if (i % 2 != 0){ //odd so it's white turn
 					message.setText("White's move");
-					myGame(0);
+					play.myGame(0, message, cb, click, board);//white team
+					//myGame(0);
 					i++;
 				}
 
 				else { //even so black's turn
 					message.setText("Black's move");
-					myGame(1);
+					play.myGame(1, message, cb, click, board);
+					//myGame(1);
 					i++;
 				}
 			}
-	}
-
-	public static void myGame(int team)throws InterruptedException{//team: 0 for white, 1 for black
-
-		boolean legal = false;
-
-		while(!legal){
-
-		Coordinate click1 = click.getClick();
-		message.setText("Click recieved, please click a destination");
-		Coordinate click2 = click.getClick();
-		click1 = conv.convCoor(click1, 60);
-		click2 = conv.convCoor(click2, 60);
-		
-		BoardPieces moves = new BoardPieces();
-
-		ArrayList<Coordinate> legalMoves = moves.movement(click1);
-
-			for (Coordinate c: legalMoves){
-				if(c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
-					legal = true;
-					System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
-				}
-
-				if(moves.getCase(click1.getY(), click1.getX()) != team)
-					message.setText("Invalid team");
-			}
-
-			if(legal){
-				cb.clickSomething(click1, click2);
-				message.setText("Piece Moved");
-				break;
-			}
-
-			else if (!legal){
-				message.setText("Invalid move, please try again");
-			}
-		}
-
 	}
 
 }

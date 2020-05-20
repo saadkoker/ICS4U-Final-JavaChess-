@@ -21,14 +21,10 @@ public class PieceTest {
 			legalMoves.addAll(queenLegalMoves(location, board, piece));
 
 		} else if (piece.equalsIgnoreCase("King")) { //if piece is king call kingLegalMoves
-			System.out.println("king moved");
 			legalMoves = kingLegalMoves(location, board, piece);
 
 		} else if (piece.contains("pawn") || piece.contains("Pawn")) { //if piece is pawn call pawnLegalMoves and save it to legalMoves
 			legalMoves.addAll(pawnLegalMoves(location, board, piece));
-		}
-		else if(piece.contains("p_attack")){
-			legalMoves.addAll(getPawnAttack(location, board, piece));
 		}
 
 		return legalMoves; //return legalMoves
@@ -40,76 +36,60 @@ public class PieceTest {
 		ArrayList<Coordinate> enemyMoves = new ArrayList<>();
 
 		if(whiteTeam){
-
-			enemyBoard = getEnemyTeam(board, "a"); //lowercase 'a' is just a place holder for the team value
+			enemyBoard = getEnemyTeam(board, "a"); //lowercase 'A' is just a place holder for the team value 
 		}
 
 		else { //black team
-
 			enemyBoard = getEnemyTeam(board, "A"); //uppercase 'a' is just a place holder for the team value
 		}
-
 
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
 
-				if((enemyBoard[i][j] != " ") && !(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn"))){
+				if(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn")){
+					enemyMoves.addAll(getPawnAttack(new Coordinate(i,j), board, whiteTeam));
+				}
+				
+				else if (!(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn"))) {
 					enemyMoves.addAll(getLegalMoves(new Coordinate(i,j), enemyBoard[i][j], board));
 				}
 
-				if(enemyBoard[i][j].contains("pawn") || enemyBoard[i][j].contains("Pawn")){
-					enemyMoves.addAll(getLegalMoves(new Coordinate(i,j), "p_attack", board));
-				}
 			}
 		}
 
 		return enemyMoves;
 	}
 
-	public static ArrayList<Coordinate> getPawnAttack(Coordinate location, String[][] board, String piece){
+	public static ArrayList<Coordinate> getPawnAttack(Coordinate location, String[][] board, boolean whiteTeam){
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<>();
-		
+
 		int x = location.getX();
 		int y = location.getY();
 
-		if ((piece.charAt(0) == Character.toLowerCase(piece.charAt(0)))) { // we are checking if the first character in
-																			// the piece is lowercase
-
+		if (!whiteTeam) { // the piece is uppercase
+																			
 			if (y > 0) { //when its 0 it should become a queen
 
-				if (board[y - 1][x] == " ") {
-					pawnMoves.add(new Coordinate(y - 1, x));
-				}
-
-				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
-																// and to the left
+				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up and to the left					
 					pawnMoves.add(new Coordinate(y - 1, x - 1));
 				}
 
-				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
-																// up and to the right
+				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available --> up and to the right
 					pawnMoves.add(new Coordinate(y - 1, x + 1));
-					
 				}
 			}
 		}
 
-		else if ((piece.charAt(0) == Character.toUpperCase(piece.charAt(0)))) {
+		else if (whiteTeam) {
 
-			if (y < 7) {
+			if (y < 7) { //when its 7 it should become a queen
 
-				if ((board[y + 1][x] == " ")) {
-					pawnMoves.add(new Coordinate(y + 1, x));
-				}
-
-				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
-																// down and to the left
+				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> down and to the left						
 					pawnMoves.add(new Coordinate(y + 1, x - 1));
 				}
 
-				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
-																// down and to the right
+				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available --> down and to the right					
 					pawnMoves.add(new Coordinate(y + 1, x + 1));
 				}
 			}
@@ -169,13 +149,13 @@ public class PieceTest {
 					count++;
 				}
 
-				if ((x > 0) && (board[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
+				if ((x > 0) && (enemyTeam[y - 1][x - 1] != " ")) { // checking if there's a piece diagnolly available -> up
 																// and to the left
 					pawnMoves.add(new Coordinate(y - 1, x - 1));
 					count++;
 				}
 
-				if ((x < 7) && (board[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (enemyTeam[y - 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// up and to the right
 					pawnMoves.add(new Coordinate(y - 1, x + 1));
 					count++;
@@ -193,13 +173,13 @@ public class PieceTest {
 					count++;
 				}
 
-				if ((x > 0) && (board[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
+				if ((x > 0) && (enemyTeam[y + 1][x - 1] != " ")) { // checking if there's a piece diagnolly available ->
 																// down and to the left
 					pawnMoves.add(new Coordinate(y + 1, x - 1));
 					count++;
 				}
 
-				if ((x < 7) && (board[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
+				if ((x < 7) && (enemyTeam[y + 1][x + 1] != " ")) { // checking if there's a piece diagnolly available -->
 																// down and to the right
 					pawnMoves.add(new Coordinate(y + 1, x + 1));
 					count++;

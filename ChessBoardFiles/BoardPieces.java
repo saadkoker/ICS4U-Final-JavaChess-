@@ -13,7 +13,6 @@ public class BoardPieces{
 	private static BufferedImage rook1, knight1 , bishop1 , queen , king , bishop2 , knight2 , rook2, pawn1 , pawn2 , pawn3 , pawn4 , pawn5 , pawn6 , pawn7 , pawn8; //white pieces
 	private static Convert conv = new Convert();
 	private static PieceTest piece = new PieceTest();
-	private static Check check = new Check();
 	
 	private static String boardPieces[][] = new String[][]{
 		{"Rook1", "Knight1" , "Bishop1" , "Queen" , "King" , "Bishop2" , "Knight2" , "Rook2"}, //case sensitive
@@ -66,21 +65,20 @@ public class BoardPieces{
 	public static boolean boardTester(Coordinate c1, Coordinate c2){
 
 		boolean whiteTeam = false;
+		Check check = new Check();
 
 		String[][] boardState = deepCopyOf(boardPieces); //copying 
 
 		boardState[c2.getY()][c2.getX()] = boardState[c1.getY()][c1.getX()];
 		boardState[c1.getY()][c1.getX()] = " ";
 
-		if(boardState[c1.getY()][c1.getX()].charAt(0) == Character.toLowerCase(boardState[c1.getY()][c1.getX()].charAt(0))){ //determining team
+		if(boardState[c2.getY()][c2.getX()].charAt(0) == Character.toLowerCase(boardState[c2.getY()][c2.getX()].charAt(0))){ //determining team
 			whiteTeam = true;
 		}
 
 		return check.getCheck(boardState, whiteTeam); //checking if this board state would put the king in check
 			
-
 	}
-
 
 	public void setupPieces(Graphics g){
 
