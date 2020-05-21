@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Main{
 
-	public static ChessScreen screen = new ChessScreen();
+	public static ChessScreen screen = new ChessScreen(); //initalzing the 
 	private static Font buttonFont = new Font("Vollkorn", Font.PLAIN, 20);
 	public static void main(String args[]) throws InterruptedException{
 		

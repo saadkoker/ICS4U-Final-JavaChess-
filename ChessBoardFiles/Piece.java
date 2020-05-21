@@ -101,8 +101,7 @@ public class Piece{
 		ArrayList<Coordinate> moves = new ArrayList<Coordinate>();
 		int clickCoordY = coordinate[0];
 		int clickCoordX = coordinate[1];
-		int[][] coords = new int[8][2];
-
+		
 		for (int i = 0; i < squareMaps.length; i++) {
 			moves.add(new Coordinate(clickCoordY + squareMaps[i][0], clickCoordX + squareMaps[i][1]));
 		}
