@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Arrays;
-
 import javax.swing.JPanel;
 
 
@@ -40,7 +38,7 @@ public class ChessBoard extends JPanel{ //extending JPanel
 			}
 		}
 
-		bp.setupPieces(g);
+		bp.setupPieces(g); //setup the inital set of pieces
 	}
 
 	public void clickSomething(Coordinate initialClick, Coordinate finalClick){
