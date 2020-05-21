@@ -51,7 +51,9 @@ public class BoardPieces{
 	
 	public ArrayList<Coordinate> getLegalMoves(boolean whiteTeam){
 
-		return piece.getEnemyMoves(whiteTeam, boardPieces);
+		boolean team = !whiteTeam;
+
+		return piece.getEnemyMoves(team, boardPieces);
 	}
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
@@ -69,12 +71,13 @@ public class BoardPieces{
 
 		String[][] boardState = deepCopyOf(boardPieces); //copying 
 
+		if(boardState[c1.getY()][c1.getX()].charAt(0) == Character.toLowerCase(boardState[c1.getY()][c1.getX()].charAt(0))){ //determining team
+			whiteTeam = true;
+		}
+
 		boardState[c2.getY()][c2.getX()] = boardState[c1.getY()][c1.getX()];
 		boardState[c1.getY()][c1.getX()] = " ";
 
-		if(boardState[c2.getY()][c2.getX()].charAt(0) == Character.toLowerCase(boardState[c2.getY()][c2.getX()].charAt(0))){ //determining team
-			whiteTeam = true;
-		}
 
 		return check.getCheck(boardState, whiteTeam); //checking if this board state would put the king in check
 	}
@@ -84,8 +87,12 @@ public class BoardPieces{
 		Check check = new Check();
 		boolean whiteTeam = false;
 
-		if(team == 0)
+		if(team == 0){
 			whiteTeam = true;
+		}
+		if(team == 1){
+			whiteTeam = false;
+		}
 
 		return check.getCheck(boardPieces, whiteTeam);
 	}
