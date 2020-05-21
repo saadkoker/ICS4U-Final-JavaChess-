@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
@@ -62,6 +63,8 @@ public class ChessScreen{ //this is our main interface where the game operations
 				JFileChooser f = new JFileChooser(); //creating a filechooser object
 				JButton open = new JButton(); //creating a button for the filechooser
 				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //making it so they can select files and directories
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("ChessBoard Files", "cb");
+				f.setFileFilter(filter);
 				f.setDialogTitle("Open file");
 				f.setCurrentDirectory(new File(".")); //setting the directory of the filechooser to start in the java files directory
 
