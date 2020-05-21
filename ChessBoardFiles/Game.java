@@ -17,7 +17,6 @@ public class Game {
 		boolean legal = false;
 
 		while(!legal){
-
         
 		Coordinate click1 = click.getClick();
 		Coordinate click2 = click.getClick();
@@ -37,16 +36,17 @@ public class Game {
 
 
         if(inCheck){
-            
-            ArrayList<Coordinate> legalMoves = moves.getLegalMoves(whiteTeam);
 
-            for(Coordinate c2: legalMoves){
-                if (moves.boardTester(click1, c2)){ //if this move results in the king staying in check we should remove it from the legal moves
-                    legalMoves.remove(c2);
+            System.out.println("in check");
+            ArrayList<Coordinate> checkMoves = moves.getLegalMoves(whiteTeam);
+
+            for(int i = 0; i < checkMoves.size(); i++){
+                if (moves.boardTester(click1, checkMoves.get(i))){ //if this move results in the king staying in check we should remove it from the legal moves
+                    checkMoves.remove(i);
                 }
             }
 
-            if(legalMoves.size() < 1){
+            if(checkMoves.size() < 1){
                 message.setText("Game over !" + teamName + " wins");
             }
         }
