@@ -109,14 +109,14 @@ public class ChessScreen{ //this is our main interface where the game operations
 			
 				if (i % 2 != 0){ //odd so it's white turn
 					message.setText("White's move");
-					play.myGame(0, message, cb, click, board);//white team
+					checkmate = !play.myGame(0, message, cb, click, board);//white team
 					//myGame(0);
 					i++;
 				}
 
 				else { //even so black's turn
 					message.setText("Black's move");
-					play.myGame(1, message, cb, click, board);
+					checkmate = !play.myGame(1, message, cb, click, board);
 					//myGame(1);
 					i++;
 				}

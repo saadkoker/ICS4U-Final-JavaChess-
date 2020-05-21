@@ -49,17 +49,25 @@ public class BoardPieces{
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
 	}
 	
-	public ArrayList<Coordinate> getLegalMoves(boolean whiteTeam){
+	public ArrayList<Move> getLegalMoves(boolean whiteTeam){
 
-		boolean team = !whiteTeam;
+		ArrayList<Move> myMobileMoves = piece.myMoves(whiteTeam, boardPieces);
+		ArrayList<Move> myPossibleMoves =  new ArrayList<Move>();
 
-		return piece.getEnemyMoves(team, boardPieces);
+		for(int i = 0; i < myMobileMoves.size(); i++){//looping through all mobile moves to find ones that will get the player out of checkmate
+			if(boardTester((myMobileMoves.get(i).getStart()), (myMobileMoves.get(i).getEnd())) == false){//this movement will not result in check
+				myPossibleMoves.add(myMobileMoves.get(i));
+			}
+		}
+
+		return myPossibleMoves;
+
 	}
 
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
 		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
-		System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
+		//System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
 		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
 
 	}

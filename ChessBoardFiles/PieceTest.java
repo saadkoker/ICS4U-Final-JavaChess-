@@ -60,6 +60,34 @@ public class PieceTest {
 		return enemyMoves;
 	}
 
+	public ArrayList<Move> myMoves(boolean whiteTeam, String[][] board){
+		
+		//even elements in arraylist will be start point, odd will be end points 
+		
+		ArrayList<Move> friendlyMoves = new ArrayList<>();
+
+		for(int i = 0; i < 8; i++){
+			for(int j = 0; j < 8; j++){
+				
+				if(((whiteTeam == true) && (board[i][j].charAt(0)) == Character.toUpperCase(board[i][j].charAt(0))) || ((whiteTeam == false) && (board[i][j].charAt(0) == Character.toUpperCase(board[i][j].charAt(0))))){
+				
+					ArrayList<Coordinate> endPoints = getLegalMoves(new Coordinate(i,j), board[i][j], board);
+
+					if(endPoints.size() > 0){//this means that the piece is mobile
+
+						for(int k = 0; k < endPoints.size(); k++){
+							friendlyMoves.add(new Move(new Coordinate(i,j), endPoints.get(k))); //adding all the possible movements from a valid root, at (i,j)
+						}
+					}
+				}
+			}
+		}
+
+		return friendlyMoves;
+	}
+
+
+
 	public static ArrayList<Coordinate> getPawnAttack(Coordinate location, String[][] board, boolean whiteTeam){
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<>();
@@ -123,7 +151,7 @@ public class PieceTest {
 
 		ArrayList<Coordinate> pawnMoves = new ArrayList<Coordinate>();
 		String[][] teamMate = getTeam(board, piece);
-		String[][] enemyTeam = getTeam(board, piece);
+		String[][] enemyTeam = getEnemyTeam(board, piece);
 
 		int y = location.getY();
 		int x = location.getX();

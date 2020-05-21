@@ -12,16 +12,11 @@ public class Game {
     /*
     * This method is called for each turn and acts as the motherboard of the turn from which clicks are recieved, validity is checked and pieces are moved
     */
-    public void myGame(int team, JLabel message, ChessBoard cb, ClickListener click, JFrame frame) throws InterruptedException{//team: 0 for white, 1 for black
+    public boolean myGame(int team, JLabel message, ChessBoard cb, ClickListener click, JFrame frame) throws InterruptedException{//team: 0 for white, 1 for black
 
 		boolean legal = false;
 
 		while(!legal){
-        
-		Coordinate click1 = click.getClick();
-		Coordinate click2 = click.getClick();
-		click1 = conv.convCoor(click1, 42);
-		click2 = conv.convCoor(click2, 42);
 
         BoardPieces moves = new BoardPieces();
         boolean inCheck = moves.boardTester(team);
@@ -34,22 +29,30 @@ public class Game {
             whiteTeam = true;
         }
 
-
         if(inCheck){
+            
+            ArrayList<Move> myMoves = moves.getLegalMoves(whiteTeam);
+            //System.out.println("check moves size: " + myMoves.size());
 
-            System.out.println("in check");
-            ArrayList<Coordinate> checkMoves = moves.getLegalMoves(whiteTeam);
-
-            for(int i = 0; i < checkMoves.size(); i++){
-                if (moves.boardTester(click1, checkMoves.get(i))){ //if this move results in the king staying in check we should remove it from the legal moves
-                    checkMoves.remove(i);
-                }
+            if(myMoves.size() < 1){
+                message.setText("Game over! " + teamName + " looses");
+                return false;
             }
-
-            if(checkMoves.size() < 1){
-                message.setText("Game over !" + teamName + " wins");
+            
+            else{
+                inCheck = false;
+                message.setText(teamName + " is in Check!");
+                vibrate(frame);
+                errorSound();
             }
         }
+
+        Coordinate click1 = click.getClick();
+		Coordinate click2 = click.getClick();
+		click1 = conv.convCoor(click1, 42);
+		click2 = conv.convCoor(click2, 42);
+
+        if(!inCheck){
 
             ArrayList<Coordinate> legalMoves = moves.movement(click1);
 
@@ -57,7 +60,7 @@ public class Game {
                     
                     if (c.equals(click2) && moves.getCase(click1.getY(), click1.getX()) == team){ //making sure the move is legal and is on the right team
                         legal = true;
-                        System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
+                        //System.out.println("moving piece at " + c.getY() + " , " + c.getX() + " to " + click2.getY() + " , " + click2.getX());
                     }
                 }
                 
@@ -86,6 +89,9 @@ public class Game {
                     break;
                 }
             }
+        }
+
+        return true;
     }
 
     public static void vibrate(JFrame f) { 

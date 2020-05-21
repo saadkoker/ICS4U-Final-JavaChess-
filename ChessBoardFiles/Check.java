@@ -24,7 +24,7 @@ public class Check {
         }
 
         ArrayList<Coordinate> enemyMoves = piece.getEnemyMoves(whiteTeam, boardState);
-        System.out.println("king located at @ " + king.getY() + "," + king.getX());
+        //System.out.println("king located at @ " + king.getY() + "," + king.getX());
 
         for(Coordinate c: enemyMoves){
             if((c.getY() == (king.getY())) && (c.getX() == (king.getX())))
