@@ -47,6 +47,22 @@ public class Game {
             }
         }
 
+        //checking for stale mate
+        ArrayList<Move> legalMovements = moves.getLegalMoves(whiteTeam);
+        boolean staleMate = true;
+        for(Move m: legalMovements){
+            if(moves.boardTester(m.getStart(), m.getEnd()) == false){
+                System.out.println("found an option: " + m.getStart().getY() + "," + m.getStart().getX() + " and " + m.getEnd().getY() + "," + m.getEnd().getX());
+                staleMate = false;
+                break;
+            }
+        }
+
+        if(staleMate){
+            message.setText("Stale mate! It's a tie");
+            return false;
+        }
+
         Coordinate click1 = click.getClick();
 		Coordinate click2 = click.getClick();
 		click1 = conv.convCoor(click1, 42);
@@ -54,6 +70,7 @@ public class Game {
 
         if(!inCheck){
 
+            boolean futureCheck = false;
             ArrayList<Coordinate> legalMoves = moves.movement(click1);
 
                 for (Coordinate c: legalMoves){
@@ -72,12 +89,13 @@ public class Game {
 
                 else if (moves.boardTester(click1, click2)){ //if the move would put the king in check
                     message.setText("That would put your king in check");
+                    futureCheck = true;
+                    legal = false;
                     vibrate(frame);
                     errorSound();
-                    legal = false;
                 }
                 
-                else if(legal == false){
+                else if(legal == false && futureCheck == false){
                     message.setText("Illegal move");
                     vibrate(frame);
                     errorSound();
