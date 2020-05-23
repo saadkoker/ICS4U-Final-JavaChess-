@@ -20,6 +20,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 	public static JLabel message = new JLabel("This fat bruh moment");
 	private static Save gameSave = new Save();
 	public static JFrame board = new JFrame("Chess"); //creating the jframe for all the components
+	private static int i = 1;
 
 	public void startScreen(int h, int l) throws InterruptedException{ //this method is called by another class and builds the chess board -> this will be the method that calls the Game class
 		
@@ -34,6 +35,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 	
 				if (input == JOptionPane.YES_OPTION) {
 					cb.resetBoardState();
+
 				}
 			}  
 		}); 
@@ -51,7 +53,7 @@ public class ChessScreen{ //this is our main interface where the game operations
 				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION){ //if they click the save button then get the path and pass on board state and path to method which exports
 					String path = f.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
-					gameSave.export(cb.getBoardState(), path);
+					gameSave.export(cb.getBoardState(), path, i);
 				}
 			}  
 		});  
@@ -65,12 +67,14 @@ public class ChessScreen{ //this is our main interface where the game operations
 				f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //making it so they can select files and directories
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("ChessBoard Files", "cb");
 				f.setFileFilter(filter);
-				f.setDialogTitle("Open file");
+				f.setDialogTitle("Open File");
 				f.setCurrentDirectory(new File(".")); //setting the directory of the filechooser to start in the java files directory
 
 				if (f.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) { //if the user clikcs open the board will import from the selected save file
 					String path = f.getSelectedFile().getAbsolutePath();
 					String[][] newBoard = gameSave.fromSave(path);
+					i = gameSave.getTeamMove();
+					System.out.println(i);
 					cb.setBoardState(newBoard);
 				}
 			}  
@@ -104,12 +108,10 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			boolean checkmate = false;
 
-			int i = 1;
-
 			while(!checkmate){
 
 				Game play = new Game();
-			
+				System.out.println("In loop: " + i);
 				if (i % 2 != 0){ //odd so it's white turn
 					message.setText("White's move");
 					checkmate = !play.myGame(0, message, cb, click, board);//white team

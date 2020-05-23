@@ -3,6 +3,8 @@ import java.io.*;
 
 public class Save {
 
+	private static int theColor = 0;
+
 	public String[][] fromSave(String directory) { //method decloration...this method imports a board state from a file
 
 		String[][] board = new String[8][8]; //Initializing a board
@@ -23,14 +25,18 @@ public class Save {
 					}
 				}
 			}
+			theColor = scan.nextInt();
 		} catch (FileNotFoundException e) { //literally just there for exception purposes
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return board;
 	}
+	public static int getTeamMove(){
 
-	public void export(String[][] board, String directory) { //method decleration for the export method, takes in a board and a directory to save the board in
+		return theColor;
+	}
+	public void export(String[][] board, String directory, int colorMove) { //method decleration for the export method, takes in a board and a directory to save the board in
 
 		try { //try and catch for unhandeled exceptions
 
@@ -48,6 +54,7 @@ public class Save {
 					}
 				}
 			}
+			print.println(colorMove);
 			print.close(); //close the PrintWriter so the file saves
 		} catch (Exception e) { //exeption handaling
 			System.out.println("Poopy poop file no exist");

@@ -9,6 +9,7 @@ public class Game {
 
     private static Convert conv = new Convert();
     private static File errorAudio = new File("Error.wav");
+    private static File moveAudio = new File("move.wav");
     /*
     * This method is called for each turn and acts as the motherboard of the turn from which clicks are recieved, validity is checked and pieces are moved
     */
@@ -103,6 +104,7 @@ public class Game {
 
                 if(legal){
                     cb.clickSomething(click1, click2);
+                    moveSound();
                     message.setText("Piece Moved");
                     break;
                 }
@@ -147,5 +149,17 @@ public class Game {
             System.out.println("Oops");
         }
 
+    }
+    public static void moveSound() {
+        try{
+
+            Clip audio = AudioSystem.getClip();
+            audio.open(AudioSystem.getAudioInputStream(moveAudio));
+            audio.start();     
+            Thread.sleep(audio.getMicrosecondLength()/1000); 
+        
+        }catch(Exception e){
+            System.out.println("Oops");
+        }
     }
 }
