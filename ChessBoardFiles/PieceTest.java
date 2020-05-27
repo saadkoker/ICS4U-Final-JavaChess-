@@ -64,7 +64,7 @@ public class PieceTest {
 		
 		//even elements in arraylist will be start point, odd will be end points 
 		
-		ArrayList<Move> friendlyMoves = new ArrayList<>();
+		ArrayList<Move> friendlyMoves = new ArrayList<Move>();
 
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){
