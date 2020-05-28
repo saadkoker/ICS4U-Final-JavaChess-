@@ -2,8 +2,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import subprocess
 
-
-
 app = tk.Tk()
 app.title('Java Chess By Recursive Games')
 app.iconbitmap('knight1.ico')

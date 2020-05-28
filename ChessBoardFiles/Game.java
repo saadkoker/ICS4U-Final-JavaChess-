@@ -8,6 +8,7 @@ import java.io.File;
 public class Game {
 
     private static Convert conv = new Convert(); //initalizing objects and variables
+    private static int offsetValue = getOffsetValue();
     private static File errorAudio = new File("Error.wav");
     private static File moveAudio = new File("move.wav");
     /*
@@ -16,6 +17,8 @@ public class Game {
     public boolean myGame(int team, JLabel message, ChessBoard cb, ClickListener click, JFrame frame) throws InterruptedException{//team: 0 for white, 1 for black
 
 		boolean legal = false;
+
+		System.out.println(offsetValue);
 
 		while(!legal){ //loop that ends when move becomes legal
 
@@ -66,8 +69,8 @@ public class Game {
 
         Coordinate click1 = click.getClick();
 		Coordinate click2 = click.getClick();
-		click1 = conv.convCoor(click1, 60);
-		click2 = conv.convCoor(click2, 60);
+		click1 = conv.convCoor(click1, offsetValue);
+		click2 = conv.convCoor(click2, offsetValue);
 
         if(!inCheck){
 
@@ -149,6 +152,17 @@ public class Game {
             System.out.println("Oops");
         }
 
+    }
+    public static int getOffsetValue(){
+    	
+    	String os = System.getProperty("os.name");
+    	
+    	if(os.toLowerCase().contains("mac")){
+    		return 42;	
+    	}
+    	else{
+    		return 60;
+    	}
     }
     public static void moveSound() { //plays a move noise when the user makes a legal move
         
