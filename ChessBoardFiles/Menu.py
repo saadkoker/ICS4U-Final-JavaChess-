@@ -1,5 +1,4 @@
 import tkinter as tk
-import requests
 from PIL import Image, ImageTk
 import subprocess
 
@@ -16,6 +15,7 @@ def startAIGame():
 
 def startTwoPersonGame():
     subprocess.run('javac Main.java', shell=True)
+    app.destroy()
     subprocess.run('java Main', shell=True)
     
     
