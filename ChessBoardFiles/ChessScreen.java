@@ -114,7 +114,8 @@ public class ChessScreen{ //this is our main interface where the game operations
 				ComputerBrain ai = new ComputerBrain(bp, cb);
 
 				Game play = new Game();
-				System.out.println("In loop: " + i);
+				//System.out.println("In loop: " + i);
+
 				if (i % 2 != 0){ //odd so it's white turn
 					message.setText("White's move");
 					checkmate = !play.myGame(0, message, cb, click, board);//white team
@@ -127,8 +128,8 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 				else { //even so black's turn
 					message.setText("Black's move");
-					ai.makeMove(cb.getBoardState());
-					//checkmate = !play.myGame(1, message, cb, click, board);
+					//ai.makeMove(cb.getBoardState());
+					checkmate = !play.myGame(1, message, cb, click, board);
 					//myGame(1);
 					i++;
 				}
