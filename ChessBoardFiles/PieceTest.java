@@ -63,7 +63,9 @@ public class PieceTest {
 
 	public ArrayList<Move> myMoves(boolean whiteTeam, String[][] board){
 		
-		ArrayList<Move> friendlyMoves = new ArrayList<>();
+		//even elements in arraylist will be start point, odd will be end points 
+		
+		ArrayList<Move> friendlyMoves = new ArrayList<Move>();
 
 		for(int i = 0; i < 8; i++){
 			for(int j = 0; j < 8; j++){

@@ -7,8 +7,10 @@ import java.io.File;
 
 public class Game {
 
-    private static Convert conv = new Convert();
+    private static Convert conv = new Convert(); //initalizing objects and variables
+    private static int offsetValue = getOffsetValue();
     private static File errorAudio = new File("Error.wav");
+    private static File moveAudio = new File("move.wav");
     /*
     * This method is called for each turn and acts as the motherboard of the turn from which clicks are recieved, validity is checked and pieces are moved
     */
@@ -16,13 +18,15 @@ public class Game {
 
 		boolean legal = false;
 
-		while(!legal){
+		System.out.println(offsetValue);
 
-        BoardPieces moves = new BoardPieces();
-        boolean inCheck = moves.boardTester(team);
+		while(!legal){ //loop that ends when move becomes legal
+
+        BoardPieces moves = new BoardPieces(); //creates an instance of boardPieces
+        boolean inCheck = moves.boardTester(team); //checks if that team is in check
 
         String teamName = "black";
-        Boolean whiteTeam = false;
+        boolean whiteTeam = false;
 
         if(team == 0){
             teamName = "white";
@@ -65,8 +69,8 @@ public class Game {
 
         Coordinate click1 = click.getClick();
 		Coordinate click2 = click.getClick();
-		click1 = conv.convCoor(click1, 42);
-		click2 = conv.convCoor(click2, 42);
+		click1 = conv.convCoor(click1, offsetValue);
+		click2 = conv.convCoor(click2, offsetValue);
 
         if(!inCheck){
 
@@ -103,6 +107,7 @@ public class Game {
 
                 if(legal){
                     cb.clickSomething(click1, click2);
+                    moveSound();
                     message.setText("Piece Moved");
                     break;
                 }
@@ -112,13 +117,13 @@ public class Game {
         return true;
     }
 
-    public static void vibrate(JFrame f) { 
+    public static void vibrate(JFrame f) { //creates a vibrating effect by translating the frame
         try { 
-          int x = f.getLocationOnScreen().x; 
+          int x = f.getLocationOnScreen().x; //getting the current position of the board
           int y = f.getLocationOnScreen().y; 
     
-          for (int i = 0; i < 2; i++) { 
-            Thread.sleep(5); 
+          for (int i = 0; i < 2; i++) { //moving the frame +/- 10 in the x and y axis to create vibration effect
+            Thread.sleep(5); //make thread sleep so the user can actually see the vibrations
             f.setLocation(x, y + 10); 
             Thread.sleep(5); 
             f.setLocation(x, y - 10);
@@ -129,23 +134,47 @@ public class Game {
             f.setLocation(x, y);
           } 
         } 
-        catch (Exception e) { 
+        catch (Exception e) { //catching any exceptions
           System.out.println("something went wrong");
         } 
       }
 
-    public static void errorSound(){
+    public static void errorSound(){ //plays an error noise when the user makes an invalid move
        
-        try{
+        try{ //needed for fileNotFoundExeption
 
-            Clip audio = AudioSystem.getClip();
-            audio.open(AudioSystem.getAudioInputStream(errorAudio));
-            audio.start();     
-            Thread.sleep(audio.getMicrosecondLength()/1000); 
+            Clip audio = AudioSystem.getClip(); //creates a new Clip instance
+            audio.open(AudioSystem.getAudioInputStream(errorAudio)); //opening the audio file
+            audio.start(); //begins playing the audio
+            Thread.sleep(audio.getMicrosecondLength()/1000); //making the thread sleep to avoid threading issues
         
         }catch(Exception e){
             System.out.println("Oops");
         }
 
+    }
+    public static int getOffsetValue(){
+    	
+    	String os = System.getProperty("os.name");
+    	
+    	if(os.toLowerCase().contains("mac")){
+    		return 42;	
+    	}
+    	else{
+    		return 60;
+    	}
+    }
+    public static void moveSound() { //plays a move noise when the user makes a legal move
+        
+        try{//needed for fileNotFoundExeption
+
+            Clip audio = AudioSystem.getClip();//creates a new Clip instance
+            audio.open(AudioSystem.getAudioInputStream(moveAudio));//opening the audio file
+            audio.start();//begins playing the audio
+            Thread.sleep(audio.getMicrosecondLength()/1000); //making the thread sleep to avoid threading issues
+        
+        }catch(Exception e){ //needed for fileNotFoundExeption
+            System.out.println("Oops");
+        }
     }
 }
