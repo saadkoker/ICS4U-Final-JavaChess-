@@ -12,7 +12,7 @@ public class Game {
     /*
     * This method is called for each turn and acts as the motherboard of the turn from which clicks are recieved, validity is checked and pieces are moved
     */
-    public boolean myGame(int team, JLabel message, ChessBoard cb, ClickListener click, JFrame frame) throws InterruptedException{//team: 0 for white, 1 for black
+    public boolean myGame(int team, JLabel message, ChessBoard cb, ClickListener click, JFrame frame) throws InterruptedException{ //team: 0 for white, 1 for black
 
 		boolean legal = false;
 
@@ -52,7 +52,7 @@ public class Game {
         boolean staleMate = true;
         for(Move m: legalMovements){
             if(moves.boardTester(m.getStart(), m.getEnd()) == false){
-                System.out.println("found an option: " + m.getStart().getY() + "," + m.getStart().getX() + " and " + m.getEnd().getY() + "," + m.getEnd().getX());
+                //System.out.println("found an option: " + m.getStart().getY() + "," + m.getStart().getX() + " and " + m.getEnd().getY() + "," + m.getEnd().getX());
                 staleMate = false;
                 break;
             }

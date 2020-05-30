@@ -5,10 +5,11 @@ import javax.swing.JPanel;
 
 public class ChessBoard extends JPanel{ //extending JPanel
 
-	private static BoardPieces bp = new BoardPieces();
+	public static BoardPieces bp;
 
-	public ChessBoard(){ //empty constructer
-	
+	public ChessBoard(BoardPieces bp){ //empty constructer
+		
+		this.bp = bp;
 	}
 
 	public void paint(Graphics g){ //'painting' the board
@@ -42,7 +43,7 @@ public class ChessBoard extends JPanel{ //extending JPanel
 	}
 
 	public void clickSomething(Coordinate initialClick, Coordinate finalClick){
-
+		//System.out.println("called!");
 		bp.click(initialClick, finalClick);
 		repaint();
 	}

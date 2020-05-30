@@ -44,6 +44,27 @@ public class BoardPieces{
 			return -1;
 	}
 
+	public boolean gameOver(String[][] board, boolean whiteTeam){
+		
+		Check checkTest = new Check();
+
+		if (checkTest.getCheck(board, whiteTeam)){
+			
+			ArrayList<Move> legal = getLegalMoves(whiteTeam);
+
+			for (Move m: legal){
+				if (boardTester(m.getStart(), m.getEnd(), board) == false){ //if one of the possible moves results in no check
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+
 	public ArrayList<Coordinate> movement(Coordinate coord){
 
 		return piece.getLegalMoves(coord, boardPieces[coord.getY()][coord.getX()], boardPieces);
@@ -55,7 +76,22 @@ public class BoardPieces{
 		ArrayList<Move> myPossibleMoves =  new ArrayList<Move>();
 
 		for(int i = 0; i < myMobileMoves.size(); i++){//looping through all mobile moves to find ones that will get the player out of checkmate
-			if(boardTester((myMobileMoves.get(i).getStart()), (myMobileMoves.get(i).getEnd())) == false){//this movement will not result in check
+			if(boardTester((myMobileMoves.get(i).getStart()), (myMobileMoves.get(i).getEnd())) == false){ //this movement will not result in check
+				myPossibleMoves.add(myMobileMoves.get(i));
+			}
+		}
+
+		return myPossibleMoves;
+
+	}
+
+	public ArrayList<Move> getLegalMoves(boolean whiteTeam, String[][] board){
+
+		ArrayList<Move> myMobileMoves = piece.myMoves(whiteTeam, board);
+		ArrayList<Move> myPossibleMoves =  new ArrayList<Move>();
+
+		for(int i = 0; i < myMobileMoves.size(); i++){//looping through all mobile moves to find ones that will get the player out of checkmate
+			if(boardTester((myMobileMoves.get(i).getStart()), (myMobileMoves.get(i).getEnd())) == false){ //this movement will not result in check
 				myPossibleMoves.add(myMobileMoves.get(i));
 			}
 		}
@@ -67,9 +103,16 @@ public class BoardPieces{
 	public void click(Coordinate coordStart, Coordinate coordDestination){
 
 		boardPieces[coordDestination.getY()][coordDestination.getX()] = boardPieces[coordStart.getY()][coordStart.getX()];
-		//eSystem.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
+		//System.out.println("You just moved the " + boardPieces[coordStart.getY()][coordStart.getX()] + " to (" + coordDestination.getY() + " , " + coordDestination.getX() + ")");
 		boardPieces[coordStart.getY()][coordStart.getX()] = " ";
 
+	}
+
+
+	public void clickTest(Coordinate coordStart, Coordinate coordDestination, String[][] copy){
+
+		copy[coordDestination.getY()][coordDestination.getX()] = copy[coordStart.getY()][coordStart.getX()];
+		copy[coordStart.getY()][coordStart.getX()] = " ";
 	}
 
 	public boolean boardTester(Coordinate c1, Coordinate c2){
@@ -78,6 +121,24 @@ public class BoardPieces{
 		Check check = new Check();
 
 		String[][] boardState = deepCopyOf(boardPieces); //copying 
+
+		if(boardState[c1.getY()][c1.getX()].charAt(0) == Character.toLowerCase(boardState[c1.getY()][c1.getX()].charAt(0))){ //determining team
+			whiteTeam = true;
+		}
+
+		boardState[c2.getY()][c2.getX()] = boardState[c1.getY()][c1.getX()];
+		boardState[c1.getY()][c1.getX()] = " ";
+
+
+		return check.getCheck(boardState, whiteTeam); //checking if this board state would put the king in check
+	}
+
+	public boolean boardTester(Coordinate c1, Coordinate c2, String [][] board){ //the programmar efficeny would be o(n^x) if I tried to change the method parameters on this
+
+		boolean whiteTeam = false;
+		Check check = new Check();
+
+		String[][] boardState = deepCopyOf(board); //copying 
 
 		if(boardState[c1.getY()][c1.getX()].charAt(0) == Character.toLowerCase(boardState[c1.getY()][c1.getX()].charAt(0))){ //determining team
 			whiteTeam = true;
@@ -226,7 +287,7 @@ public class BoardPieces{
 		}
 	}
 
-	private static String[][] deepCopyOf(String board[][]) { //creates a copy of the current board so we dont mutate the original one
+	public static String[][] deepCopyOf(String board[][]) { //creates a copy of the current board so we dont mutate the original one
 
 		String[][] arr = new String[8][8]; // revise this later to make for more inclusive OOC
 
