@@ -14,7 +14,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ChessScreen{ //this is our main interface where the game operations are conducted
 
-	public static ChessBoard cb = new ChessBoard(); // our ChessBoard object
+	public static BoardPieces bp = new BoardPieces();
+	public static ChessBoard cb = new ChessBoard(bp); // our ChessBoard object
 	public static ClickListener click = new ClickListener(); //our ClickListener object
 	private static Convert conv = new Convert(); //our Convert object
 	public static JLabel message = new JLabel("This fat bruh moment");
@@ -110,17 +111,24 @@ public class ChessScreen{ //this is our main interface where the game operations
 
 			while(!checkmate){
 
+				ComputerBrain ai = new ComputerBrain(bp, cb);
+
 				Game play = new Game();
-				System.out.println("In loop: " + i);
+				//System.out.println("In loop: " + i);
+
 				if (i % 2 != 0){ //odd so it's white turn
 					message.setText("White's move");
 					checkmate = !play.myGame(0, message, cb, click, board);//white team
 					//myGame(0);
+					//System.out.println("white just played and the board state is: " + Arrays.deepToString(cb.getBoardState()));
 					i++;
 				}
 
+				
+
 				else { //even so black's turn
 					message.setText("Black's move");
+					//ai.makeMove(cb.getBoardState());
 					checkmate = !play.myGame(1, message, cb, click, board);
 					//myGame(1);
 					i++;

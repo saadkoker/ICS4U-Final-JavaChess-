@@ -30,6 +30,7 @@ public class PieceTest {
 		return legalMoves; //return legalMoves
 	}
 
+
 	public ArrayList<Coordinate> getEnemyMoves(boolean whiteTeam, String[][] board){
 		
 		String[][] enemyBoard;
